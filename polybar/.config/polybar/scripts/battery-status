@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+battery=""
+
+for candidate in /sys/class/power_supply/BAT*; do
+    [[ -d "$candidate" ]] || continue
+    battery="$candidate"
+    break
+done
+
+[[ -n "$battery" ]] || exit 0
+[[ -r "$battery/capacity" ]] || exit 0
+
+capacity="$(<"$battery/capacity")"
+ac_online=0
+
+for supply in /sys/class/power_supply/*; do
+    [[ -d "$supply" ]] || continue
+    [[ "$supply" == "$battery" ]] && continue
+    [[ -r "$supply/online" ]] || continue
+
+    if [[ "$(<"$supply/online")" == "1" ]]; then
+        ac_online=1
+        break
+    fi
+done
+
+if (( ac_online )); then
+    printf 'bat %s%% ⚡\n' "$capacity"
+elif (( capacity <= 15 )); then
+    printf 'bat %s%% !\n' "$capacity"
+else
+    printf 'bat %s%%\n' "$capacity"
+fi

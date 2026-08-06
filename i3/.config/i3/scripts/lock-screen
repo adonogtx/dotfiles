@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+wallpapers="$HOME/dev/dotfiles/wallpapers"
+lock_image="$wallpapers/lock.jpg"
+fallback_image="$wallpapers/laptop.jpg"
+
+if [[ -r "$lock_image" ]]; then
+    image="$lock_image"
+elif [[ -r "$fallback_image" ]]; then
+    image="$fallback_image"
+else
+    image=""
+fi
+
+args=(
+    --nofork
+    --clock
+    --force-clock
+
+    --time-str="%H:%M"
+    --date-str="%m月%d日"
+
+    --time-pos="x+w/2:y+h/2-55"
+    --date-pos="x+w/2:y+h/2+45"
+    --ind-pos="x+w-85:y+h-85"
+
+    --time-font="Lilex Nerd Font"
+    --date-font="Noto Sans CJK JP"
+    --verif-font="Noto Sans CJK JP"
+    --wrong-font="Noto Sans CJK JP"
+
+    --time-size=150
+    --date-size=56
+    --verif-size=15
+    --wrong-size=15
+
+    --time-color="fff4d2ff"
+    --date-color="fff4d2ff"
+    --verif-color="fbf1c7ff"
+    --wrong-color="fb4934ff"
+
+
+
+    --indicator
+    --radius=34
+    --ring-width=4
+
+    --inside-color="282828bb"
+    --ring-color="665c54ff"
+    --line-color="00000000"
+    --separator-color="282828ff"
+
+    --keyhl-color="fabd2fff"
+    --bshl-color="fe8019ff"
+
+    --insidever-color="282828dd"
+    --ringver-color="83a598ff"
+
+    --insidewrong-color="282828dd"
+    --ringwrong-color="fb4934ff"
+
+    --verif-text="チェック…"
+    --wrong-text="エラー"
+    --noinput-text=""
+    --lock-text=""
+    --lockfailed-text="エラー"
+
+    --no-modkey-text
+)
+
+if [[ -n "$image" ]]; then
+    args+=(--image="$image" --fill)
+else
+    args+=(--color="282828")
+fi
+
+exec i3lock "${args[@]}"

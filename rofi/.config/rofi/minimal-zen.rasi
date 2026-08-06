@@ -1,0 +1,88 @@
+configuration {
+    modi: "drun";
+    show-icons: false;
+    drun-display-format: "{name}";
+    font: "Lilex Nerd Font 11";
+}
+
+* {
+    bg:            #151515ee;
+    bg-alt:        #1d1d1d;
+    fg:            #d7c5a7;
+    fg-muted:      #928374;
+    accent:        #a89984;
+
+    background-color: transparent;
+    text-color: @fg;
+}
+
+window {
+    width: 34%;
+    location: center;
+    anchor: center;
+    y-offset: -6%;
+    border: 1px;
+    border-color: #3a3a3a;
+    border-radius: 0px;
+    background-color: @bg;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 14px;
+    padding: 18px;
+    background-color: transparent;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    spacing: 10px;
+    padding: 0px 0px 8px 0px;
+    border: 0px 0px 1px 0px;
+    border-color: #2b2b2b;
+    background-color: transparent;
+}
+
+prompt {
+    text-color: @fg-muted;
+    background-color: transparent;
+}
+
+entry {
+    placeholder: "search";
+    placeholder-color: @fg-muted;
+    text-color: @fg;
+    background-color: transparent;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    fixed-height: false;
+    cycle: false;
+    scrollbar: false;
+    spacing: 4px;
+    background-color: transparent;
+}
+
+element {
+    padding: 8px 10px;
+    border: 0px;
+    border-radius: 0px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected {
+    background-color: @bg-alt;
+    text-color: @fg;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+}
+
+mode-switcher {
+    enabled: false;
+}

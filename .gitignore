@@ -1,0 +1,54 @@
+# editor files
+*.swp
+*.swo
+*~
+
+# backups
+*.bak
+*.backup
+*.backup-*
+*.old
+
+# logs and runtime data
+*.log
+**/.cache/
+**/cache/
+**/logs/
+**/sessions/
+
+# environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.git-credentials
+
+# shell state
+.bash_history
+
+# private SSH keys
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+id_ecdsa
+id_ecdsa.pub
+
+# Firefox private profile data
+cookies.sqlite
+places.sqlite
+logins.json
+key4.db
+sessionstore.jsonlz4
+recovery.jsonlz4
+prefs.js
+compatibility.ini
+
+# operating systems
+.DS_Store
+Thumbs.db
+
+# generated Fcitx data
+/fcitx5/.config/fcitx5/conf/cached_layouts
+/fcitx5/.config/fcitx5/conf/notifications.conf

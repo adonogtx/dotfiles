@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+exec kitty --class docker -e bash -lc '
+docker ps
+printf "\npressione Enter para fechar"
+read -r
+'

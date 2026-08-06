@@ -1,0 +1,130 @@
+configuration {
+    modi: "drun";
+    show-icons: false;
+    drun-display-format: "{name}";
+    display-drun: "›";
+    font: "Lilex Nerd Font 11";
+    matching: "fuzzy";
+    sort: true;
+}
+
+* {
+    bg:        #1d2021ff;
+    bg-alt:    #282828ff;
+    border:    #3c3836ff;
+    fg:        #d5c4a1ff;
+    muted:     #928374ff;
+    accent:    #d7c5a7ff;
+    urgent:    #fb4934ff;
+
+    text-color: @fg;
+}
+
+window {
+    width: 470px;
+    location: center;
+    anchor: center;
+    y-offset: -48px;
+
+    border: 1px;
+    border-color: @border;
+    border-radius: 3px;
+
+    background-color: @bg;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 12px;
+    padding: 16px;
+
+    background-color: @bg;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    spacing: 12px;
+    padding: 7px 8px;
+
+    border: 0px;
+    background-color: @bg;
+}
+
+prompt {
+    text-color: @accent;
+    background-color: @bg;
+}
+
+entry {
+    placeholder: "";
+    text-color: @fg;
+    background-color: @bg;
+    cursor-color: @accent;
+    cursor-width: 1px;
+}
+
+listview {
+    lines: 6;
+    columns: 1;
+    fixed-height: false;
+    cycle: false;
+    dynamic: true;
+    scrollbar: false;
+    spacing: 2px;
+    padding: 0px;
+
+    background-color: @bg;
+}
+
+element {
+    orientation: horizontal;
+    padding: 8px 10px;
+    margin: 0px;
+
+    border: 0px;
+    border-radius: 2px;
+
+    background-color: @bg;
+    text-color: @muted;
+}
+
+element normal.normal,
+element alternate.normal,
+element normal.active,
+element alternate.active {
+    background-color: @bg;
+    text-color: @muted;
+}
+
+element selected.normal,
+element selected.active {
+    background-color: @bg-alt;
+    text-color: @accent;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color: @bg;
+    text-color: @urgent;
+}
+
+element selected.urgent {
+    background-color: @bg-alt;
+    text-color: @urgent;
+}
+
+element-text {
+    vertical-align: 0.5;
+    background-color: inherit;
+    text-color: inherit;
+    highlight: none;
+}
+
+element-icon {
+    enabled: false;
+}
+
+message,
+mode-switcher {
+    enabled: false;
+}

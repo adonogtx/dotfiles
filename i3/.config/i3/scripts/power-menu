@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+choice="$(
+    printf 'lock\nlogout\nreboot\npoweroff\n' |
+        rofi -dmenu -p power
+)"
+
+case "$choice" in
+    lock)
+        "$HOME/.config/i3/scripts/lock-screen"
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    poweroff)
+        systemctl poweroff
+        ;;
+esac

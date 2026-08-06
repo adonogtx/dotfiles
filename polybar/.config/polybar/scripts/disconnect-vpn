@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -u
+
+command -v nordvpn >/dev/null 2>&1 || exit 0
+nordvpn disconnect >/dev/null 2>&1 || true

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+exec kitty --class nordvpn -e bash -lc '
+nordvpn status
+printf "\npressione Enter para fechar"
+read -r
+'
