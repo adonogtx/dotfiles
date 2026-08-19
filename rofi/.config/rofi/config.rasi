@@ -4,7 +4,7 @@ configuration {
     drun-display-format: "{name}";
     display-drun: "›";
     font: "Lilex Nerd Font 11";
-    matching: "fuzzy";
+    matching: "normal";
     sort: true;
 }
 

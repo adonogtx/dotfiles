@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 battery=""
+ac_online=0
 
 for candidate in /sys/class/power_supply/BAT*; do
     [[ -d "$candidate" ]] || continue
@@ -11,25 +12,23 @@ done
 
 [[ -n "$battery" ]] || exit 0
 [[ -r "$battery/capacity" ]] || exit 0
+[[ -r "$battery/status" ]] || exit 0
 
-capacity="$(<"$battery/capacity")"
-ac_online=0
+for candidate in /sys/class/power_supply/*; do
+    [[ -r "$candidate/type" ]] || continue
+    [[ "$(<"$candidate/type")" == "Mains" ]] || continue
+    [[ -r "$candidate/online" ]] || continue
 
-for supply in /sys/class/power_supply/*; do
-    [[ -d "$supply" ]] || continue
-    [[ "$supply" == "$battery" ]] && continue
-    [[ -r "$supply/online" ]] || continue
-
-    if [[ "$(<"$supply/online")" == "1" ]]; then
+    if [[ "$(<"$candidate/online")" == "1" ]]; then
         ac_online=1
         break
     fi
 done
 
+capacity="$(<"$battery/capacity")"
+
 if (( ac_online )); then
-    printf 'bat %s%% ⚡\n' "$capacity"
-elif (( capacity <= 15 )); then
-    printf 'bat %s%% !\n' "$capacity"
+    printf 'pwr %s%%\n' "$capacity"
 else
     printf 'bat %s%%\n' "$capacity"
 fi
