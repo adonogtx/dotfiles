@@ -1,6 +1,6 @@
 set $mod Mod4
 
-font pango:Lilex Nerd Font 11
+font pango:monospace 8
 floating_modifier $mod
 focus_follows_mouse no
 workspace_auto_back_and_forth no
@@ -12,12 +12,6 @@ smart_borders on
 default_border pixel 2
 default_floating_border pixel 2
 
-client.focused          #a9b665 #a9b665 #282828 #a9b665 #a9b665
-client.focused_inactive #282828 #282828 #a89984 #282828 #282828
-client.unfocused        #282828 #282828 #928374 #282828 #282828
-client.urgent           #cc241d #cc241d #fbf1c7 #cc241d #cc241d
-client.placeholder      #3c3836 #3c3836 #928374 #3c3836 #3c3836
-client.background       #282828
 
 bindsym $mod+Return exec --no-startup-id kitty
 bindsym $mod+q kill
@@ -26,7 +20,7 @@ bindsym $mod+e exec --no-startup-id thunar
 bindsym $mod+w exec --no-startup-id kitty -e impala
 bindsym $mod+b exec --no-startup-id kitty -e bluetui
 bindsym $mod+n exec --no-startup-id kitty --class netscanner -e sudo netscanner
-bindsym $mod+Shift+x exec --no-startup-id ~/.config/i3/scripts/lock-screen
+bindsym $mod+Shift+x exec --no-startup-id i3lock -c 000000
 bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/power-menu
 bindsym Print exec --no-startup-id flameshot gui
 
@@ -120,7 +114,6 @@ bindsym $mod+r mode "resize"
 
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 
-exec_always --no-startup-id ~/.config/polybar/scripts/launch-polybar
 exec_always --no-startup-id setxkbmap -option "ctrl:nocaps"
 exec_always --no-startup-id xsetroot -solid "#282828"
 exec_always --no-startup-id feh --no-fehbg --bg-fill "$HOME/dev/dotfiles/wallpapers/laptop.jpg"
@@ -129,7 +122,11 @@ exec --no-startup-id dunst
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id udiskie --automount --notify --no-tray
 exec --no-startup-id fcitx5 -d --replace
-exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/lock-screen
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c 000000
 exec --no-startup-id xset s 480 dpms 600 600 600
 exec_always --no-startup-id xrandr --output eDP-1 --primary --mode 1920x1080 --dpi 120
 exec_always --no-startup-id xrdb -merge ~/.Xresources
+
+bar {
+    status_command i3status
+}

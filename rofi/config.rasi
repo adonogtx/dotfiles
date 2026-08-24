@@ -3,7 +3,7 @@ configuration {
     show-icons: false;
     drun-display-format: "{name}";
     display-drun: "›";
-    font: "Lilex Nerd Font 11";
+    font: "JetBrainsMono Nerd Font Mono 11";
     matching: "normal";
     sort: true;
 }

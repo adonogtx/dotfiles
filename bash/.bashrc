@@ -9,5 +9,6 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
-# Personal terminal appearance
-[[ -r "$HOME/.config/bash/appearance.sh" ]] && source "$HOME/.config/bash/appearance.sh"
+export PATH="$HOME/.config/emacs/bin:$PATH"
+export EDITOR=nvim
+export VISUAL=nvim

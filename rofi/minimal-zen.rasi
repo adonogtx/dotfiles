@@ -2,7 +2,7 @@ configuration {
     modi: "drun";
     show-icons: false;
     drun-display-format: "{name}";
-    font: "Lilex Nerd Font 11";
+    font: "JetBrainsMono Nerd Font Mono 11";
 }
 
 * {

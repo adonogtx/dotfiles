@@ -50,5 +50,5 @@ compatibility.ini
 Thumbs.db
 
 # generated Fcitx data
-/fcitx5/.config/fcitx5/conf/cached_layouts
-/fcitx5/.config/fcitx5/conf/notifications.conf
+/fcitx5/conf/cached_layouts
+/fcitx5/conf/notifications.conf
