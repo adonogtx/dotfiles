@@ -75,8 +75,8 @@ install_pkgs gcc make cmake pkgconf python python-pip
 echo "==> docker"
 install_pkgs docker docker-compose
 
-echo "==> iwd (required by impala) and pointing NetworkManager at it"
-install_pkgs iwd
+echo "==> iwd + impala and pointing NetworkManager at it"
+install_pkgs iwd impala
 
 sudo mkdir -p /etc/NetworkManager/conf.d
 sudo tee /etc/NetworkManager/conf.d/wifi-backend.conf >/dev/null <<'EOF'
@@ -173,7 +173,9 @@ fi
 echo "Next steps:"
 echo
 echo "1. Create your working directories and clone your dotfiles, then"
-echo "   apply them with stow"
+echo "   apply them with: stow -v -t \"\$HOME\" <package>"
+echo "   (an alias 'stow' with -t already in bash/.bashrc covers this"
+echo "   if you source it before running stow manually)"
 echo "2. Run ~/.config/emacs/bin/doom sync"
 echo "3. Log out/in so the docker group, fcitx5 and the NetworkManager"
 echo "   iwd backend take effect"
