@@ -7,7 +7,6 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias stow='stow -t "$HOME"'
 PS1='[\u@\h \W]\$ '
 
 export PATH="$HOME/.config/emacs/bin:$PATH"

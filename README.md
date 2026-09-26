@@ -16,19 +16,43 @@ questions and suggestions are always welcome.
 
 on a fresh arch linux install (base system, network and bootloader already set up):
 
-    curl -O https://raw.githubusercontent.com/adonogtx/dotfiles/main/bootstrap.sh
-    chmod +x bootstrap.sh
-    ./bootstrap.sh
-
-then clone this repo and apply with stow:
-
-    git clone git@github.com:adonogtx/dotfiles.git ~/dev/dotfiles
+    sudo pacman -S --needed git
+    git clone https://github.com/adonogtx/dotfiles.git ~/dev/dotfiles
     cd ~/dev/dotfiles
-    stow bash dunst fcitx5 i3 i3status kitty picom rofi x11
+    ./install.sh
+
+install.sh runs every category in install/ in order. each one can also run alone:
+
+    ./install.sh dev links
+    ./install/links.sh
+
+categories:
+
+    system     full update, core cli tools and yay
+    network    networkmanager with iwd backend, impala, bluetooth, bluetui, netscanner
+    desktop    x11, i3, lightdm, desktop utilities and fonts
+    audio      pipewire
+    input      fcitx5 + mozc
+    dev        toolchain, docker, intellij, mise with java 21 and maven
+    shell      zsh + oh my zsh
+    emacs      doom emacs
+    links      symlinks every file in the package directories into $HOME
+
+run it as your normal user, sudo is asked once. a package, service or step that fails is skipped and listed at the end, only a failed system update stops the run. services are only enabled, so reboot when it finishes.
+
+**links**
+
+no stow. every package directory mirrors $HOME, so links.sh links each file to the same path:
+
+    i3/.config/i3/config  ->  ~/.config/i3/config
+
+existing files that are not links are moved to <file>.backup-<timestamp> first. to link only some packages:
+
+    ./install/links.sh i3 kitty
 
 firefox is manual, see firefox/README.md.
 
-doom emacs config sync, after stow:
+doom emacs config sync, after install:
 
     ~/.config/emacs/bin/doom sync
 
