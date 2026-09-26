@@ -42,9 +42,10 @@ run it as your normal user, sudo is asked once. a package, service or step that 
 
 **links**
 
-no stow. every package directory mirrors $HOME, so links.sh links each file to the same path:
+no stow. each program has its own directory with just its files, and links.sh links them to where the program reads them. bash, zsh and x11 go to $HOME, everything else to ~/.config/<program>:
 
-    i3/.config/i3/config  ->  ~/.config/i3/config
+    kitty/kitty.conf  ->  ~/.config/kitty/kitty.conf
+    bash/.bashrc      ->  ~/.bashrc
 
 existing files that are not links are moved to <file>.backup-<timestamp> first. to link only some packages:
 

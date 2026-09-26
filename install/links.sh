@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Links every file inside each package directory into $HOME, keeping the
-# same relative path (i3/.config/i3/config -> ~/.config/i3/config).
+# Links every file inside each package directory to where the program
+# reads it: shell and x11 files go to $HOME, everything else to
+# ~/.config/<package> (kitty/kitty.conf -> ~/.config/kitty/kitty.conf).
 # Files already in place that are not links are moved to
 # <file>.backup-<timestamp> first, nothing is deleted.
 # Usage: install/links.sh [package...]   (default: every package below)
@@ -8,12 +9,22 @@
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
 PACKAGES=(bash zsh x11 i3 i3status dunst picom rofi kitty fcitx5)
+HOME_PACKAGES=(bash zsh x11)
 
 if [ "$#" -gt 0 ]; then
     PACKAGES=("$@")
 fi
 
 stamp="$(date +%Y%m%d%H%M%S)"
+
+target_dir() {
+    local pkg="$1"
+    if [[ " ${HOME_PACKAGES[*]} " == *" ${pkg} "* ]]; then
+        echo "${HOME}"
+    else
+        echo "${HOME}/.config/${pkg}"
+    fi
+}
 
 # Old stow installs may have linked a whole directory into the repo
 # (~/.config/i3 -> dotfiles/i3/.config/i3). Linking a file through it
@@ -22,7 +33,7 @@ stamp="$(date +%Y%m%d%H%M%S)"
 unfold_parents() {
     local dir="$1"
     while [ "${dir}" != "${HOME}" ] && [ "${dir}" != "/" ]; do
-        if [ -L "${dir}" ] && [[ "$(readlink -f "${dir}")" == "${DOTFILES}"/* ]]; then
+        if [ -L "${dir}" ] && [[ "$(readlink -m "${dir}")" == "${DOTFILES}"/* ]]; then
             rm "${dir}" || return 1
         fi
         dir="$(dirname "${dir}")"
@@ -52,8 +63,9 @@ for pkg in "${PACKAGES[@]}"; do
     fi
 
     step "linking ${pkg}"
+    target="$(target_dir "${pkg}")"
     while IFS= read -r -d '' src; do
-        dst="${HOME}/${src#"${DOTFILES}/${pkg}/"}"
+        dst="${target}/${src#"${DOTFILES}/${pkg}/"}"
         if ! link_file "${src}" "${dst}"; then
             warn "failed to link ${dst}"
             fail "links: ${dst}"
