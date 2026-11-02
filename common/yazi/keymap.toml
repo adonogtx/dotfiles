@@ -1,0 +1,27 @@
+# yazi keys · gus
+# Extra keys on top of yazi's defaults.
+
+[[mgr.prepend_keymap]]
+on   = ["g", "m"]
+run  = "cd /run/media"
+desc = "Go to mounted drives"
+
+[[mgr.prepend_keymap]]
+on   = ["g", "d"]
+run  = "cd ~/dump"
+desc = "Go to dump"
+
+[[mgr.prepend_keymap]]
+on   = ["g", "v"]
+run  = "cd ~/dev"
+desc = "Go to dev"
+
+[[mgr.prepend_keymap]]
+on   = ["g", "n"]
+run  = "cd ~/docs/notes"
+desc = "Go to notes"
+
+[[mgr.prepend_keymap]]
+on   = "M"
+run  = "plugin mount"
+desc = "Mount, unmount and eject drives"

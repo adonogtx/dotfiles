@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Adds org-gcal to Doom. Needs ~/.config/gus/gcal.env with your Google OAuth client (see gcal.el).
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+doom_dir="${DOOMDIR:-$HOME/.config/doom}"
+cp "$HERE/gcal.el" "$doom_dir/gcal.el"
+grep -q 'package! org-gcal' "$doom_dir/packages.el" 2>/dev/null || echo '(package! org-gcal)' >> "$doom_dir/packages.el"
+mkdir -p ~/.config/gus
+[[ -f ~/.config/gus/gcal.env ]] || printf 'GCAL_CLIENT_ID=\nGCAL_CLIENT_SECRET=\n' > ~/.config/gus/gcal.env
+chmod 600 ~/.config/gus/gcal.env
+touch ~/docs/notes/calendar.org 2>/dev/null || true
+echo "Fill ~/.config/gus/gcal.env, then run: doom sync"
+echo "In Emacs: M-x org-gcal-fetch the first time opens the Google login."

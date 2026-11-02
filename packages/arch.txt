@@ -1,0 +1,87 @@
+# Arch packages. dot install takes them from pacman, and anything pacman does not have from the AUR.
+# One per line; comments and blank lines are ignored.
+
+# Hyprland and the session
+hyprland
+hyprlock
+hypridle
+hyprsunset
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+qt5-wayland
+qt6-wayland
+quickshell
+mako
+libnotify
+swaybg
+fuzzel
+grim
+slurp
+wl-clipboard
+cliphist
+brightnessctl
+playerctl
+polkit-gnome
+udiskie
+
+# Audio, network, bluetooth, power
+pipewire
+pipewire-pulse
+wireplumber
+networkmanager
+bluez
+bluez-utils
+power-profiles-daemon
+upower
+
+# Terminal
+ghostty
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+starship
+eza
+zoxide
+fzf
+fd
+ripgrep
+jq
+gum
+btop
+fastfetch
+git
+neovim
+unzip
+curl
+
+# Files and media
+yazi
+ffmpeg
+7zip
+poppler
+imagemagick
+imv
+mpv
+zathura
+zathura-pdf-mupdf
+
+# Notes
+emacs-wayland
+
+# Fonts and Japanese input
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-jetbrains-mono-nerd
+fcitx5
+fcitx5-mozc
+fcitx5-gtk
+fcitx5-qt
+fcitx5-configtool
+
+# TUIs used by the bar panels
+bluetui
+wiremix
+
+# Browser
+zen-browser-bin

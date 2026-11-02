@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# The date as on the bar: 11月2日 (月), the weekday kanji in the color of its element.
+# gus-date          colored for the terminal
+# gus-date --pango  markup for hyprlock
+# gus-date --lock   markup with softer kanji, for the brown lock screen
+
+kanji=(日 月 火 水 木 金 土)
+# sun, moon, fire, water, wood, metal, earth
+colors=("#ea6962" "#ddc7a1" "#e78a4e" "#7daea3" "#a9b665" "#d8a657" "#a89984")
+num="#ddc7a1"; dim="#7c6f64"; paren="#5a524c"
+
+w=$(date +%w); m=$(date +%-m); d=$(date +%-d)
+
+[[ "${1:-}" == "--lock" ]] && { dim="#a89984"; paren="#7c6f64"; set -- --pango; }
+
+if [[ "${1:-}" == "--pango" ]]; then
+  s() { printf '<span foreground="%s">%s</span>' "$1" "$2"; }
+  printf '%s%s%s%s %s%s%s\n' "$(s $num "$m")" "$(s $dim 月)" "$(s $num "$d")" "$(s $dim 日)" \
+    "$(s $paren "(")" "$(s "${colors[$w]}" "${kanji[$w]}")" "$(s $paren ")")"
+else
+  c() { local h=${1#\#}; printf '\033[38;2;%d;%d;%dm%s' 0x${h:0:2} 0x${h:2:2} 0x${h:4:2} "$2"; }
+  printf '%s%s%s%s %s%s%s\033[0m\n' "$(c $num "$m")" "$(c $dim 月)" "$(c $num "$d")" "$(c $dim 日)" \
+    "$(c $paren "(")" "$(c "${colors[$w]}" "${kanji[$w]}")" "$(c $paren ")")"
+fi

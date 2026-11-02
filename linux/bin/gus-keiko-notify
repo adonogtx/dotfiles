@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# gus-keiko-notify: show the keiko in progress as a notification (works even in do not disturb).
+status="$(keiko status --short 2>/dev/null)"
+if [[ -n "$status" ]]; then
+  notify-send -a keiko -u critical -t 4000 "Keiko" "$status"
+else
+  notify-send -a keiko "Keiko" "No keiko running. SUPER + K starts one."
+fi

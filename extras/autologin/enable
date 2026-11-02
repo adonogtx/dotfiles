@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Logs in on tty1 without asking, so the disk password is the only one at boot.
+# ~/.zprofile then starts Hyprland. hyprlock still guards the session when you step away.
+set -euo pipefail
+dir=/etc/systemd/system/getty@tty1.service.d
+sudo mkdir -p "$dir"
+printf '[Service]\nExecStart=\nExecStart=-/sbin/agetty -o "-p -f -- \\\\u" --noclear --autologin %s %%I $TERM\n' "$USER" \
+  | sudo tee "$dir/autologin.conf" >/dev/null
+sudo systemctl daemon-reload
+echo "Autologin on tty1 for $USER is on. Takes effect on the next boot."

@@ -1,0 +1,24 @@
+# zathura · gus
+# Ctrl+r toggles recolor: on it shows the PDF in Gruvbox, off it shows the original colors.
+
+set font "JetBrainsMono Nerd Font 11"
+set selection-clipboard clipboard
+set adjust-open "best-fit"
+
+set default-bg "#1d2021"
+set default-fg "#d4be98"
+set statusbar-bg "#282828"
+set statusbar-fg "#d4be98"
+set inputbar-bg "#1d2021"
+set inputbar-fg "#d4be98"
+set notification-bg "#282828"
+set notification-fg "#d4be98"
+set notification-error-bg "#282828"
+set notification-error-fg "#ea6962"
+set highlight-color "rgba(216, 166, 87, 0.4)"
+set highlight-active-color "rgba(125, 174, 163, 0.5)"
+
+set recolor true
+set recolor-lightcolor "#1d2021"
+set recolor-darkcolor "#d4be98"
+set recolor-keephue true

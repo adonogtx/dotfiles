@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# gus-screenshot region|screen
+# Saves to ~/media/pictures/screenshots and copies to the clipboard.
+set -euo pipefail
+dir="$HOME/media/pictures/screenshots"
+mkdir -p "$dir"
+file="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
+case "${1:-region}" in
+  region) area="$(slurp -b 1d202188 -c d8a657ff -w 2)" || exit 0; grim -g "$area" "$file" ;;
+  screen) grim "$file" ;;
+esac
+wl-copy < "$file"
+notify-send -a screenshot -i "$file" "Screenshot" "Copied and saved to ${file/#$HOME/~}"

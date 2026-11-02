@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+doom_dir="${DOOMDIR:-$HOME/.config/doom}"
+rm -f "$doom_dir/gcal.el"
+sed -i '/package! org-gcal/d' "$doom_dir/packages.el" 2>/dev/null || true
+echo "org-gcal removed. Run: doom sync"

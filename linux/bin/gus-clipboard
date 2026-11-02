@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# gus-clipboard: pick from the clipboard history and paste it back to the clipboard.
+cliphist list | fuzzel --dmenu --prompt "clipboard › " --width 60 | cliphist decode | wl-copy

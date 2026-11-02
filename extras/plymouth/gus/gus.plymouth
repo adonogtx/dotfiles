@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=gus
+Description=The ensō on Gruvbox brown, with a quiet password prompt for the disk
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/gus
+ScriptFile=/usr/share/plymouth/themes/gus/gus.script

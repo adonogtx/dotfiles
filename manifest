@@ -1,0 +1,21 @@
+# What dot apply copies: source in this repo, then destination.
+# A source ending in / copies the whole folder, file by file.
+
+common/zsh/zshrc                  ~/.zshrc
+common/zsh/zprofile               ~/.zprofile
+common/starship/starship.toml     ~/.config/starship.toml
+common/ghostty/                   ~/.config/ghostty/
+common/yazi/                      ~/.config/yazi/
+common/zathura/                   ~/.config/zathura/
+common/imv/                       ~/.config/imv/
+common/fastfetch/                 ~/.config/fastfetch/
+common/bin/                       ~/.local/bin/
+common/keiko/blocklist            ~/.config/keiko/blocklist
+common/doom/gus.el                ~/.config/doom/gus.el
+
+linux/hypr/                       ~/.config/hypr/
+linux/mako/                       ~/.config/mako/
+linux/fuzzel/                     ~/.config/fuzzel/
+linux/quickshell/                 ~/.config/quickshell/
+linux/bin/                        ~/.local/bin/
+linux/wallpapers/                 ~/.config/gus/wallpapers/

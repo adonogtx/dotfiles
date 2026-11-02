@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Boot splash with the ensō and the disk password prompt.
+# Installs plymouth, the theme, adds the hook to mkinitcpio (with a backup) and rebuilds the initramfs.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+sudo pacman -S --needed plymouth
+sudo mkdir -p /usr/share/plymouth/themes/gus
+sudo cp "$HERE"/gus/* /usr/share/plymouth/themes/gus/
+
+conf=/etc/mkinitcpio.conf
+if ! grep -qE '^HOOKS=.*\bplymouth\b' "$conf"; then
+  sudo cp "$conf" "$conf.before-plymouth"
+  # plymouth goes right after udev or systemd, and before encrypt or sd-encrypt
+  sudo sed -i -E '/^HOOKS=/ s/\b(systemd|udev)\b/\1 plymouth/' "$conf"
+  echo "Added the plymouth hook. Backup: $conf.before-plymouth"
+fi
+grep '^HOOKS=' "$conf"
+
+sudo plymouth-set-default-theme -R gus
+
+echo
+echo "Last step, by hand: add 'quiet splash' to the kernel command line."
+echo "  systemd-boot: /boot/loader/entries/*.conf, on the 'options' line"
+echo "  limine:       /boot/limine.conf, on the 'cmdline' line"
+echo "  GRUB:         GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub, then: sudo grub-mkconfig -o /boot/grub/grub.cfg"

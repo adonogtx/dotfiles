@@ -1,0 +1,12 @@
+# zsh login · gus
+# Logging in on the first console starts Hyprland. Other consoles stay plain text for rescue work.
+export EDITOR=nvim
+export PATH="$HOME/.local/bin:$PATH"
+
+if [[ -z "${WAYLAND_DISPLAY:-}" && "${XDG_VTNR:-}" == 1 && "$(uname)" == Linux ]]; then
+  if command -v start-hyprland >/dev/null; then
+    exec start-hyprland
+  elif command -v Hyprland >/dev/null; then
+    exec Hyprland
+  fi
+fi

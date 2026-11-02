@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+for profile in "$HOME"/.zen/*/; do rm -f "$profile/chrome/userChrome.css" "$profile/user.js"; done
+echo "Zen back to its own look. DNS over HTTPS returns to Zen's default."

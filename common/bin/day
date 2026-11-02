@@ -1,0 +1,224 @@
+#!/usr/bin/env bash
+# The two small rituals of the day.
+#
+#   day open    opening: the date, a word, yesterday's note, one intention, matcha, then keiko
+#   day close   closing: what the day held, two gentle questions, written to the journal
+#
+# Nothing here keeps score. Every question can be skipped with Enter.
+set -euo pipefail
+
+# Where your Doom Emacs notes live. Adjust if yours differ.
+NOTES_DIR="${GUS_NOTES_DIR:-$HOME/docs/notes}"
+JOURNAL_DIR="${GUS_JOURNAL_DIR:-$NOTES_DIR/journal}"
+JOURNAL_FILE="$JOURNAL_DIR/$(date +%Y%m%d).org"
+DEV_DIR="${GUS_DEV_DIR:-$HOME/dev}"
+
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/gus"
+KEIKO_LOG="${XDG_STATE_HOME:-$HOME/.local/state}/keiko/log.tsv"
+mkdir -p "$STATE"
+
+yellow=$'\033[38;2;216;166;87m'; green=$'\033[38;2;169;182;101m'; blue=$'\033[38;2;125;174;163m'
+purple=$'\033[38;2;211;134;155m'; cream=$'\033[38;2;226;192;141m'; fg=$'\033[38;2;212;190;152m'
+soft=$'\033[38;2;168;153;132m'; faint=$'\033[38;2;124;111;100m'; reset=$'\033[0m'
+
+pad="    "
+line()    { printf '%s%s\n' "$pad" "$*"; }
+blank()   { echo; }
+heading() { printf '%s%s%s%s\n' "$pad" "$1" "$2" "$reset"; }
+
+ask() {
+  local prompt="$1" placeholder="$2" answer=""
+  if command -v gum >/dev/null; then
+    answer="$(gum input --placeholder "$placeholder" --prompt "$pad$prompt › " --width 70 \
+      --prompt.foreground "#d8a657" --cursor.foreground "#d8a657" --placeholder.foreground "#5a524c" || true)"
+  else
+    read -rp "$pad$prompt › " answer || true
+  fi
+  printf '%s' "$answer"
+}
+
+pause() { read -rsp "" -n1 || true; echo; }
+
+word_of_the_day() {
+  local words=(
+    "一期一会|ichigo ichie|this moment happens once"
+    "初心|shoshin|keep a beginner's mind"
+    "無心|mushin|act without clinging"
+    "残心|zanshin|stay aware after the act"
+    "間|ma|leave space between things"
+    "侘寂|wabi sabi|beauty in the imperfect"
+    "和敬清寂|wa kei sei jaku|harmony, respect, purity, calm"
+    "日日是好日|nichinichi kore kōjitsu|every day is a good day"
+    "一行三昧|ichigyō zanmai|one thing, fully"
+    "七転八起|nana korobi ya oki|fall seven, rise eight"
+    "守破離|shu ha ri|follow, break, transcend"
+    "不動心|fudōshin|an unmoved mind"
+  )
+  local i=$(( 10#$(date +%j) % ${#words[@]} )) jp ro en
+  IFS='|' read -r jp ro en <<< "${words[$i]}"
+  line "${cream}$jp${reset}  ${soft}$ro${reset}"
+  line "${faint}$en${reset}"
+}
+
+journal_ensure() {
+  mkdir -p "$JOURNAL_DIR"
+  [[ -f "$JOURNAL_FILE" ]] || printf '#+title: %s\n\n' "$(date +%F)" > "$JOURNAL_FILE"
+}
+
+journal_section() {
+  journal_ensure
+  printf '* %s\n%s\n\n' "$1" "$2" >> "$JOURNAL_FILE"
+}
+
+# Last line written under "Tomorrow" in the most recent journal before today
+yesterday_note() {
+  [[ -d "$JOURNAL_DIR" ]] || return 0
+  local last=""
+  local today f
+  today="$(date +%Y%m%d).org"
+  for f in "$JOURNAL_DIR"/*.org; do
+    [[ -e "$f" && "$(basename "$f")" != "$today" ]] && last="$f"
+  done
+  [[ -n "$last" ]] || return 0
+  awk '/^\* Closing/{c=1} c && /^- Tomorrow :: /{sub(/^- Tomorrow :: /,""); print}' "$last" | tail -n1
+}
+
+open_todos() {
+  [[ -d "$NOTES_DIR" ]] || return 0
+  grep -rhE '^\*+ (TODO|NEXT) ' "$NOTES_DIR" --include='*.org' 2>/dev/null \
+    | sed -E 's/^\*+ (TODO|NEXT) //; s/[[:space:]]+:[[:alnum:]_:@]+:[[:space:]]*$//' | head -n "${1:-5}"
+}
+
+open_day() {
+  clear
+  blank; blank
+  line "$(gus-date 2>/dev/null || date +%F)"
+  blank
+  line "${fg}Good morning, gus.${reset}"
+  blank
+  word_of_the_day
+  blank
+
+  local note; note="$(yesterday_note)"
+  if [[ -n "$note" ]]; then
+    heading "$faint" "Yesterday you left this for today"
+    line "${fg}$note${reset}"
+    blank
+  fi
+
+  local todos; todos="$(open_todos 5)"
+  if [[ -n "$todos" ]]; then
+    heading "$blue" "Open in your notes"
+    while IFS= read -r t; do line "${faint}·${reset} ${fg}$t${reset}"; done <<< "$todos"
+    blank
+  fi
+
+  local intention; intention="$(ask "today" "One intention for today")"
+  blank
+  [[ -n "$intention" ]] && journal_section "Opening" "- Intention :: $intention"
+  touch "$STATE/opened-$(date +%F)"
+
+  line "${green}Prepare your matcha.${reset} ${faint}Press any key when you are back.${reset}"
+  pause
+  blank
+
+  if command -v keiko >/dev/null; then
+    local go
+    go="$(ask "keiko" "Minutes for the first keiko, Enter for 50, n to skip")"
+    if [[ "$go" != "n" && "$go" != "N" ]]; then
+      keiko start "${go:-50}" "${intention:-}" || true
+    fi
+  fi
+}
+
+today_keiko() {
+  [[ -f "$KEIKO_LOG" ]] || return 0
+  awk -F'\t' -v d="$(date +%F)" '$1 == d { printf "%s|%s|%s|%s\n", $2, $3, $4, $5 }' "$KEIKO_LOG"
+}
+
+today_commits() {
+  [[ -d "$DEV_DIR" ]] || return 0
+  local email; email="$(git config --global user.email 2>/dev/null || true)"
+  find "$DEV_DIR" -maxdepth 3 -name .git -type d 2>/dev/null | while read -r g; do
+    local repo; repo="$(dirname "$g")"
+    git -C "$repo" log --since=midnight ${email:+--author="$email"} --format="$(basename "$repo")|%s" 2>/dev/null || true
+  done
+}
+
+today_done() {
+  [[ -d "$NOTES_DIR" ]] || return 0
+  grep -rh -B1 "CLOSED: \[$(date +%F)" "$NOTES_DIR" --include='*.org' 2>/dev/null \
+    | grep -E '^\*+ DONE ' | sed -E 's/^\*+ DONE //; s/[[:space:]]+:[[:alnum:]_:@]+:[[:space:]]*$//' || true
+}
+
+close_day() {
+  clear
+  blank; blank
+  line "$(gus-date 2>/dev/null || date +%F)"
+  blank
+  line "${fg}The day is ending.${reset} ${faint}Here is what it held.${reset}"
+  blank
+
+  local sessions commits finished journal=""
+  sessions="$(today_keiko)"; commits="$(today_commits)"; finished="$(today_done)"
+
+  if [[ -n "$sessions" ]]; then
+    local total=0
+    heading "$yellow" "Keiko"
+    while IFS='|' read -r time mins intent how; do
+      total=$(( total + mins ))
+      local mark="${yellow}●${reset}"; [[ "$how" == stopped ]] && mark="${faint}○${reset}"
+      line "$mark ${faint}$time${reset}  ${fg}$mins min${reset}  ${soft}$intent${reset}"
+      journal+="- $time, $mins min, $intent"$'\n'
+    done <<< "$sessions"
+    line "${faint}$total min of practice${reset}"
+    blank
+  fi
+
+  if [[ -n "$commits" ]]; then
+    heading "$green" "Commits"
+    local c_text=""
+    while IFS='|' read -r repo msg; do
+      line "${faint}·${reset} ${soft}$repo${reset}  ${fg}$msg${reset}"
+      c_text+="- $repo: $msg"$'\n'
+    done <<< "$commits"
+    blank
+  fi
+
+  if [[ -n "$finished" ]]; then
+    heading "$purple" "Done"
+    local d_text=""
+    while IFS= read -r t; do line "${faint}·${reset} ${fg}$t${reset}"; d_text+="- $t"$'\n'; done <<< "$finished"
+    blank
+  fi
+
+  if [[ -z "$sessions$commits$finished" ]]; then
+    line "${soft}Nothing was recorded today. Some days are like that, and that is fine.${reset}"
+    blank
+  fi
+
+  local well tomorrow
+  well="$(ask "well" "One thing that went well")"
+  tomorrow="$(ask "tomorrow" "One thing to leave for tomorrow")"
+  blank
+
+  local body=""
+  [[ -n "$well" ]] && body+="- Went well :: $well"$'\n'
+  [[ -n "$tomorrow" ]] && body+="- Tomorrow :: $tomorrow"$'\n'
+  [[ -n "$journal" ]] && body+="** Keiko"$'\n'"$journal"
+  [[ -n "${c_text:-}" ]] && body+="** Commits"$'\n'"$c_text"
+  [[ -n "${d_text:-}" ]] && body+="** Done"$'\n'"$d_text"
+  [[ -n "$body" ]] && journal_section "Closing" "${body%$'\n'}"
+  touch "$STATE/closed-$(date +%F)"
+
+  line "${cream}お疲れ様でした${reset}  ${soft}otsukaresama deshita${reset}"
+  line "${faint}Thank you for today. Rest well.${reset}"
+  [[ -n "$body" ]] && line "${faint}Saved to $JOURNAL_FILE${reset}"
+  blank
+}
+
+case "${1:-}" in
+  open)  open_day ;;
+  close) close_day ;;
+  *)     sed -n '2,7p' "$0" | sed 's/^# \{0,1\}//' ;;
+esac

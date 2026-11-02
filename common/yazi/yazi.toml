@@ -1,0 +1,21 @@
+# yazi · gus
+# Enter opens with the right program. O shows every option, including Extract for archives.
+
+[mgr]
+ratio = [2, 4, 5]
+sort_by = "natural"
+sort_dir_first = true
+show_hidden = false
+linemode = "size"
+
+[opener]
+image = [{ run = 'imv "$@"', orphan = true, desc = "imv" }]
+video = [{ run = 'mpv "$@"', orphan = true, desc = "mpv" }]
+pdf = [{ run = 'zathura "$@"', orphan = true, desc = "zathura" }]
+
+[open]
+prepend_rules = [
+  { mime = "image/*", use = ["image", "reveal"] },
+  { mime = "video/*", use = ["video", "reveal"] },
+  { mime = "application/pdf", use = ["pdf", "reveal"] },
+]

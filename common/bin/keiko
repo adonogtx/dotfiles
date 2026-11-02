@@ -1,0 +1,171 @@
+#!/usr/bin/env bash
+# keiko, a rigid focus session.
+#
+#   keiko start [minutes] [intent]   block distracting sites, silence notifications, start the timer
+#   keiko status [--short|--pango]   what is running and how long is left
+#   keiko stop                       end early, only after typing a sentence on purpose
+#   keiko log [days]                 sessions of the last days (default: today)
+#
+# Sites in ~/.config/keiko/blocklist are sent to 0.0.0.0 through /etc/hosts.
+# A root timer removes the block when the time is up, so it ends even if this terminal closes.
+set -euo pipefail
+
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/keiko"
+ACTIVE="$STATE/active"
+LOG="$STATE/log.tsv"
+BLOCKLIST="${XDG_CONFIG_HOME:-$HOME/.config}/keiko/blocklist"
+SELF="$(readlink -f "$0")"
+DEFAULT_MINUTES=50
+STOP_SENTENCE="I choose to stop"
+
+mkdir -p "$STATE"
+
+yellow=$'\033[38;2;216;166;87m'; red=$'\033[38;2;234;105;98m'; soft=$'\033[38;2;168;153;132m'
+faint=$'\033[38;2;124;111;100m'; strong=$'\033[38;2;221;199;161m'; reset=$'\033[0m'
+
+say()  { printf '%s稽古%s  %s\n' "$yellow" "$reset" "$*"; }
+fail() { printf '%s稽古%s  %s\n' "$red" "$reset" "$*" >&2; exit 1; }
+
+notify() { command -v notify-send >/dev/null && notify-send -a keiko "$@" || true; }
+
+# active file: start_epoch|end_epoch|minutes|intent
+read_active() {
+  [[ -f "$ACTIVE" ]] || return 1
+  IFS='|' read -r START END _ INTENT < "$ACTIVE"
+}
+
+remaining() { echo $(( (END - $(date +%s) + 59) / 60 )); }
+
+hosts_block() {
+  local lines="# keiko start"
+  while IFS= read -r site; do
+    site="${site%%#*}"; site="${site// /}"
+    [[ -z "$site" ]] && continue
+    lines+=$'\n'"0.0.0.0 $site"$'\n'"0.0.0.0 www.$site"$'\n'"0.0.0.0 m.$site"
+    lines+=$'\n'":: $site"$'\n'":: www.$site"
+  done < "$BLOCKLIST"
+  lines+=$'\n'"# keiko end"
+  printf '%s\n' "$lines"
+}
+
+# Removes the block from /etc/hosts. Safe to run when there is nothing to remove.
+UNBLOCK="sed -i '/^# keiko start$/,/^# keiko end$/d' /etc/hosts"
+
+cleanup_stale() {
+  # A reboot during a session kills the timers but leaves the block in /etc/hosts
+  if read_active && (( $(date +%s) >= END )); then
+    finish quiet
+  elif ! [[ -f "$ACTIVE" ]] && grep -q '^# keiko start$' /etc/hosts 2>/dev/null; then
+    sudo sh -c "$UNBLOCK"
+  fi
+}
+
+start() {
+  cleanup_stale
+  if read_active; then
+    fail "Already in keiko: $(remaining) min left · $INTENT"
+  fi
+  [[ -f "$BLOCKLIST" ]] || fail "No blocklist at $BLOCKLIST"
+
+  local minutes="${1:-$DEFAULT_MINUTES}"
+  [[ "$minutes" =~ ^[0-9]+$ ]] && (( minutes > 0 && minutes <= 240 )) || fail "Minutes must be between 1 and 240"
+  shift || true
+  local intent="$*"
+  if [[ -z "$intent" ]]; then
+    if command -v gum >/dev/null; then
+      intent="$(gum input --placeholder "What is this keiko for?" --prompt "intent › " \
+        --prompt.foreground "#d8a657" --cursor.foreground "#d8a657" --width 60 || true)"
+    else
+      read -rp "intent › " intent
+    fi
+  fi
+  [[ -n "$intent" ]] || fail "A keiko needs an intent"
+
+  local now end
+  now=$(date +%s); end=$(( now + minutes * 60 ))
+
+  say "Blocking sites (sudo asks for your password once)"
+  local block; block="$(hosts_block)"
+  sudo sh -c "
+    $UNBLOCK
+    printf '%s\n' \"\$1\" >> /etc/hosts
+    systemctl stop keiko-unblock.timer 2>/dev/null || true
+    systemd-run --quiet --unit=keiko-unblock --on-active=${minutes}m --timer-property=AccuracySec=1s \
+      /bin/sh -c \"$UNBLOCK\"
+  " sh "$block"
+
+  echo "$now|$end|$minutes|$intent" > "$ACTIVE"
+
+  systemctl --user stop keiko-end.timer 2>/dev/null || true
+  systemd-run --user --quiet --unit=keiko-end --on-active="${minutes}m" --timer-property=AccuracySec=1s \
+    "$SELF" finish
+
+  notify "Keiko · $minutes min" "$intent"
+  command -v makoctl >/dev/null && makoctl mode -a do-not-disturb >/dev/null || true
+
+  say "${strong}$minutes min${reset} · $intent"
+  say "${faint}Notifications are silent and the blocklist is active until $(date -d "@$end" +%H:%M).${reset}"
+}
+
+# Called by the user timer when the time is up (or by cleanup)
+finish() {
+  read_active || exit 0
+  local ended=$(( END < $(date +%s) ? END : $(date +%s) ))
+  printf '%s\t%s\t%s\t%s\tcomplete\n' "$(date -d "@$START" +%F)" "$(date -d "@$START" +%H:%M)" \
+    "$(( (ended - START) / 60 ))" "$INTENT" >> "$LOG"
+  rm -f "$ACTIVE"
+  command -v makoctl >/dev/null && makoctl mode -r do-not-disturb >/dev/null || true
+  if [[ "${1:-}" != quiet ]]; then
+    notify -u normal "Keiko complete" "$INTENT · stand up, breathe, drink some water."
+  else
+    grep -q '^# keiko start$' /etc/hosts 2>/dev/null && sudo sh -c "$UNBLOCK" || true
+  fi
+}
+
+stop() {
+  read_active || fail "No keiko running"
+  say "$(remaining) min left · $INTENT"
+  say "A keiko is a promise. To break it, type: ${strong}$STOP_SENTENCE${reset}"
+  local answer; read -rp "› " answer
+  [[ "$answer" == "$STOP_SENTENCE" ]] || fail "Keiko continues."
+
+  sudo sh -c "$UNBLOCK; systemctl stop keiko-unblock.timer 2>/dev/null || true"
+  systemctl --user stop keiko-end.timer 2>/dev/null || true
+  printf '%s\t%s\t%s\t%s\tstopped\n' "$(date -d "@$START" +%F)" "$(date -d "@$START" +%H:%M)" \
+    "$(( ($(date +%s) - START) / 60 ))" "$INTENT" >> "$LOG"
+  rm -f "$ACTIVE"
+  command -v makoctl >/dev/null && makoctl mode -r do-not-disturb >/dev/null || true
+  say "Stopped. No guilt, just begin again when you are ready."
+}
+
+status() {
+  if ! read_active || (( $(date +%s) >= END )); then
+    [[ "${1:-}" == "" ]] && say "${soft}No keiko running.${reset}"
+    exit 0
+  fi
+  case "${1:-}" in
+    --short) echo "稽古 $(remaining)m · $INTENT" ;;
+    --pango) printf '<span foreground="#d8a657">稽古</span> <span foreground="#a89984">%sm · %s</span>\n' \
+               "$(remaining)" "$(sed 's/&/\&amp;/g; s/</\&lt;/g' <<< "$INTENT")" ;;
+    *)       say "${strong}$(remaining) min left${reset} · $INTENT · ends at $(date -d "@$END" +%H:%M)" ;;
+  esac
+}
+
+log() {
+  [[ -f "$LOG" ]] || { say "${soft}No sessions yet.${reset}"; return; }
+  local days="${1:-1}" since
+  since="$(date -d "-$(( days - 1 )) days" +%F)"
+  awk -F'\t' -v s="$since" -v y="$yellow" -v f="$faint" -v r="$reset" '
+    $1 >= s { mark = ($5 == "complete") ? y "●" r : f "○" r
+              printf "%s %s %s  %3s min  %s\n", mark, $1, $2, $3, $4; total += $3 }
+    END { if (total) printf "%s%d min in total%s\n", f, total, r }' "$LOG"
+}
+
+case "${1:-status}" in
+  start)  shift; start "$@" ;;
+  status) shift || true; status "${1:-}" ;;
+  stop)   stop ;;
+  finish) shift || true; finish "${1:-}" ;;
+  log)    shift || true; log "${1:-1}" ;;
+  *)      sed -n '2,9p' "$SELF" | sed 's/^# \{0,1\}//' ;;
+esac

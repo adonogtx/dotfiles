@@ -1,0 +1,4 @@
+# Machine specific Hyprland overrides live only on the machine
+linux/hypr/local.lua
+# Secrets never enter the repo
+*.env

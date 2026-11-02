@@ -1,0 +1,42 @@
+# mako · gus
+# Notifications in Gruvbox, same rounded panel and blue outline as the bar panels.
+
+font=JetBrainsMono Nerd Font 11
+background-color=#282828
+text-color=#d4be98
+border-color=#7daea38c
+progress-color=over #3c3836
+border-size=2
+border-radius=12
+padding=14,16
+margin=12
+width=360
+height=180
+anchor=top-right
+layer=overlay
+max-icon-size=32
+icon-location=left
+default-timeout=5000
+format=<b>%s</b>\n<span foreground="#a89984">%b</span>
+max-visible=4
+sort=-time
+
+[urgency=low]
+border-color=#5a524c
+default-timeout=3000
+
+[urgency=critical]
+border-color=#ea6962
+default-timeout=0
+
+[app-name=keiko]
+border-color=#d8a657
+
+[app-name=day]
+border-color=#a9b665
+
+[mode=do-not-disturb]
+invisible=1
+
+[mode=do-not-disturb urgency=critical]
+invisible=0

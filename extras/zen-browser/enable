@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Gruvbox for Zen and DNS over HTTPS off (needed for keiko). Close Zen first.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+found=0
+for profile in "$HOME"/.zen/*/; do
+  [[ -f "$profile/prefs.js" ]] || continue
+  mkdir -p "$profile/chrome"
+  cp "$HERE/userChrome.css" "$profile/chrome/userChrome.css"
+  cp "$HERE/user.js" "$profile/user.js"
+  echo "Applied to $profile"; found=1
+done
+(( found )) || echo "No Zen profile yet. Open Zen once, close it, and run this again."

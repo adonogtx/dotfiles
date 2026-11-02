@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+sudo rm -f /etc/systemd/system/getty@tty1.service.d/autologin.conf
+sudo systemctl daemon-reload
+echo "Autologin is off. Takes effect on the next boot."

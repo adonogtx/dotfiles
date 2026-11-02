@@ -1,0 +1,26 @@
+# Starship · gus
+# gus@dev in green, yellow and purple, the current folder in blue, the branch faint, then $.
+format = "$username$hostname $directory$git_branch$character"
+
+[username]
+show_always = true
+format = "[$user]($style)"
+style_user = "#a9b665"
+
+[hostname]
+ssh_only = false
+format = "[@](#d8a657)[$hostname]($style)"
+style = "#d3869b"
+
+[directory]
+truncation_length = 1
+truncate_to_repo = true
+style = "#7daea3"
+
+[git_branch]
+format = " [$branch]($style)"
+style = "#7c6f64"
+
+[character]
+success_symbol = " [\\$](#d8a657)"
+error_symbol = " [\\$](#ea6962)"

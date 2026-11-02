@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Puts mkinitcpio back as it was and rebuilds the initramfs. Remove 'splash' from the kernel line by hand.
+set -euo pipefail
+conf=/etc/mkinitcpio.conf
+if [[ -f "$conf.before-plymouth" ]]; then sudo cp "$conf.before-plymouth" "$conf"; fi
+sudo mkinitcpio -P

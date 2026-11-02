@@ -1,0 +1,29 @@
+# gus plymouth theme: the ensō fills the screen, the password shows as dots in the middle.
+
+Window.SetBackgroundTopColor(0.235, 0.220, 0.212);
+Window.SetBackgroundBottomColor(0.235, 0.220, 0.212);
+
+enso = Image("enso.png");
+scaled = enso.Scale(Window.GetWidth(), Window.GetHeight());
+background = Sprite(scaled);
+background.SetPosition(0, 0, -10);
+
+prompt_sprite = Sprite();
+bullets_sprite = Sprite();
+
+fun display_password(prompt, bullets) {
+    text = "";
+    for (i = 0; i < bullets; i++) text += "• ";
+    if (bullets == 0) text = "disk password";
+    image = Image.Text(text, 0.866, 0.780, 0.631, 1, "Sans 16");
+    bullets_sprite.SetImage(image);
+    bullets_sprite.SetPosition(Window.GetWidth() / 2 - image.GetWidth() / 2, Window.GetHeight() / 2 + 40, 10);
+    bullets_sprite.SetOpacity(1);
+}
+
+fun display_normal() {
+    bullets_sprite.SetOpacity(0);
+}
+
+Plymouth.SetDisplayPasswordFunction(display_password);
+Plymouth.SetDisplayNormalFunction(display_normal);

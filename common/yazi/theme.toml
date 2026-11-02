@@ -1,0 +1,5 @@
+# Uses the gruvbox-dark flavor, installed by install.sh with: ya pkg add bennyyip/gruvbox-dark
+
+[flavor]
+dark = "gruvbox-dark"
+light = "gruvbox-dark"

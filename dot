@@ -1,0 +1,237 @@
+#!/usr/bin/env bash
+# dot · gus
+#
+#   dot install           packages, fonts, services, then apply. For a fresh Arch install.
+#   dot apply [-n]        copy the configs into place, backing up what they replace (-n: only show)
+#   dot diff              what differs between this repo and the system
+#   dot capture           bring changes made on the system back into the repo
+#   dot restore [stamp]   put back the files from a backup (default: the latest)
+#   dot extra             list the optional extras
+#   dot extra enable NAME | disable NAME
+#
+# Files are copied, never linked. Edit in the repo and run dot apply, or edit on the
+# system and run dot capture, then commit.
+set -euo pipefail
+
+REPO="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/dot"
+BACKUPS="$STATE/backups"
+
+yellow=$'\033[38;2;216;166;87m'; green=$'\033[38;2;169;182;101m'; red=$'\033[38;2;234;105;98m'
+blue=$'\033[38;2;125;174;163m'; faint=$'\033[38;2;124;111;100m'; reset=$'\033[0m'
+say()  { printf '%s道%s  %s\n' "$yellow" "$reset" "$*"; }
+warn() { printf '%s道%s  %s\n' "$red" "$reset" "$*" >&2; }
+die()  { warn "$*"; exit 1; }
+
+# Every managed file as "source|destination", folders expanded
+pairs() {
+  local src dest
+  while read -r src dest; do
+    [[ -z "${src:-}" || "$src" == \#* ]] && continue
+    dest="${dest/#\~/$HOME}"
+    if [[ "$src" == */ ]]; then
+      [[ -d "$REPO/$src" ]] || continue
+      while IFS= read -r -d '' f; do
+        local rel="${f#"$REPO/$src"}"
+        printf '%s|%s\n' "$src$rel" "$dest$rel"
+      done < <(find "$REPO/$src" -type f -print0 | sort -z)
+    else
+      [[ -f "$REPO/$src" ]] && printf '%s|%s\n' "$src" "$dest"
+    fi
+  done < "$REPO/manifest"
+}
+
+apply() {
+  local dry=0; [[ "${1:-}" == "-n" ]] && dry=1
+  local stamp; stamp="$(date +%Y%m%d-%H%M%S)"
+  local backup="$BACKUPS/$stamp" changed=0 same=0
+
+  while IFS='|' read -r src dest; do
+    if [[ -f "$dest" ]] && cmp -s "$REPO/$src" "$dest"; then
+      same=$((same + 1)); continue
+    fi
+    changed=$((changed + 1))
+    if (( dry )); then
+      if [[ -e "$dest" ]]; then echo "  ${yellow}update${reset} ${dest/#$HOME/~}"; else echo "  ${green}new${reset}    ${dest/#$HOME/~}"; fi
+      continue
+    fi
+    mkdir -p "$backup"
+    if [[ -e "$dest" || -L "$dest" ]]; then
+      mkdir -p "$backup/files/$(dirname "${dest#"$HOME"/}")"
+      cp -P "$dest" "$backup/files/${dest#"$HOME"/}"
+    fi
+    echo "$dest" >> "$backup/written"
+    mkdir -p "$(dirname "$dest")"
+    rm -f "$dest"
+    cp "$REPO/$src" "$dest"
+    [[ -x "$REPO/$src" ]] && chmod +x "$dest"
+  done < <(pairs)
+
+  if (( dry )); then
+    say "$changed to write, $same already up to date (nothing was changed)"
+    return
+  fi
+  post_apply
+  if (( changed )); then
+    say "$changed files written, $same already up to date. Backup: ${backup/#$HOME/~}"
+  else
+    say "Everything is already up to date"
+  fi
+}
+
+# Small fixes that a plain copy cannot do
+post_apply() {
+  local doom="${DOOMDIR:-$HOME/.config/doom}"
+  if [[ -f "$doom/config.el" ]] && ! grep -q '(load! "gus")' "$doom/config.el"; then
+    printf '\n;; Gruvbox, fonts and the journal for the day rituals (from dotfiles)\n(load! "gus")\n' >> "$doom/config.el"
+    say "Added (load! \"gus\") to ${doom/#$HOME/~}/config.el"
+  fi
+  mkdir -p "$HOME/dev" "$HOME/docs/notes/journal" "$HOME/media/pictures/screenshots" "$HOME/dump"
+  command -v makoctl >/dev/null && makoctl reload 2>/dev/null || true
+  command -v hyprctl >/dev/null && [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && hyprctl reload >/dev/null 2>&1 || true
+}
+
+diff_cmd() {
+  local n=0
+  while IFS='|' read -r src dest; do
+    if [[ ! -e "$dest" ]]; then
+      echo "${red}missing${reset}  ${dest/#$HOME/~}"; n=$((n + 1))
+    elif ! cmp -s "$REPO/$src" "$dest"; then
+      echo "${yellow}changed${reset}  ${dest/#$HOME/~}"
+      diff -u --label "repo/$src" --label "${dest/#$HOME/~}" "$REPO/$src" "$dest" | sed 's/^/    /' | head -n 40 || true
+      n=$((n + 1))
+    fi
+  done < <(pairs)
+  (( n )) && say "$n files differ. dot apply writes the repo version; dot capture keeps the system version." \
+          || say "The system matches the repo"
+}
+
+capture() {
+  local n=0
+  while IFS='|' read -r src dest; do
+    if [[ -f "$dest" ]] && ! cmp -s "$REPO/$src" "$dest"; then
+      cp "$dest" "$REPO/$src"; echo "  ${blue}captured${reset} $src"; n=$((n + 1))
+    fi
+  done < <(pairs)
+  say "$n files brought back into the repo. Review with: git -C ${REPO/#$HOME/~} diff"
+}
+
+restore() {
+  local backup
+  if [[ -n "${1:-}" ]]; then backup="$BACKUPS/$1"; else backup="$(ls -d "$BACKUPS"/*/ 2>/dev/null | sort | tail -n1)"; fi
+  backup="${backup%/}"
+  [[ -d "$backup" && -f "$backup/written" ]] || die "No backup found${1:+ named $1}. Backups: $(ls "$BACKUPS" 2>/dev/null | tr '\n' ' ')"
+  local n=0
+  while IFS= read -r dest; do
+    rm -f "$dest"
+    if [[ -e "$backup/files/${dest#"$HOME"/}" || -L "$backup/files/${dest#"$HOME"/}" ]]; then
+      cp -P "$backup/files/${dest#"$HOME"/}" "$dest"
+    fi
+    n=$((n + 1))
+  done < "$backup/written"
+  mv "$backup" "$backup.restored"
+  say "Restored $n files from $(basename "$backup")"
+}
+
+extra() {
+  local action="${1:-list}" name="${2:-}"
+  case "$action" in
+    list)
+      say "Optional extras, off until you enable them:"
+      for d in "$REPO"/extras/*/; do
+        local n; n="$(basename "$d")"
+        printf '  %s%-12s%s %s\n' "$blue" "$n" "$reset" "$(sed -n '2s/^# //p' "$d/enable")"
+      done
+      echo "  ${faint}dot extra enable NAME, dot extra disable NAME${reset}" ;;
+    enable|disable)
+      [[ -x "$REPO/extras/$name/$action" ]] || die "No extra named '$name'. See: dot extra"
+      "$REPO/extras/$name/$action" ;;
+    *) die "Use: dot extra [list|enable NAME|disable NAME]" ;;
+  esac
+}
+
+install_packages() {
+  local all=() repo=() aur=()
+  mapfile -t all < <(sed 's/#.*//; s/[[:space:]]//g; /^$/d' "$REPO/packages/arch.txt")
+  say "Checking ${#all[@]} packages"
+  for p in "${all[@]}"; do
+    if pacman -Si "$p" &>/dev/null; then repo+=("$p"); else aur+=("$p"); fi
+  done
+  sudo pacman -S --needed "${repo[@]}"
+  if (( ${#aur[@]} )); then
+    local helper=""
+    command -v paru >/dev/null && helper=paru
+    [[ -z "$helper" ]] && command -v yay >/dev/null && helper=yay
+    if [[ -z "$helper" ]]; then
+      say "Installing yay to reach the AUR"
+      sudo pacman -S --needed base-devel git
+      local tmp; tmp="$(mktemp -d)"
+      git clone --depth 1 https://aur.archlinux.org/yay-bin.git "$tmp/yay-bin"
+      (cd "$tmp/yay-bin" && makepkg -si --noconfirm)
+      helper=yay
+    fi
+    say "From the AUR: ${aur[*]}"
+    "$helper" -S --needed "${aur[@]}"
+  fi
+}
+
+install_fonts() {
+  local dir="$HOME/.local/share/fonts"
+  mkdir -p "$dir/zen-old-mincho"
+  if ! fc-list | grep -qi "Zen Old Mincho"; then
+    say "Downloading Zen Old Mincho"
+    for w in Regular Medium SemiBold Bold Black; do
+      curl -fsSL -o "$dir/zen-old-mincho/ZenOldMincho-$w.ttf" \
+        "https://raw.githubusercontent.com/google/fonts/main/ofl/zenoldmincho/ZenOldMincho-$w.ttf"
+    done
+  fi
+  if [[ -f "$REPO/common/fonts/gus.ttf" ]]; then
+    cp "$REPO/common/fonts/gus.ttf" "$dir/gus.ttf"
+  elif ! fc-list | grep -qi ': gus'; then
+    warn "Your kamon font is missing: put gus.ttf in common/fonts/ and run dot install again"
+  fi
+  fc-cache -f >/dev/null
+}
+
+install_cmd() {
+  [[ -f /etc/arch-release ]] || die "dot install is for Arch Linux"
+  install_packages
+  install_fonts
+
+  say "Turning on network, bluetooth and power profiles"
+  sudo systemctl enable --now NetworkManager.service bluetooth.service power-profiles-daemon.service
+
+  say "Yazi: Gruvbox flavor and the mount plugin"
+  ya pkg add bennyyip/gruvbox-dark 2>/dev/null || true
+  ya pkg add yazi-rs/plugins:mount 2>/dev/null || true
+
+  say "Default apps for images, videos and PDFs"
+  for m in image/png image/jpeg image/webp image/gif; do xdg-mime default imv.desktop "$m"; done
+  for m in video/mp4 video/x-matroska video/webm; do xdg-mime default mpv.desktop "$m"; done
+  xdg-mime default org.pwmt.zathura.desktop application/pdf
+
+  if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */zsh ]]; then
+    say "Login shell to zsh"
+    chsh -s /usr/bin/zsh
+  fi
+
+  apply
+
+  if [[ ! -d "$HOME/.config/emacs" ]]; then
+    echo "  ${faint}Doom is not installed yet:${reset}"
+    echo "  ${faint}git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs && ~/.config/emacs/bin/doom install${reset}"
+    echo "  ${faint}then run dot apply again so config.el loads gus.el${reset}"
+  fi
+  say "Done. Log out and log in on tty1: Hyprland starts by itself."
+  say "Optional: dot extra"
+}
+
+case "${1:-}" in
+  install) install_cmd ;;
+  apply)   shift; apply "${1:-}" ;;
+  diff)    diff_cmd ;;
+  capture) capture ;;
+  restore) shift; restore "${1:-}" ;;
+  extra)   shift; extra "$@" ;;
+  *)       sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//' ;;
+esac
