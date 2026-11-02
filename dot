@@ -81,6 +81,9 @@ apply() {
 
 # Small fixes that a plain copy cannot do
 post_apply() {
+  # dot itself is the only link: it has to run from the repo to find the files
+  mkdir -p "$HOME/.local/bin"
+  ln -sfn "$REPO/dot" "$HOME/.local/bin/dot"
   local doom="${DOOMDIR:-$HOME/.config/doom}"
   if [[ -f "$doom/config.el" ]] && ! grep -q '(load! "gus")' "$doom/config.el"; then
     printf '\n;; Gruvbox, fonts and the journal for the day rituals (from dotfiles)\n(load! "gus")\n' >> "$doom/config.el"
