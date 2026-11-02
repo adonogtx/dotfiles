@@ -26,7 +26,7 @@ Singleton {
     readonly property color purple: "#d3869b"
 
     readonly property string mono: "JetBrainsMono Nerd Font"
-    readonly property string kamon: "gus"
+    readonly property string kamon: "kamon"  // common/fonts/kamon.ttf, the glyph at U+E900
 
     function icon(codepoint) {
         return String.fromCodePoint(codepoint);

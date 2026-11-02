@@ -185,11 +185,8 @@ install_fonts() {
         "https://raw.githubusercontent.com/google/fonts/main/ofl/zenoldmincho/ZenOldMincho-$w.ttf"
     done
   fi
-  if [[ -f "$REPO/common/fonts/gus.ttf" ]]; then
-    cp "$REPO/common/fonts/gus.ttf" "$dir/gus.ttf"
-  elif ! fc-list | grep -qi ': gus'; then
-    warn "Your kamon font is missing: put gus.ttf in common/fonts/ and run dot install again"
-  fi
+  # The kamon on the bar: a one glyph font kept in the repo
+  cp "$REPO/common/fonts/kamon.ttf" "$dir/kamon.ttf"
   fc-cache -f >/dev/null
 }
 

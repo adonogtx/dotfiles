@@ -11,7 +11,6 @@ the ensō on the lock screen, 道 in fastfetch, and three small rituals for the 
 ```bash
 sudo pacman -S --needed git
 mkdir -p ~/dev && git clone git@github.com:adonogtx/dotfiles.git ~/dev/dotfiles
-cp ~/dump/gus.ttf ~/dev/dotfiles/common/fonts/   # your kamon font, if you keep it out of the repo
 ~/dev/dotfiles/dot install
 ```
 
@@ -43,7 +42,7 @@ common/             works on any system, macOS included
   bin/              day, keiko, gus-date
   keiko/            the blocklist
   doom/gus.el       Gruvbox, fonts, journal; loaded from your config.el
-  fonts/            gus.ttf goes here
+  fonts/            kamon.ttf, the one glyph font for the bar
 linux/              Arch and Hyprland
   hypr/             hyprland.lua and its parts, hyprlock, hypridle
   quickshell/       the bar and its panels

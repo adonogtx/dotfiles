@@ -1,9 +1,6 @@
 # Ghostty · gus
-# The second font-family is the fallback that provides the kamon glyph (U+E900).
-# Check the exact family name of your font with: fc-list | grep -i gus
 
 font-family = JetBrainsMono Nerd Font
-font-family = gus
 font-size = 12
 
 theme = gus-gruvbox
