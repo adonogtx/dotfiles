@@ -11,7 +11,7 @@ common/imv/                       ~/.config/imv/
 common/fastfetch/                 ~/.config/fastfetch/
 common/bin/                       ~/.local/bin/
 common/keiko/blocklist            ~/.config/keiko/blocklist
-common/doom/gus.el                ~/.config/doom/gus.el
+common/doom/                      ~/.config/doom/
 
 linux/hypr/                       ~/.config/hypr/
 linux/mako/                       ~/.config/mako/

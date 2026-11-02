@@ -8,9 +8,9 @@
 set -euo pipefail
 
 # Where your Doom Emacs notes live. Adjust if yours differ.
-NOTES_DIR="${GUS_NOTES_DIR:-$HOME/docs/notes}"
+NOTES_DIR="${GUS_NOTES_DIR:-$HOME/org}"
 JOURNAL_DIR="${GUS_JOURNAL_DIR:-$NOTES_DIR/journal}"
-JOURNAL_FILE="$JOURNAL_DIR/$(date +%Y%m%d).org"
+JOURNAL_FILE="$JOURNAL_DIR/$(date +%F).org"
 DEV_DIR="${GUS_DEV_DIR:-$HOME/dev}"
 
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}/gus"
@@ -75,7 +75,7 @@ yesterday_note() {
   [[ -d "$JOURNAL_DIR" ]] || return 0
   local last=""
   local today f
-  today="$(date +%Y%m%d).org"
+  today="$(date +%F).org"
   for f in "$JOURNAL_DIR"/*.org; do
     [[ -e "$f" && "$(basename "$f")" != "$today" ]] && last="$f"
   done
@@ -85,8 +85,8 @@ yesterday_note() {
 
 open_todos() {
   [[ -d "$NOTES_DIR" ]] || return 0
-  grep -rhE '^\*+ (TODO|NEXT) ' "$NOTES_DIR" --include='*.org' 2>/dev/null \
-    | sed -E 's/^\*+ (TODO|NEXT) //; s/[[:space:]]+:[[:alnum:]_:@]+:[[:space:]]*$//' | head -n "${1:-5}"
+  grep -rhE '^\*+ (TODO|WAIT) ' "$NOTES_DIR" --include='*.org' 2>/dev/null \
+    | sed -E 's/^\*+ (TODO|WAIT) //; s/[[:space:]]+:[[:alnum:]_:@]+:[[:space:]]*$//' | head -n "${1:-5}"
 }
 
 open_day() {

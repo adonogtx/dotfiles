@@ -17,7 +17,7 @@ Things only the real machine can confirm. If one fails, `hyprctl configerrors`,
 - [ ] SUPER + SHIFT + S: region screenshot lands in ~/media/pictures/screenshots and the clipboard
 - [ ] A USB drive mounts by itself; in yazi, g then m goes to it; M ejects
 - [ ] Japanese input: Ctrl + Space switches fcitx5 to mozc in Zen and Doom
-- [ ] Doom opens in Gruvbox and SPC n j j opens today's journal
+- [ ] Doom opens in Gruvbox, SPC o A shows the agenda and SPC X d writes today's journal
 - [ ] `docker run --rm hello-world` works without sudo (after logging in again)
 - [ ] A Spring Initializr project with Docker Compose Support runs and its Postgres starts by itself
 - [ ] IntelliJ opens, and `java -version` says 21

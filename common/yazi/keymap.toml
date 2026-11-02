@@ -18,7 +18,7 @@ desc = "Go to dev"
 
 [[mgr.prepend_keymap]]
 on   = ["g", "n"]
-run  = "cd ~/docs/notes"
+run  = "cd ~/org"
 desc = "Go to notes"
 
 [[mgr.prepend_keymap]]

@@ -84,12 +84,7 @@ post_apply() {
   # dot itself is the only link: it has to run from the repo to find the files
   mkdir -p "$HOME/.local/bin"
   ln -sfn "$REPO/dot" "$HOME/.local/bin/dot"
-  local doom="${DOOMDIR:-$HOME/.config/doom}"
-  if [[ -f "$doom/config.el" ]] && ! grep -q '(load! "gus")' "$doom/config.el"; then
-    printf '\n;; Gruvbox, fonts and the journal for the day rituals (from dotfiles)\n(load! "gus")\n' >> "$doom/config.el"
-    say "Added (load! \"gus\") to ${doom/#$HOME/~}/config.el"
-  fi
-  mkdir -p "$HOME/dev/backend/projects" "$HOME/docs/notes/journal" "$HOME/media/pictures/screenshots" "$HOME/dump"
+  mkdir -p "$HOME/dev/backend/projects" "$HOME/org/journal" "$HOME/media/pictures/screenshots" "$HOME/dump"
   command -v makoctl >/dev/null && makoctl reload 2>/dev/null || true
   command -v hyprctl >/dev/null && [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && hyprctl reload >/dev/null 2>&1 || true
 }

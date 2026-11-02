@@ -8,6 +8,6 @@ grep -q 'package! org-gcal' "$doom_dir/packages.el" 2>/dev/null || echo '(packag
 mkdir -p ~/.config/gus
 [[ -f ~/.config/gus/gcal.env ]] || printf 'GCAL_CLIENT_ID=\nGCAL_CLIENT_SECRET=\n' > ~/.config/gus/gcal.env
 chmod 600 ~/.config/gus/gcal.env
-touch ~/docs/notes/calendar.org 2>/dev/null || true
+touch ~/org/calendar.org 2>/dev/null || true
 echo "Fill ~/.config/gus/gcal.env, then run: doom sync"
 echo "In Emacs: M-x org-gcal-fetch the first time opens the Google login."

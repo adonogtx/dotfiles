@@ -16,11 +16,11 @@
   :config
   (setq org-gcal-client-id (gus/gcal-env "GCAL_CLIENT_ID")
         org-gcal-client-secret (gus/gcal-env "GCAL_CLIENT_SECRET")
-        org-gcal-fetch-file-alist '(("adonogtx@gmail.com" . "~/docs/notes/calendar.org"))
+        org-gcal-fetch-file-alist '(("adonogtx@gmail.com" . "~/org/calendar.org"))
         org-gcal-remove-api-cancelled-events t)
   ;; New appointments: SPC X a, then SPC m g p to send it to Google Calendar
   (add-to-list 'org-capture-templates
-               '("a" "Appointment" entry (file "~/docs/notes/calendar.org")
+               '("a" "Appointment" entry (file "~/org/calendar.org")
                  "* %?\n:PROPERTIES:\n:calendar-id: adonogtx@gmail.com\n:END:\n:org-gcal:\n%^T\n:END:\n"))
   (map! :map org-mode-map :localleader
         (:prefix ("g" . "gcal")

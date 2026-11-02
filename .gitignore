@@ -2,3 +2,7 @@
 linux/hypr/local.lua
 # Secrets never enter the repo
 *.env
+# Editor leftovers
+*~
+\#*\#
+.#*

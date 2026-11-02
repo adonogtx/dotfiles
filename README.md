@@ -41,7 +41,7 @@ common/             works on any system, macOS included
   zsh, starship, ghostty, yazi, fastfetch, zathura, imv
   bin/              day, keiko, gus-date
   keiko/            the blocklist
-  doom/gus.el       Gruvbox, fonts, journal; loaded from your config.el
+  doom/             the whole Doom config: init.el, config.el, +org.el, packages.el, gus.el
   fonts/            kamon.ttf, the one glyph font for the bar
 linux/              Arch and Hyprland
   hypr/             hyprland.lua and its parts, hyprlock, hypridle
@@ -82,8 +82,9 @@ Boot starts the Postgres in compose.yaml by itself. The project brings its own .
 
 ## Passwords and Doom
 
-Bitwarden and Ente Auth are installed. Doom Emacs is cloned and installed by `dot install`;
-put your own init.el, config.el and packages.el in ~/.config/doom, then `dot apply` and
+Bitwarden and Ente Auth are installed. Doom Emacs is cloned and installed by `dot install`,
+and your config in common/doom goes to ~/.config/doom: notes in ~/org, the agenda, capture
+(SPC X) and the journal in ~/org/journal. After changing init.el or packages.el, run
 `~/.config/emacs/bin/doom sync`.
 
 ## Video calls, Japanese, homelab
@@ -102,7 +103,7 @@ put your own init.el, config.el and packages.el in ~/.config/doom, then `dot app
   itself. It stops early only after typing "I choose to stop". Needs DNS over HTTPS off in the
   browser (`dot extra enable zen-browser` does that for Zen).
 - **Closing** (`day close`) gathers the day's keiko, commits and DONE items, asks two questions
-  and writes `~/docs/notes/journal/YYYYMMDD.org`. No scores, no streaks.
+  and writes `~/org/journal/YYYY-MM-DD.org`, the same file as the daily capture (SPC X d). No scores, no streaks.
 
 ## Checked before release, and what only the laptop can check
 
