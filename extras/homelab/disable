@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Stops Plex and qBittorrent and removes Plex's read access. Your library files stay where they are.
+set -euo pipefail
+sudo systemctl disable --now plexmediaserver.service "qbittorrent-nox@$USER.service" 2>/dev/null || true
+setfacl -R -x u:plex "$HOME/library" 2>/dev/null || true
+setfacl -x u:plex "$HOME" 2>/dev/null || true
+echo "Plex and qBittorrent are off. Remove the packages with: sudo pacman -Rns qbittorrent-nox plex-media-server"

@@ -86,7 +86,7 @@ post_apply() {
     printf '\n;; Gruvbox, fonts and the journal for the day rituals (from dotfiles)\n(load! "gus")\n' >> "$doom/config.el"
     say "Added (load! \"gus\") to ${doom/#$HOME/~}/config.el"
   fi
-  mkdir -p "$HOME/dev" "$HOME/docs/notes/journal" "$HOME/media/pictures/screenshots" "$HOME/dump"
+  mkdir -p "$HOME/dev/backend/projects" "$HOME/docs/notes/journal" "$HOME/media/pictures/screenshots" "$HOME/dump"
   command -v makoctl >/dev/null && makoctl reload 2>/dev/null || true
   command -v hyprctl >/dev/null && [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && hyprctl reload >/dev/null 2>&1 || true
 }
@@ -195,8 +195,13 @@ install_cmd() {
   install_packages
   install_fonts
 
-  say "Turning on network, bluetooth and power profiles"
-  sudo systemctl enable --now NetworkManager.service bluetooth.service power-profiles-daemon.service
+  say "Turning on network, bluetooth, power profiles and Docker"
+  sudo systemctl enable --now NetworkManager.service bluetooth.service power-profiles-daemon.service docker.service
+  if ! id -nG "$USER" | grep -qw docker; then
+    sudo usermod -aG docker "$USER"
+    say "Added $USER to the docker group (takes effect on the next login)"
+  fi
+  command -v archlinux-java >/dev/null && sudo archlinux-java set java-21-openjdk 2>/dev/null || true
 
   say "Yazi: Gruvbox flavor and the mount plugin"
   ya pkg add bennyyip/gruvbox-dark 2>/dev/null || true

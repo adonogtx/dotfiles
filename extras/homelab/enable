@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Plex and qBittorrent on this machine, reading only ~/library (movies, series, animes).
+set -euo pipefail
+lib="$HOME/library"
+mkdir -p "$lib"/{movies,series,animes,music,books} "$lib"/torrents/{complete,incomplete}
+
+if command -v paru >/dev/null; then aur=paru; else aur=yay; fi
+sudo pacman -S --needed qbittorrent-nox acl
+"$aur" -S --needed plex-media-server
+
+# Plex runs as its own user: let it walk into ~ and read only the three library folders
+setfacl -m u:plex:x "$HOME" "$lib"
+for d in movies series animes; do
+  setfacl -R -m u:plex:rX "$lib/$d"
+  setfacl -R -d -m u:plex:rX "$lib/$d"
+done
+
+sudo systemctl enable --now plexmediaserver.service "qbittorrent-nox@$USER.service"
+
+echo "Plex:        http://localhost:32400/web  (add the folders movies, series and animes from $lib)"
+echo "qBittorrent: http://localhost:8080      (first login: user admin, the password is in: journalctl -u qbittorrent-nox@$USER)"
+echo "In qBittorrent, set the save path to $lib/torrents/complete and incomplete to $lib/torrents/incomplete"

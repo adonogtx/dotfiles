@@ -18,3 +18,7 @@ Things only the real machine can confirm. If one fails, `hyprctl configerrors`,
 - [ ] A USB drive mounts by itself; in yazi, g then m goes to it; M ejects
 - [ ] Japanese input: Ctrl + Space switches fcitx5 to mozc in Zen and Doom
 - [ ] Doom opens in Gruvbox and SPC n j j opens today's journal
+- [ ] `docker run --rm hello-world` works without sudo (after logging in again)
+- [ ] `gus-project test` then `docker compose up -d` inside it, and `psql -h localhost -U app test` connects
+- [ ] IntelliJ opens, and `java -version` says 21
+- [ ] A test call on meet.google.com: camera, microphone and sharing a window all work

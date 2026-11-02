@@ -1,0 +1,4 @@
+# Versions for this project. mise switches to them when you cd into the folder.
+[tools]
+java = "temurin-21"
+maven = "3.9"

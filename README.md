@@ -39,7 +39,8 @@ manifest            source in the repo, destination on the system
 packages/arch.txt   everything dot install puts on the machine
 common/             works on any system, macOS included
   zsh, starship, ghostty, yazi, fastfetch, zathura, imv
-  bin/              day, keiko, gus-date
+  bin/              day, keiko, gus-date, gus-project
+  templates/        what gus-project puts in a new backend project
   keiko/            the blocklist
   doom/gus.el       Gruvbox, fonts, journal; loaded from your config.el
   fonts/            kamon.ttf, the one glyph font for the bar
@@ -47,7 +48,7 @@ linux/              Arch and Hyprland
   hypr/             hyprland.lua and its parts, hyprlock, hypridle
   quickshell/       the bar and its panels
   mako, fuzzel, wallpapers, bin/ (screenshot, power menu, clipboard)
-extras/             off until enabled: plymouth, autologin, org-gcal, zen-browser
+extras/             off until enabled: homelab, plymouth, autologin, org-gcal, zen-browser
 macos/              placeholder for the future
 ```
 
@@ -70,6 +71,28 @@ macos/              placeholder for the future
 | SUPER + W | Close window |
 | SUPER + F / T / J | Fullscreen, float, toggle split |
 | SUPER + CTRL + R | Restart the bar |
+
+## Backend
+
+Java 21 (system default), Maven, Gradle, mise, IntelliJ Community, Docker with Compose,
+the Postgres client, DBeaver, Postman and HTTPie. `dot install` turns Docker on and adds you
+to the docker group.
+
+```bash
+gus-project todo-api        # ~/dev/backend/projects/todo-api with git, .mise.toml and compose.yaml
+cd ~/dev/backend/projects/todo-api
+docker compose up -d        # this project's own Postgres on localhost:5432 (app / app)
+```
+
+Each project keeps its own database volume and its own Java version in `.mise.toml`.
+
+## Video calls, Japanese, homelab
+
+- Meet and Teams run in Zen; camera, microphone and screen sharing go through PipeWire and
+  the Hyprland portal. Keiko never blocks them.
+- Japanese: Ctrl + Space switches fcitx5 to mozc. Anki is installed.
+- Plex and qBittorrent on this same laptop: `dot extra enable homelab`. Plex reads only
+  ~/library/movies, series and animes.
 
 ## The rituals
 

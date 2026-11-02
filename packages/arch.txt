@@ -83,5 +83,23 @@ fcitx5-configtool
 bluetui
 wiremix
 
-# Browser
+# Browser and video calls (Meet and Teams run in the browser)
 zen-browser-bin
+
+# Backend: Java, build tools, IDE, containers, database, API client
+jdk21-openjdk
+maven
+gradle
+mise
+intellij-idea-community-edition
+docker
+docker-compose
+docker-buildx
+postgresql
+dbeaver
+postman-bin
+httpie
+openssh
+
+# Japanese study
+anki-bin

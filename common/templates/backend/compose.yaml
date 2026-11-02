@@ -1,0 +1,16 @@
+# Postgres for this project only. Start with: docker compose up -d
+# Data lives in a Docker volume named after the project, so projects never share a database.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
