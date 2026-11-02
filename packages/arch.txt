@@ -86,20 +86,19 @@ wiremix
 # Browser and video calls (Meet and Teams run in the browser)
 zen-browser-bin
 
-# Backend: Java, build tools, IDE, containers, database, API client
+# Backend: projects come from Spring Initializr in IntelliJ, with ./mvnw and Docker Compose support
 jdk21-openjdk
-maven
-gradle
-mise
 intellij-idea-community-edition
 docker
 docker-compose
 docker-buildx
-postgresql
 dbeaver
 postman-bin
-httpie
 openssh
+
+# Passwords and two factor codes
+bitwarden
+ente-auth-bin
 
 # Japanese study
 anki-bin

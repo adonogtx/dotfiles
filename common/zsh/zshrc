@@ -43,7 +43,6 @@ function y() {
 
 # Optional tools, loaded only if installed
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
-command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 # Plugins
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

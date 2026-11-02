@@ -39,8 +39,7 @@ manifest            source in the repo, destination on the system
 packages/arch.txt   everything dot install puts on the machine
 common/             works on any system, macOS included
   zsh, starship, ghostty, yazi, fastfetch, zathura, imv
-  bin/              day, keiko, gus-date, gus-project
-  templates/        what gus-project puts in a new backend project
+  bin/              day, keiko, gus-date
   keiko/            the blocklist
   doom/gus.el       Gruvbox, fonts, journal; loaded from your config.el
   fonts/            kamon.ttf, the one glyph font for the bar
@@ -74,17 +73,18 @@ macos/              placeholder for the future
 
 ## Backend
 
-Java 21 (system default), Maven, Gradle, mise, IntelliJ Community, Docker with Compose,
-the Postgres client, DBeaver, Postman and HTTPie. `dot install` turns Docker on and adds you
-to the docker group.
+Java 21, IntelliJ Community, Docker with Compose, DBeaver and Postman. `dot install` turns
+Docker on and adds you to the docker group.
 
-```bash
-gus-project todo-api        # ~/dev/backend/projects/todo-api with git, .mise.toml and compose.yaml
-cd ~/dev/backend/projects/todo-api
-docker compose up -d        # this project's own Postgres on localhost:5432 (app / app)
-```
+New project: in IntelliJ, File, New, Project, Spring Boot, into ~/dev/backend/projects, with
+Spring Web, Spring Data JPA, PostgreSQL Driver and Docker Compose Support. Run it and Spring
+Boot starts the Postgres in compose.yaml by itself. The project brings its own ./mvnw.
 
-Each project keeps its own database volume and its own Java version in `.mise.toml`.
+## Passwords and Doom
+
+Bitwarden and Ente Auth are installed. Doom Emacs is cloned and installed by `dot install`;
+put your own init.el, config.el and packages.el in ~/.config/doom, then `dot apply` and
+`~/.config/emacs/bin/doom sync`.
 
 ## Video calls, Japanese, homelab
 

@@ -193,6 +193,17 @@ install_fonts() {
   fc-cache -f >/dev/null
 }
 
+# Doom Emacs: cloned and installed once. Your own init.el, config.el and packages.el
+# (from the backup) go in ~/.config/doom; gus.el is loaded from config.el by dot apply.
+install_doom() {
+  local doom="$HOME/.config/emacs/bin/doom"
+  if [[ ! -x "$doom" ]]; then
+    say "Installing Doom Emacs"
+    git clone --depth 1 https://github.com/doomemacs/doomemacs "$HOME/.config/emacs"
+    "$doom" install --force
+  fi
+}
+
 install_cmd() {
   [[ -f /etc/arch-release ]] || die "dot install is for Arch Linux"
   install_packages
@@ -220,13 +231,9 @@ install_cmd() {
     chsh -s /usr/bin/zsh
   fi
 
+  install_doom
   apply
-
-  if [[ ! -d "$HOME/.config/emacs" ]]; then
-    echo "  ${faint}Doom is not installed yet:${reset}"
-    echo "  ${faint}git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs && ~/.config/emacs/bin/doom install${reset}"
-    echo "  ${faint}then run dot apply again so config.el loads gus.el${reset}"
-  fi
+  "$HOME/.config/emacs/bin/doom" sync
   say "Done. Log out and log in on tty1: Hyprland starts by itself."
   say "Optional: dot extra"
 }

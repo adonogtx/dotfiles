@@ -12,7 +12,6 @@ common/fastfetch/                 ~/.config/fastfetch/
 common/bin/                       ~/.local/bin/
 common/keiko/blocklist            ~/.config/keiko/blocklist
 common/doom/gus.el                ~/.config/doom/gus.el
-common/templates/                 ~/.local/share/gus/templates/
 
 linux/hypr/                       ~/.config/hypr/
 linux/mako/                       ~/.config/mako/
