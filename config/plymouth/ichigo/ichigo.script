@@ -1,0 +1,77 @@
+# Boot screen, Dark Solid.
+# Ichi-go ichi-e (one time, one meeting) in Yuji Syuku, one password field and its dots. No spinner, no text
+# unless systemd sends a message. The phrase is a picture (phrase.png): the boot
+# screen runs before the disk is open, with no Japanese font to draw it from. Sizes are physical pixels for the 1080p panel
+# (the desktop's 1.25 scale is applied by hand: field 290 x 42 becomes 362 x 52).
+
+Window.SetBackgroundTopColor(0.086, 0.086, 0.094);      # bar #161618
+Window.SetBackgroundBottomColor(0.086, 0.086, 0.094);
+
+screen_x = Window.GetX();
+screen_y = Window.GetY();
+screen_w = Window.GetWidth();
+screen_h = Window.GetHeight();
+center_x = screen_x + screen_w / 2;
+
+# The phrase, a little above the middle.
+phrase_image = Image("phrase.png");
+phrase = Sprite(phrase_image);
+phrase_y = screen_y + screen_h / 2 - phrase_image.GetHeight() / 2 - 60;
+phrase.SetPosition(center_x - phrase_image.GetWidth() / 2, phrase_y, 10);
+
+# Password field, hidden until cryptsetup asks.
+field_image = Image("entry.png");
+field = Sprite(field_image);
+field_y = phrase_y + phrase_image.GetHeight() + 64;
+field.SetPosition(center_x - field_image.GetWidth() / 2, field_y, 20);
+field.SetOpacity(0);
+
+bullet_image = Image("bullet.png");
+bullet_gap = 5;
+bullet_step = bullet_image.GetWidth() + bullet_gap;
+bullet_max = Math.Int((field_image.GetWidth() - 32) / bullet_step);
+bullet_y = field_y + field_image.GetHeight() / 2 - bullet_image.GetHeight() / 2;
+dots_made = 0;
+
+# One line under the field for systemd messages (wrong password and the like).
+message = Sprite();
+message.SetPosition(center_x, field_y + field_image.GetHeight() + 20, 30);
+
+fun show_dots(count) {
+  if (count > global.bullet_max) {
+    count = global.bullet_max;
+  }
+  while (global.dots_made < count) {
+    global.dots[global.dots_made] = Sprite(global.bullet_image);
+    global.dots_made++;
+  }
+  left = global.center_x - (count * global.bullet_step - global.bullet_gap) / 2;
+  for (i = 0; i < global.dots_made; i++) {
+    if (i < count) {
+      global.dots[i].SetPosition(left + i * global.bullet_step, global.bullet_y, 30);
+      global.dots[i].SetOpacity(1);
+    } else {
+      global.dots[i].SetOpacity(0);
+    }
+  }
+}
+
+fun password_callback(prompt, bullets) {
+  global.field.SetOpacity(1);
+  show_dots(bullets);
+}
+
+fun normal_callback() {
+  global.field.SetOpacity(0);
+  show_dots(0);
+}
+
+fun message_callback(text) {
+  image = Image.Text(text, 0.596, 0.596, 0.616, 1);     # secondary #98989d
+  global.message.SetImage(image);
+  global.message.SetX(global.center_x - image.GetWidth() / 2);
+}
+
+Plymouth.SetDisplayPasswordFunction(password_callback);
+Plymouth.SetDisplayNormalFunction(normal_callback);
+Plymouth.SetMessageFunction(message_callback);

@@ -1,0 +1,16 @@
+# Ghostty · Dark Solid
+font-family = PlemolJP Console NF
+font-size = 13
+theme = dark-solid
+
+window-padding-x = 16
+window-padding-y = 12
+window-padding-balance = true
+window-decoration = false
+gtk-titlebar = false
+confirm-close-surface = false
+cursor-style = bar
+cursor-style-blink = false
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+shell-integration-features = no-cursor

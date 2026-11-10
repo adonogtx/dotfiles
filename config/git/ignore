@@ -1,0 +1,6 @@
+# ~/.config/git/ignore · global ignores, never project specific ones
+*~
+.#*
+\#*#
+*.swp
+.DS_Store

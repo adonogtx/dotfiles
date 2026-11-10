@@ -1,0 +1,10 @@
+# ~/.config/fcitx5/config · Ctrl + Space switches between English and Mozc
+[Hotkey]
+EnumerateWithTriggerKeys=True
+
+[Hotkey/TriggerKeys]
+0=Control+space
+
+[Behavior]
+ShareInputState=All
+ShowInputMethodInformation=False

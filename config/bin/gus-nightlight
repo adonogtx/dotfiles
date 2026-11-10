@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# gus-nightlight: toggles a warm screen (hyprsunset at 4500 K).
+set -euo pipefail
+if pgrep -x hyprsunset >/dev/null; then
+  pkill -x hyprsunset
+  notify-send --app-name=Display "Night light off"
+else
+  setsid -f hyprsunset --temperature 4500 >/dev/null 2>&1
+  notify-send --app-name=Display "Night light on"
+fi

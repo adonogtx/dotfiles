@@ -1,0 +1,18 @@
+# ~/.config/git/config
+[user]
+	name = Gustavo Thomaz Adono
+	email = 77490385+adonogtx@users.noreply.github.com
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[rebase]
+	autoStash = true
+[diff]
+	colorMoved = default
+[core]
+	editor = emacsclient -t -a ''

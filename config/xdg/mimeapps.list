@@ -1,0 +1,19 @@
+# ~/.config/mimeapps.list
+[Default Applications]
+x-scheme-handler/http=brave-browser.desktop
+x-scheme-handler/https=brave-browser.desktop
+text/html=brave-browser.desktop
+application/pdf=org.pwmt.zathura.desktop
+application/epub+zip=org.pwmt.zathura.desktop
+inode/directory=org.gnome.Nautilus.desktop
+image/png=imv.desktop
+image/jpeg=imv.desktop
+image/webp=imv.desktop
+image/gif=imv.desktop
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop
+audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+text/plain=emacsclient.desktop
+text/x-org=emacsclient.desktop

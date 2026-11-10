@@ -1,0 +1,19 @@
+#+title: help
+
+* captures (SPC X)
+| key | captures           | goes to                       |
+|-----+--------------------+-------------------------------|
+| t   | todo               | todo.org, inbox               |
+| l   | list item          | lists.org, refile             |
+| j   | job application    | career.org, applications      |
+| d   | daily note         | daily/YYYY-MM-DD.org          |
+
+* keys
+| keys    | does                     |
+|---------+--------------------------|
+| SPC n d | open today's daily note  |
+| SPC n h | open this file           |
+| SPC o a | agenda (todo and career) |
+
+* rule
+If configuring takes more than a day, go back to these four files.

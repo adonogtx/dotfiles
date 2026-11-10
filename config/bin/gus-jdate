@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Japanese date. short: 11月5日(木)   long: 11月5日 木曜日
+set -euo pipefail
+days=(日 月 火 水 木 金 土)
+d="${days[$(date +%w)]}"
+case "${1:-short}" in
+  long) printf '%s月%s日 %s曜日\n' "$(date +%-m)" "$(date +%-d)" "$d" ;;
+  *)    printf '%s月%s日(%s)\n' "$(date +%-m)" "$(date +%-d)" "$d" ;;
+esac

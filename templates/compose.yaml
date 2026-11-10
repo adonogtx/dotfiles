@@ -1,0 +1,31 @@
+# templates/compose.yaml · PostgreSQL for one Spring project
+# Copy into the project root as compose.yaml and rename "app" if you like.
+#
+# postgres:17 is pinned so pacman upgrades never touch this database.
+# Port 5433 on 127.0.0.1 only: Docker writes its own firewall rules around ufw,
+# and 5432 belongs to the local PostgreSQL from pacman.
+#
+# Spring: spring.datasource.url=jdbc:postgresql://localhost:5433/app
+#         spring.datasource.username=app, spring.datasource.password=app
+# The password is fine here only because the port is not reachable from outside.
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d app"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

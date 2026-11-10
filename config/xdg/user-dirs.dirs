@@ -1,0 +1,9 @@
+# ~/.config/user-dirs.dirs · pinned to your folder structure
+XDG_DESKTOP_DIR="$HOME"
+XDG_DOWNLOAD_DIR="$HOME/dump"
+XDG_DOCUMENTS_DIR="$HOME/docs"
+XDG_MUSIC_DIR="$HOME/library/music"
+XDG_PICTURES_DIR="$HOME/media/pictures"
+XDG_VIDEOS_DIR="$HOME/media/videos"
+XDG_TEMPLATES_DIR="$HOME"
+XDG_PUBLICSHARE_DIR="$HOME"
