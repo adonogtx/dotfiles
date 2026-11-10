@@ -8,7 +8,7 @@ Hyprland, the bar, login, lock, look and input. Topic blocks: **Decision, Why, N
 **Why:** Hyprland 0.57 removed the old `.conf` format. Modules keep each concern small.
 **Not chosen:** i3 (X11, IntelliJ glitches), Niri, Omarchy.
 **Where:** `config/hypr/hyprland.lua`, `config/hypr/modules/`
-**Status:** done. Dispatchers not in the upstream example (fullscreen, move window, resize mode, previous workspace) are isolated; check `hyprctl configerrors` on first start.
+**Status:** done. Dispatchers not in the upstream example (fullscreen, move window, resize mode, previous workspace) are isolated; check `hyprctl configerrors` on first start (clean on 2026-11-10).
 
 ## Windows
 
@@ -34,8 +34,8 @@ Blue only selects, green and red only report state. 4 px grid.
 Panels get depth without translucency: each surface falls one shade top to bottom (panel #232325 to #1c1c1e, tiles #2c2c2f to #262629), a 1 px edge in white at 4.5 to 7%, a 1 px light on the panel's top edge, one soft shadow. Motion: hover and press 140 ms; anything that changes shape 300 ms on cubic-bezier(0.16, 1, 0.3, 1); content fades in just after its panel. Section labels 10 px, uppercase, tracked.
 **Why:** One system, no theme switching. The depth and motion rules come from studying Ricelin (MIT).
 **Not chosen:** Gruvbox, Midnight Shibuya, Tokyo, Kanagawa (all tried in the decks). Palettes taken from the wallpaper (Impasto, Ricelin). Pure black terminal.
-**Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`
-**Status:** done. Ghostty theme tested on 2026-11-10.
+**Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`. Wallpaper: `assets/wallpapers/dark-solid.png`, copied to `~/.local/share/wallpapers/` (read by `theme.lua` and `hyprlock.conf`). GTK through gsettings (`docs/post-install.md`, step 3).
+**Status:** done. Ghostty theme tested on 2026-11-10. Wallpaper and gsettings were missed on the first install; applied 2026-11-10.
 
 ## Bar
 
@@ -61,19 +61,19 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 **Why:** Low friction: the basics in one place, nothing else. Capture and record stay on their keys.
 **Not chosen:** Separate menus per icon. Tiles grid, settings rows. Mixer faders. Display scale control (would break `base.md`, Hardware). Per-app volume.
 **Where:** `config/quickshell/MenuWindow.qml`, `ControlCenter.qml`, `*Section.qml`, `Calendar.qml`, shared pieces (`Tile`, `CircleButton`, `Slider`, `Segmented`, `Switch`, `ListItem`)
-**Status:** done. Wi-Fi tested only without NetworkManager (Omarchy uses iwd); confirm on the first boot.
+**Status:** done. Wi-Fi section to confirm with NetworkManager on the iwd backend (`base.md`, Network).
 
 ## Login
 
-**Decision:** Like Omarchy: Plymouth screen in Dark Solid shows 一期一会 in Yuji Syuku (brush, 64 px) and asks the LUKS password; SDDM then logs in automatically to `hyprland.desktop`. One password per boot. The phrase is an image (`phrase.png`) because the boot screen runs before any Japanese font is available. Password field 362 x 52 px, the same as hyprlock's. Silent boot: the kernel line in `/boot/limine.conf` adds `quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0`, so no text shows before Plymouth.
+**Decision:** Like Omarchy: Plymouth screen in Dark Solid shows 一期一会 in Yuji Syuku (brush, 64 px) and asks the LUKS password; SDDM then logs in automatically to `hyprland.desktop`. One password per boot. The phrase is an image (`phrase.png`) because the boot screen runs before any Japanese font is available. Password field 362 x 52 px, the same as hyprlock's. Silent boot: the kernel line in `/etc/default/limine` (`KERNEL_CMDLINE[default]`, full line) adds `quiet splash loglevel=3 systemd.show_status=auto rd.udev.log_level=3 vt.global_cursor_default=0`, so no text shows before Plymouth.
 **Why:** The disk password already proves who you are; the lock screen protects the running session.
-**Not chosen:** greetd + tuigreet (broke the first install, enabled before the session was tested). SDDM with a second password. Text LUKS prompt. The kamon (dropped). Musashi's phrase, Zen Kurenaido and IBM Plex on the boot screen.
-**Where:** `install/desktop.sh` (installs, never enables), `config/sddm/autologin.conf`, `config/plymouth/ichigo/`, `docs/post-install.md` step 4
-**Status:** done. Requires LUKS; without it autologin is unsafe. Theme name `ichigo` (renamed from `zenos` on 2026-11-10). Test from a text console with `plymouth-test.sh` (restores the previous theme). `plymouth` goes right after `systemd` (or `udev`), before `sd-encrypt` (or `encrypt`).
+**Not chosen:** greetd + tuigreet (broke the first install, enabled before the session was tested). SDDM with a second password. Text LUKS prompt. The kamon (dropped). Musashi's phrase, Zen Kurenaido and IBM Plex on the boot screen. A progress bar or spinner after the password (2026-11-10: the still image was NetworkManager-wait-online; disabling it fixed the wait, see `base.md`, Network).
+**Where:** `install/desktop.sh` (installs, never enables), `config/sddm/autologin.conf` (installed with `sed "s/@USER@/$USER/"`), `config/plymouth/ichigo/`, `/etc/default/limine`, `docs/post-install.md` step 4
+**Status:** done. Built and tested on 2026-11-10 (the first install had skipped it). Requires LUKS; without it autologin is unsafe. Theme name `ichigo` (renamed from `zenos` on 2026-11-10). Test from a text console with `plymouth-test.sh` (restores the previous theme). `plymouth` goes right after `systemd` (or `udev`), before `sd-encrypt` (or `encrypt`). After changing `HOOKS` or the kernel line run `sudo limine-mkinitcpio` and check the first `cmdline:` in `/boot/limine.conf`.
 
 ## Polkit agent
 
-**Decision:** hyprpolkitagent, enabled as a user service.
+**Decision:** hyprpolkitagent, started from `autostart.lua` (its user unit stays disabled).
 **Why:** GUI apps that need root (mounting a disk in Nautilus) fail silently without an agent.
 **Not chosen:** polkit-gnome (unmaintained). A Quickshell agent (security code we would own).
 **Where:** `install/desktop.sh`, `config/hypr/modules/autostart.lua`
@@ -98,7 +98,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 ## Icons and cursor
 
 **Decision:** WhiteSur dark icons, macOS cursor, Adwaita dark for GTK 3, prefer dark for GTK 4.
-**Where:** `install/icons.sh`, `config/gtk-3.0/`, `config/gtk-4.0/`
+**Where:** `install/icons.sh`, `config/gtk-3.0/`, `config/gtk-4.0/`, gsettings in `docs/post-install.md`, step 3
 **Status:** done
 
 ## Input
@@ -106,13 +106,13 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 **Decision:** Keyboard layout plain `us`, Caps Lock is Ctrl, touchpad natural scroll and tap. Japanese through fcitx5 + Mozc, Ctrl + Space to switch.
 **Not chosen:** us international or altgr-intl (accents not needed from the keyboard).
 **Where:** `config/hypr/modules/input.lua`, `config/fcitx5/`, `install/japanese.sh`
-**Status:** done
+**Status:** done. fcitx5 rewrites `profile` with comments; same settings, ignore the diff.
 
 ## Keys
 
 | Keys | Action |
 |---|---|
-| Super + Return / Space / B / E / D / I | Ghostty / Spotlight / Brave / Nautilus / Doom / IntelliJ |
+| Super + Return / Space / B / E / D / I | Ghostty / Spotlight / Brave Origin / Nautilus / Doom / IntelliJ |
 | Super + Q / F / V / T | Close / fullscreen / float / flip split |
 | Super + H J K L, + Shift | Focus, move window |
 | Super + R | Resize mode (H J K L, Escape) |

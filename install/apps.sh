@@ -9,7 +9,8 @@ images=(imv)
 everyday=(bitwarden discord)
 pac "${pdf[@]}" "${video[@]}" "${music[@]}" "${images[@]}" "${everyday[@]}"
 
-aur brave-bin mpv-uosc mpd-mpris anki-bin
+pac mpd-mpris anki
+aur brave-origin-bin mpv-uosc
 
 mkdir -p ~/.local/share/mpd/playlists ~/.local/state/mpd
 enable_user mpd

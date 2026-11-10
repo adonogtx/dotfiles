@@ -7,8 +7,8 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Decision:** Ghostty (PlemolJP 13, Dark Solid theme, no decorations) with zsh, oh my zsh (robbyrussell, autosuggestions, syntax highlighting), XDG folders, eza, zoxide, fzf, ripgrep, fd, bat, btop.
 **Why:** Native Wayland, one text config, fast.
 **Not chosen:** Kitty, Alacritty, fish. A custom prompt with user and path (2026-11-10: robbyrussell kept).
-**Where:** `install/terminal.sh`, `config/ghostty/`, `config/zsh/.zshrc`
-**Status:** done. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts).
+**Where:** `install/terminal.sh`, `config/ghostty/`, `config/zsh/.zshrc` (copied to `~/.zshrc`)
+**Status:** done. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). `.zshrc` was missed on the first install; copied 2026-11-10.
 
 ## Launcher: Spotlight
 
@@ -27,10 +27,11 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Browser
 
-**Decision:** Brave, main browser and web apps.
-**Not chosen:** Firefox, Zen.
-**Where:** `install/apps.sh` (brave-bin, AUR), `config/xdg/mimeapps.list`
-**Status:** done
+**Decision:** Brave Origin (`brave-origin`), main browser and web apps.
+**Why:** TODO (Gus): one line on why Origin over regular Brave.
+**Not chosen:** Firefox, Zen. Brave (`brave-bin`), replaced by Origin on 2026-11-10; two Braves would break principle 2.
+**Where:** `install/apps.sh` (brave-origin-bin, AUR), `config/xdg/mimeapps.list` (`brave-origin.desktop`), `config/hypr/modules/programs.lua` (`browser = "brave-origin"`)
+**Status:** done. The installed `~/.config/mimeapps.list` also carries a `claude-cli` handler (Claude Code login); keep it when copying.
 
 ## Files
 
@@ -45,7 +46,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency).
 **Rule:** if configuring takes more than a day, go back to these four files.
 **Where:** `install/editors.sh`, `config/doom/`, `org/` (starter files with the capture headings: inbox, refile, applications)
-**Status:** done
+**Status:** done. Starter files copied to `~/org` on 2026-11-10 with `cp -n`.
 
 ## Media and documents
 
@@ -53,16 +54,16 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 |---|---|---|
 | PDF | zathura + mupdf | dark chrome, page untouched, Ctrl + R inverts |
 | Video | mpv + uosc | Japanese subtitles first, IBM Plex Sans JP |
-| Music | mpd + rmpc | `~/library/music`, 127.0.0.1 only, media keys through mpd-mpris |
+| Music | mpd + rmpc | `~/library/music`, 127.0.0.1 only, media keys through mpd-mpris (official repos) |
 | Images | imv | |
 
-**Where:** `install/apps.sh`, `config/zathura/`, `config/mpv/`, `config/mpd/`
-**Status:** done. Open: `zathurarc` uses #141416 and #232325, outside the Dark Solid palette (use #1c1c1e and #2a2a2d)
+**Where:** `install/apps.sh`, `config/zathura/`, `config/mpd/`, `config/mpv/`
+**Status:** done. mpd and mpd-mpris are user services; enabled after login, they start on the next one. Open: `zathurarc` uses #141416 and #232325, outside the Dark Solid palette (use #1c1c1e and #2a2a2d)
 
 ## Utilities
 
-**Decision:** Bitwarden, Anki, Discord. Screenshots, recording and Night Shift through `gus-screenshot`, `gus-record`, `gus-nightlight`; files go to `~/media/pictures/screenshots` and `~/media/videos/recordings`.
-**Not chosen:** `gus-float` and floating TUIs (removed with the Control Center).
+**Decision:** Bitwarden, Anki (`anki`, official repos), Discord. Screenshots, recording and Night Shift through `gus-screenshot`, `gus-record`, `gus-nightlight`; files go to `~/media/pictures/screenshots` and `~/media/videos/recordings`.
+**Not chosen:** `gus-float` and floating TUIs (removed with the Control Center). `anki-bin` (no longer in the AUR). bluetui (removed 2026-11-10, see `desktop.md`, Bar).
 **Where:** `install/apps.sh`, `config/bin/`
 **Status:** done. Open: `config/bin/gus-jdate` is in the repo but not documented; record its use here or remove it.
 
@@ -70,4 +71,4 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 **Decision:** `~/dev`, `~/docs`, `~/dump` (downloads), `~/org`, `~/media/{pictures,videos}`, `~/library/{music,books,movies,series,animes,torrents}`, `~/backups`. XDG user dirs pinned to these; no Desktop, Downloads, Templates.
 **Where:** `install/base.sh`, `config/xdg/`
-**Status:** done
+**Status:** done. `xdg-user-dir DESKTOP` answers `~/Desktop` because the file sets it to `$HOME`; harmless while the folder does not exist.

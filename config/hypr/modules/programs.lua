@@ -1,7 +1,7 @@
 -- Apps launched from binds and autostart. Change them here only.
 return {
   terminal = "ghostty",
-  browser  = "brave",
+  browser  = "brave-origin",
   files    = "nautilus --new-window",
   editor   = "emacsclient -c -a ''",     -- starts the daemon on first use, inside Hyprland
   ide      = "intellij-idea-oss",
