@@ -96,7 +96,7 @@ Snapshots appear in the Limine menu through `limine-snapper-sync` (AUR); `limine
 
 **Why:** One stolen laptop or one open port is the realistic threat.
 **Where:** `install/system.sh`, `install/backend.sh`, `config/hypr/` (`modules/env.lua` sets `SSH_AUTH_SOCK`), `config/quickshell/WifiSection.qml`
-**Status:** done. ufw active (checked 2026-11-10). ssh-agent checked 2026-11-11: `ssh-agent.socket` enabled and active for the user, so `ssh-agent.service` is socket activated (`systemctl --user is-enabled` says indirect); the socket is `$XDG_RUNTIME_DIR/ssh-agent.socket`. Nothing in `install/` enables the socket yet. PostgreSQL auth (`pg_hba.conf`) not yet checked.
+**Status:** done. ufw active (checked 2026-11-10). ssh-agent checked 2026-11-11: `ssh-agent.socket` enabled and active for the user, so `ssh-agent.service` is socket activated (`systemctl --user is-enabled` says indirect); the socket is `$XDG_RUNTIME_DIR/ssh-agent.socket`. `install/system.sh` enables the socket (`enable_user ssh-agent.socket`, 2026-11-11). PostgreSQL auth (`pg_hba.conf`) not yet checked.
 
 ## Updates
 

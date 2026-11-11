@@ -23,6 +23,10 @@ sudo ufw default allow outgoing
 sudo ufw --force enable
 enable_system ufw
 
+# ssh-agent (openssh, from base.sh) starts on demand from its socket;
+# config/hypr/modules/env.lua points SSH_AUTH_SOCK at it (docs/base.md, Security).
+enable_user ssh-agent.socket
+
 if [[ ! -f /etc/snapper/configs/root ]]; then
   warn "snapper has no root config yet. Set it up by hand once, see docs/post-install.md (Snapshots)."
 fi
