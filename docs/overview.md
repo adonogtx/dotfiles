@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One bar on top, one panel for every control, Light Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, 一期一会 on the boot screen, and Musashi's phrase on the lock screen.
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One bar on top, one panel for every control, Light Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, and Musashi's phrase on the lock screen.
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -43,7 +43,7 @@ No symlinks, no Stow, no package list files.
 | 3 | Snapper setup by hand, timeline off, cleanup on (`base.md`, Snapshots) | `snapper list` shows a snapshot |
 | 4 | `./install.sh desktop fonts icons japanese terminal`, copy configs (including `~/.zshrc`, the wallpaper and the gsettings), `fc-cache -fr` | `start-hyprland` from the TTY shows the bar; new terminal shows the robbyrussell prompt |
 | 5 | Network fix (`base.md`, Network). Test `hyprlock` once, wrong password once; then the login, silent boot in `/etc/default/limine` and `sudo limine-mkinitcpio` (`docs/post-install.md`, step 4) | `nmcli device` connected; lock works; `HOOKS` has `plymouth` before the encrypt hook; first `cmdline:` in `/boot/limine.conf` starts with `cryptdevice=` |
-| 6 | Reboot | 一期一会 screen asks the password once, no text before it, desktop opens |
+| 6 | Reboot | Boot screen asks the password once, no text before it, desktop opens |
 | 7 | `./install.sh backend editors apps`, copy configs, `sudo usermod -aG docker "$USER"`, open IntelliJ once then copy `idea64.vmoptions` | Apps open from their keys; `groups` shows docker; IntelliJ checks in `dev.md`, IDE |
 
 The zip exported from Claude keeps the executable bits; only a repo uploaded through the GitHub website needs `chmod +x install.sh install/*.sh config/bin/*`.

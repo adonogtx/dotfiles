@@ -1,10 +1,11 @@
 # Boot screen, Light Solid (docs/desktop.md, Login; colors from docs/theme.md).
-# Ichi-go ichi-e (one time, one meeting) in Yuji Syuku, one password field and its dots. No spinner, no text
-# unless systemd sends a message. The phrase is a picture (phrase.png): the boot
-# screen runs before the disk is open, with no Japanese font to draw it from. Sizes are physical pixels for the 1080p panel
-# (the desktop's 1.25 scale is applied by hand: field 290 x 42 becomes 362 x 52, and
-# the lock's 120 px from phrase to field becomes 150). Same skeleton as the lock:
-# phrase centre at 44% of the height, field centre 150 px below it.
+# The Mori crest (ichimonji ni mitsuboshi) and one password field with its dots. After the
+# password the field fades and the word "loading" takes its place, breathing until the
+# desktop opens. No other text unless systemd sends a message. Crest and word are pictures
+# (kamon.png, loading.png): the boot screen runs before the system fonts are available.
+# Sizes are physical pixels for the 1080p panel (the desktop's 1.25 scale is applied by
+# hand: the lock's 290 x 42 field becomes 362 x 52).
+# Crest centre at 39% of the height, field centre 250 px below it.
 
 Window.SetBackgroundTopColor(0.965, 0.965, 0.973);      # bar #f6f6f8
 Window.SetBackgroundBottomColor(0.965, 0.965, 0.973);
@@ -15,20 +16,26 @@ screen_w = Window.GetWidth();
 screen_h = Window.GetHeight();
 center_x = screen_x + screen_w / 2;
 
-# The phrase, its centre at 44% of the height. It fades in (see refresh_callback).
-phrase_image = Image("phrase.png");
-phrase = Sprite(phrase_image);
-phrase_center_y = screen_y + screen_h * 0.44;
-phrase_y = phrase_center_y - phrase_image.GetHeight() / 2;
-phrase.SetPosition(center_x - phrase_image.GetWidth() / 2, phrase_y, 10);
-phrase.SetOpacity(0);
+# The crest, its centre at 39% of the height. It fades in (see refresh_callback).
+crest_image = Image("kamon.png");
+crest = Sprite(crest_image);
+crest_center_y = screen_y + screen_h * 0.39;
+crest.SetPosition(center_x - crest_image.GetWidth() / 2, crest_center_y - crest_image.GetHeight() / 2, 10);
+crest.SetOpacity(0);
 
-# Password field, hidden until cryptsetup asks; its centre 150 px below the phrase's.
+# Password field, hidden until cryptsetup asks; its centre 250 px below the crest's.
+field_center_y = crest_center_y + 250;
 field_image = Image("entry.png");
 field = Sprite(field_image);
-field_y = phrase_center_y + 150 - field_image.GetHeight() / 2;
+field_y = field_center_y - field_image.GetHeight() / 2;
 field.SetPosition(center_x - field_image.GetWidth() / 2, field_y, 20);
 field.SetOpacity(0);
+
+# "loading", in the field's place once the password is given.
+loading_image = Image("loading.png");
+loading = Sprite(loading_image);
+loading.SetPosition(center_x - loading_image.GetWidth() / 2, field_center_y - loading_image.GetHeight() / 2, 20);
+loading.SetOpacity(0);
 
 bullet_image = Image("bullet.png");
 bullet_gap = 5;
@@ -41,7 +48,7 @@ dots_made = 0;
 message = Sprite();
 message.SetPosition(center_x, field_y + field_image.GetHeight() + 20, 30);
 
-fun show_dots(count) {
+fun show_dots(count, opacity) {
   if (count > global.bullet_max) {
     count = global.bullet_max;
   }
@@ -53,19 +60,23 @@ fun show_dots(count) {
   for (i = 0; i < global.dots_made; i++) {
     if (i < count) {
       global.dots[i].SetPosition(left + i * global.bullet_step, global.bullet_y, 30);
-      global.dots[i].SetOpacity(1);
+      global.dots[i].SetOpacity(opacity);
     } else {
       global.dots[i].SetOpacity(0);
     }
   }
 }
 
-# Fade: 300 ms on cubic-bezier(0.16, 1, 0.3, 1). The refresh callback runs 50 times
-# a second, so 15 frames. The field appears just after the phrase has settled.
+# Fades: 300 ms on cubic-bezier(0.16, 1, 0.3, 1). The refresh callback runs 50 times
+# a second, so 15 frames. The field appears just after the crest has settled.
+# Breathing: 2 s per cycle (100 frames), opacity between 0.4 and 1.
 fade_frames = 15;
+breath_frames = 100;
 frame = 0;
-asking = 0;
+asking = 0;          # cryptsetup is waiting for the password
+answered = 0;        # a password was given at least once: show "loading" when not asking
 bullets_now = 0;
+out_frame = 0;       # frames since the password was given
 
 fun bezier(t, a, b) {
   return 3 * (1 - t) * (1 - t) * t * a + 3 * (1 - t) * t * t * b + t * t * t;
@@ -88,20 +99,39 @@ fun settle(x) {
 fun show_field() {
   if (global.asking && global.frame >= global.fade_frames) {
     global.field.SetOpacity(1);
-    show_dots(global.bullets_now);
-  } else {
+    show_dots(global.bullets_now, 1);
+    global.loading.SetOpacity(0);
+  } else if (!global.asking && !global.answered) {
     global.field.SetOpacity(0);
-    show_dots(0);
+    show_dots(0, 0);
+  }
+}
+
+# After the password: the field and its dots fade out while "loading" fades in over the
+# same 15 frames, then "loading" breathes from full opacity (cosine, so no jump).
+fun show_loading() {
+  global.out_frame++;
+  if (global.out_frame <= global.fade_frames) {
+    e = settle(global.out_frame / global.fade_frames);
+    global.field.SetOpacity(1 - e);
+    show_dots(global.bullets_now, 1 - e);
+    global.loading.SetOpacity(e);
+  } else {
+    t = (global.out_frame - global.fade_frames) / global.breath_frames;
+    global.loading.SetOpacity(0.7 + 0.3 * Math.Cos(2 * Math.Pi * t));
   }
 }
 
 fun refresh_callback() {
   if (global.frame < global.fade_frames) {
     global.frame++;
-    global.phrase.SetOpacity(settle(global.frame / global.fade_frames));
+    global.crest.SetOpacity(settle(global.frame / global.fade_frames));
     if (global.frame == global.fade_frames) {
       show_field();
     }
+  }
+  if (global.answered && !global.asking) {
+    show_loading();
   }
 }
 
@@ -111,7 +141,13 @@ fun password_callback(prompt, bullets) {
   show_field();
 }
 
+# Called when the prompt ends (password given) and also once at the start of boot,
+# before any prompt: "loading" only follows a prompt.
 fun normal_callback() {
+  if (global.asking) {
+    global.answered = 1;
+    global.out_frame = 0;
+  }
   global.asking = 0;
   show_field();
 }

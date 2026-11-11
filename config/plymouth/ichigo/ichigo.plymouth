@@ -1,6 +1,6 @@
 [Plymouth Theme]
 Name=ichigo
-Description=Light Solid boot screen: ichi-go ichi-e and one field for the LUKS password
+Description=Light Solid boot screen: the Mori crest and one field for the LUKS password
 ModuleName=script
 
 [script]
