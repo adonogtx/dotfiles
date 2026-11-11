@@ -63,7 +63,6 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 
 | Topic | Note |
 |---|---|
-| Light Solid | Decided 2026-11-11 (`desktop.md`, Theme). Done 2026-11-11: `docs/theme.md`, `Theme.qml` and `theme.lua`, every app (Doom: doom-one-light, IntelliJ Light), GTK and icons. Left: the wallpaper, `musashi.png` and `phrase.png`, the boot screen |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |
 | Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `jq` next to `slurp` and `python-gobject` next to `power-profiles-daemon` in `install/`; commit today's changes |
 | Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |

@@ -1,11 +1,13 @@
-# Boot screen, Dark Solid.
+# Boot screen, Light Solid (docs/desktop.md, Login; colors from docs/theme.md).
 # Ichi-go ichi-e (one time, one meeting) in Yuji Syuku, one password field and its dots. No spinner, no text
 # unless systemd sends a message. The phrase is a picture (phrase.png): the boot
 # screen runs before the disk is open, with no Japanese font to draw it from. Sizes are physical pixels for the 1080p panel
-# (the desktop's 1.25 scale is applied by hand: field 290 x 42 becomes 362 x 52).
+# (the desktop's 1.25 scale is applied by hand: field 290 x 42 becomes 362 x 52, and
+# the lock's 120 px from phrase to field becomes 150). Same skeleton as the lock:
+# phrase centre at 44% of the height, field centre 150 px below it.
 
-Window.SetBackgroundTopColor(0.086, 0.086, 0.094);      # bar #161618
-Window.SetBackgroundBottomColor(0.086, 0.086, 0.094);
+Window.SetBackgroundTopColor(0.965, 0.965, 0.973);      # bar #f6f6f8
+Window.SetBackgroundBottomColor(0.965, 0.965, 0.973);
 
 screen_x = Window.GetX();
 screen_y = Window.GetY();
@@ -13,16 +15,18 @@ screen_w = Window.GetWidth();
 screen_h = Window.GetHeight();
 center_x = screen_x + screen_w / 2;
 
-# The phrase, a little above the middle.
+# The phrase, its centre at 44% of the height. It fades in (see refresh_callback).
 phrase_image = Image("phrase.png");
 phrase = Sprite(phrase_image);
-phrase_y = screen_y + screen_h / 2 - phrase_image.GetHeight() / 2 - 60;
+phrase_center_y = screen_y + screen_h * 0.44;
+phrase_y = phrase_center_y - phrase_image.GetHeight() / 2;
 phrase.SetPosition(center_x - phrase_image.GetWidth() / 2, phrase_y, 10);
+phrase.SetOpacity(0);
 
-# Password field, hidden until cryptsetup asks.
+# Password field, hidden until cryptsetup asks; its centre 150 px below the phrase's.
 field_image = Image("entry.png");
 field = Sprite(field_image);
-field_y = phrase_y + phrase_image.GetHeight() + 64;
+field_y = phrase_center_y + 150 - field_image.GetHeight() / 2;
 field.SetPosition(center_x - field_image.GetWidth() / 2, field_y, 20);
 field.SetOpacity(0);
 
@@ -56,22 +60,69 @@ fun show_dots(count) {
   }
 }
 
+# Fade: 300 ms on cubic-bezier(0.16, 1, 0.3, 1). The refresh callback runs 50 times
+# a second, so 15 frames. The field appears just after the phrase has settled.
+fade_frames = 15;
+frame = 0;
+asking = 0;
+bullets_now = 0;
+
+fun bezier(t, a, b) {
+  return 3 * (1 - t) * (1 - t) * t * a + 3 * (1 - t) * t * t * b + t * t * t;
+}
+
+fun settle(x) {
+  lo = 0;
+  hi = 1;
+  for (i = 0; i < 16; i++) {
+    mid = (lo + hi) / 2;
+    if (bezier(mid, 0.16, 0.3) < x) {
+      lo = mid;
+    } else {
+      hi = mid;
+    }
+  }
+  return bezier((lo + hi) / 2, 1, 1);
+}
+
+fun show_field() {
+  if (global.asking && global.frame >= global.fade_frames) {
+    global.field.SetOpacity(1);
+    show_dots(global.bullets_now);
+  } else {
+    global.field.SetOpacity(0);
+    show_dots(0);
+  }
+}
+
+fun refresh_callback() {
+  if (global.frame < global.fade_frames) {
+    global.frame++;
+    global.phrase.SetOpacity(settle(global.frame / global.fade_frames));
+    if (global.frame == global.fade_frames) {
+      show_field();
+    }
+  }
+}
+
 fun password_callback(prompt, bullets) {
-  global.field.SetOpacity(1);
-  show_dots(bullets);
+  global.asking = 1;
+  global.bullets_now = bullets;
+  show_field();
 }
 
 fun normal_callback() {
-  global.field.SetOpacity(0);
-  show_dots(0);
+  global.asking = 0;
+  show_field();
 }
 
 fun message_callback(text) {
-  image = Image.Text(text, 0.596, 0.596, 0.616, 1);     # secondary #98989d
+  image = Image.Text(text, 0.431, 0.431, 0.451, 1);     # secondary #6e6e73
   global.message.SetImage(image);
   global.message.SetX(global.center_x - image.GetWidth() / 2);
 }
 
+Plymouth.SetRefreshFunction(refresh_callback);
 Plymouth.SetDisplayPasswordFunction(password_callback);
 Plymouth.SetDisplayNormalFunction(normal_callback);
 Plymouth.SetMessageFunction(message_callback);
