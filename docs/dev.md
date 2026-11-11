@@ -43,8 +43,8 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 ## API
 
 **Decision:** Bruno for my projects; collections live as `.bru` files inside each project repo. Postman (`postman-bin`, AUR) only for the DevDojo course.
-**Why:** Bruno: no account (Postman needs one and is heavy), collections versioned with the code, visible in the portfolio. Postman: the course uses it.
-**Not chosen:** httpie (duplicates Bruno). exercism CLI (exercises stay on the website).
+**Why:** Bruno: no account, collections versioned with the code, visible in the portfolio. Postman: the course uses it.
+**Not chosen:** Postman for my own projects (account, heavy). httpie (duplicates Bruno). exercism CLI (exercises stay on the website).
 **Where:** `install/backend.sh`
 **Status:** done. Postman installed 2026-11-11 for the DevDojo course.
 

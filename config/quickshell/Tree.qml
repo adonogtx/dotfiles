@@ -1,4 +1,4 @@
-// 木 (tree), in white at the left of the bar, before the workspaces.
+// 木 (tree), in label ink at the left of the bar, before the workspaces.
 import QtQuick
 
 Item {
