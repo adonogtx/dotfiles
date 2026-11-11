@@ -91,12 +91,12 @@ Snapshots appear in the Limine menu through `limine-snapper-sync` (AUR); `limine
 | Clipboard | history capped at 50, Super + Shift + C wipes it |
 | Docker | ports always published on 127.0.0.1 (Docker bypasses ufw) |
 | PostgreSQL | peer for local sockets, scram passwords for TCP |
-| SSH | client used (GitHub, dojo); server installed with openssh, never enabled |
+| SSH | client used (GitHub, dojo); server installed with openssh, never enabled; ssh-agent as a user service; its socket is exported to the session in env.lua |
 | Admin prompts | hyprpolkitagent (`desktop.md`, Polkit agent) |
 
 **Why:** One stolen laptop or one open port is the realistic threat.
-**Where:** `install/system.sh`, `install/backend.sh`, `config/hypr/`, `config/quickshell/WifiSection.qml`
-**Status:** done. ufw active (checked 2026-11-10). PostgreSQL auth (`pg_hba.conf`) not yet checked.
+**Where:** `install/system.sh`, `install/backend.sh`, `config/hypr/` (`modules/env.lua` sets `SSH_AUTH_SOCK`), `config/quickshell/WifiSection.qml`
+**Status:** done. ufw active (checked 2026-11-10). ssh-agent checked 2026-11-11: `ssh-agent.socket` enabled and active for the user, so `ssh-agent.service` is socket activated (`systemctl --user is-enabled` says indirect); the socket is `$XDG_RUNTIME_DIR/ssh-agent.socket`. Nothing in `install/` enables the socket yet. PostgreSQL auth (`pg_hba.conf`) not yet checked.
 
 ## Updates
 

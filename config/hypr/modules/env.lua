@@ -15,3 +15,7 @@ hl.env("QT_IM_MODULES", "wayland;fcitx")
 
 -- Own scripts (config/bin) for binds; SDDM sessions do not read ~/.zshrc.
 hl.env("PATH", os.getenv("HOME") .. "/.local/bin:" .. os.getenv("PATH"))
+
+-- SSH agent (base.md, Security): ssh-agent runs as a user service (socket activated);
+-- GUI apps and terminals started from Hyprland find it through this socket.
+hl.env("SSH_AUTH_SOCK", os.getenv("XDG_RUNTIME_DIR") .. "/ssh-agent.socket")
