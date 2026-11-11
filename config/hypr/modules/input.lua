@@ -8,7 +8,7 @@ hl.config({
     follow_mouse = 1,
     sensitivity  = 0,
     touchpad = {
-      natural_scroll = true,        -- macOS direction
+      natural_scroll = true,        -- content follows the fingers
       tap_to_click   = true,
       disable_while_typing = true,
     },

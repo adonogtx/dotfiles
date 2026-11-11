@@ -38,7 +38,7 @@ Singleton {
     readonly property int radiusItem: 5
     readonly property int fast: 150       // ms, every animation
 
-    // Panels, macOS style. Tiles sit 8 px inside an 18 px panel, so their corners are 10.
+    // Panels. Tiles sit 8 px inside an 18 px panel, so their corners are 10.
     readonly property int radiusPanel: 18
     readonly property int radiusTile: 10
     readonly property int panelPad: 8

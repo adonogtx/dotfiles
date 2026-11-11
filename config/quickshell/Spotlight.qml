@@ -1,6 +1,6 @@
 // Spotlight: search the installed apps, arrows to move, Enter to open, Escape to close.
 // Opens from the search icon, Super + Space, or: quickshell ipc call spotlight toggle
-// Nothing is listed until you type, like macOS.
+// Nothing is listed until you type.
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
@@ -25,7 +25,7 @@ PanelWindow {
     visible: shown
     color: "transparent"
     anchors { top: true }
-    // A quarter of the way down the screen, like macOS.
+    // A quarter of the way down the screen.
     margins { top: -4 + Math.round((spot.screen ? spot.screen.height : (Quickshell.screens[0] ? Quickshell.screens[0].height : 864)) * 0.25) }
     exclusiveZone: 0
     implicitWidth: 560 + Theme.shadowPad * 2

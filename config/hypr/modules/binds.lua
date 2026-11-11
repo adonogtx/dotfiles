@@ -73,7 +73,7 @@ hl.bind("Print",             exec("gus-screenshot screen"))
 bind("SHIFT + R",            exec("gus-record"))
 
 -- System
-bind("CTRL + Q",             exec("loginctl lock-session"))   -- macOS: Ctrl + Cmd + Q
+bind("CTRL + Q",             exec("loginctl lock-session"))
 bind("N",                    exec("gus-nightlight"))
 bind("SHIFT + W",            exec(app.menu .. " wifi"))
 bind("SHIFT + A",            exec(app.menu .. " sound"))

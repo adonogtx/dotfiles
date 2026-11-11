@@ -1,4 +1,4 @@
-// A macOS segmented control. options: [{ label, icon, value }]; the chosen one sits on a
+// A segmented control. options: [{ label, icon, value }]; the chosen one sits on a
 // lighter pill that glides between segments.
 import QtQuick
 

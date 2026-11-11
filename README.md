@@ -2,7 +2,7 @@
 
 personal arch linux & hyprland config
 
-Arch Linux + Hyprland on a ThinkPad T14 Gen 2i: a macOS like desktop in Dark Solid (no translucency), set in IBM Plex, with Doom Emacs for notes and IntelliJ for Java.
+Arch Linux + Hyprland on a ThinkPad T14 Gen 2i: a calm, keyboard driven desktop in Dark Solid (no translucency), set in IBM Plex, with Doom Emacs for notes and IntelliJ for Java.
 
 ## Principles
 
@@ -26,7 +26,7 @@ dotfiles/
 │   ├── system.sh              network, audio, bluetooth, power, firewall, snapshots, Limine hooks, Intel GPU
 │   ├── desktop.sh             Hyprland, Quickshell, hyprlock, hypridle, polkit agent, Plymouth, SDDM, portals, capture
 │   ├── fonts.sh               IBM Plex, PlemolJP, CJK, symbols
-│   ├── icons.sh               WhiteSur icons, macOS cursor, Adwaita dark
+│   ├── icons.sh               WhiteSur icons, cursor, Adwaita dark
 │   ├── japanese.sh            fcitx5 + Mozc
 │   ├── terminal.sh            Ghostty, zsh + oh my zsh, CLI tools
 │   ├── backend.sh             sdkman (Java, Maven, Gradle), Docker, PostgreSQL, DBeaver, IntelliJ, Bruno

@@ -1,4 +1,4 @@
-// Battery drawn like macOS: hairline outline, fill by charge in the bar ink, green charging, red low.
+// Battery: hairline outline, fill by charge in the bar ink, green charging, red low.
 import Quickshell.Services.UPower
 import QtQuick
 

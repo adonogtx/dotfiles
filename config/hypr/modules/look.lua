@@ -44,7 +44,7 @@ hl.config({
   },
 })
 
--- macOS feel: short, eased fades and a small scale on open (about 150 ms).
+-- Short, eased fades and a small scale on open (about 150 ms).
 hl.curve("mac", { type = "bezier", points = { {0.25, 1}, {0.5, 1} } })
 hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
 

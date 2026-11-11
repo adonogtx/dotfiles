@@ -1,4 +1,4 @@
-// Five tabs, like a macOS segmented control. A grey rounded square sits behind
+// Five tabs, like a segmented control. A grey rounded square sits behind
 // the active number; numbers with windows are grey, empty ones faint.
 import Quickshell.Hyprland
 import QtQuick

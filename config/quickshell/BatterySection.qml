@@ -92,7 +92,7 @@ Column {
                 color: Theme.label
             }
 
-            // A macOS segmented control: the chosen mode sits on a lighter pill.
+            // A segmented control: the chosen mode sits on a lighter pill.
             Rectangle {
                 width: parent.width
                 height: 28

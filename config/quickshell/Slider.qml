@@ -1,4 +1,4 @@
-// A macOS style slider: dark capsule, white fill with a dark icon drawn inside it.
+// A slider: dark capsule, white fill with a dark icon drawn inside it.
 // The fill glides to outside changes, follows the pointer exactly while dragging,
 // and the track lightens a touch under the pointer. value is 0..1.
 import QtQuick
