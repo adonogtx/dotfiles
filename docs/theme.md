@@ -11,7 +11,7 @@ One set of tokens, repeated in each program's own format. When you change a valu
 | tile | #ececf0 | Theme.qml, zathura background around pages (pages stand out), mako progress bar (progress is not a selection; label reads on both halves) |
 | line | #e0e0e4 | Theme.qml, workspace tab, 1 px edges |
 | terminal | #fbfbfc | ghostty/themes/light-solid |
-| label | #1d1d1f | everywhere |
+| label | #1d1d1f | everywhere; uosc timeline fill and active items |
 | secondary | #6e6e73 | Theme.qml, zathura statusbar, hyprlock placeholder |
 | tertiary | #aeaeb2 | Theme.qml, fuzzel placeholder, focused window border |
 | accent | #007aff | Control Center switches, Ghostty cursor and selection, zathura search, btop follow |

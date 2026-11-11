@@ -14,6 +14,7 @@ The five docs in `docs/` decide everything: `overview.md`, `base.md`, `desktop.m
 4. When a change is accepted, update the doc block it belongs to (Decision, Status) in the same change, and say which section changed.
 5. Before a command that touches boot, login or network, check the current state first and give a way back. Gus runs every `sudo` command himself.
 6. Never mention zenOS, macOS or Spotlight in docs, comments or files. Japanese appears only where `overview.md` allows it.
+   Exception: real package or theme identifiers inside commands and config files.
 7. Reply in Portuguese. Write file content, code, comments and commands in English. No emojis, no dashes in replies, tables are welcome. Downloads go to `~/dump`, never `~/Downloads`.
 
 ## Working

@@ -99,10 +99,10 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 
 ## Icons and cursor
 
-**Decision:** WhiteSur light icons, macOS cursor, Adwaita (light) for GTK 3, prefer light for GTK 4.
+**Decision:** WhiteSur light icons (`WhiteSur-light`), Apple cursor (`apple_cursor`), Adwaita (light) for GTK 3, prefer light for GTK 4.
 **Not chosen:** WhiteSur dark, Adwaita dark (until 2026-11-11, with Dark Solid).
 **Where:** `install/icons.sh`, `config/gtk-3.0/`, `config/gtk-4.0/`, gsettings in `docs/post-install.md`, step 3
-**Status:** to build (Light Solid, 2026-11-11). The dark set is installed today.
+**Status:** Light Solid (2026-11-11): `settings.ini` for GTK 3 and 4, fuzzel icons and the gsettings in `docs/post-install.md`, step 3, switched to light; done and tested 2026-11-11. Brave Origin follows `color-scheme` through `xdg-desktop-portal-gtk`.
 
 ## Input
 
