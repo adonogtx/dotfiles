@@ -61,7 +61,7 @@ Used only by `ghostty/themes/light-solid` and, through it, by every terminal pro
 | Pill icons | one line family (`Glyph.qml`, Tabler paths), stroke 1.8 on a 24 grid; sizes and colors in `pill-spec.md` |
 | Pill and Control Center | every size, color and motion in `pill-spec.md` |
 | Depth | each surface falls one shade top to bottom (panel #ffffff to #f7f7f9), a 1 px edge in line, one soft shadow under panels; no blur, no translucency |
-| Motion | hover and press 140 ms ease out; anything that changes shape 300 ms on cubic-bezier(0.16, 1, 0.3, 1); content fades in 60 ms after its panel; panels fade out in 180 ms |
+| Motion | hover and press 140 ms; anything that changes shape 300 ms on cubic-bezier(0.16, 1, 0.3, 1); content fades in 200 ms, 160 ms after the shape starts; on close, content fades out 120 ms before the shape shrinks (`pill-spec.md`, Motion) |
 | Labels | section headings 10 px, uppercase, tracked 1.2, secondary |
 | Shadow | 24 range, 12% black, no blur anywhere |
-| Animation | about 150 ms, ease out |
+| Window animation | about 150 ms, ease out (Hyprland, `desktop.md`, Windows) |
