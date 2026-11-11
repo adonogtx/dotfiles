@@ -4,11 +4,11 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Terminal and shell
 
-**Decision:** Ghostty (PlemolJP 13, Dark Solid theme, no decorations) with zsh, oh my zsh (robbyrussell, autosuggestions, syntax highlighting), XDG folders, eza, zoxide, fzf, ripgrep, fd, bat, btop.
+**Decision:** Ghostty (PlemolJP 13, Light Solid theme, no decorations) with zsh, oh my zsh (robbyrussell, autosuggestions, syntax highlighting), XDG folders, eza, zoxide, fzf, ripgrep, fd, bat, btop.
 **Why:** Native Wayland, one text config, fast.
 **Not chosen:** Kitty, Alacritty, fish. A custom prompt with user and path (2026-11-10: robbyrussell kept).
 **Where:** `install/terminal.sh`, `config/ghostty/`, `config/zsh/.zshrc` (copied to `~/.zshrc`)
-**Status:** done. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). `.zshrc` was missed on the first install; copied 2026-11-10.
+**Status:** done. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). `.zshrc` was missed on the first install; copied 2026-11-10. Light Solid theme to build (2026-11-11): background `terminal`, prompt colors dark enough to read on it.
 
 ## Launcher
 
@@ -16,14 +16,14 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Why:** Same look and motion as the rest of the bar; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
 **Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
-**Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
+**Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center. fuzzel colors to Light Solid (2026-11-11, to build).
 
 ## Notifications
 
-**Decision:** mako, top right, Dark Solid, 5 s, urgent ones stay.
+**Decision:** mako, top right, Light Solid, 5 s, urgent ones stay.
 **Why:** Works today; the Notification Center is v2 work, not a reason to change now.
 **Where:** `config/mako/`
-**Status:** done. Replaced by the Quickshell Notification Center in v2
+**Status:** done. Light Solid colors to build (2026-11-11). Replaced by the Quickshell Notification Center in v2
 
 ## Browser
 
@@ -41,24 +41,24 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Notes: Doom Emacs
 
-**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme doom-xcode. Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off.
+**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: a light Doom theme, to pick (doom-xcode until Light Solid). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off.
 **Why:** Agenda and capture already built; one text format for life.
 **Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency).
 **Rule:** if configuring takes more than a day, go back to these four files.
 **Where:** `install/editors.sh`, `config/doom/`, `org/` (starter files with the capture headings: inbox, refile, applications)
-**Status:** done. Starter files copied to `~/org` on 2026-11-10 with `cp -n`.
+**Status:** done. Starter files copied to `~/org` on 2026-11-10 with `cp -n`. Light theme to pick and set (2026-11-11).
 
 ## Media and documents
 
 | Job | App | Notes |
 |---|---|---|
-| PDF | zathura + mupdf | dark chrome, page untouched, Ctrl + R inverts |
+| PDF | zathura + mupdf | light chrome, page untouched, Ctrl + R inverts |
 | Video | mpv + uosc | Japanese subtitles first, IBM Plex Sans JP; audio only files keep the uosc timeline and controls on screen |
 | Music | mpd + rmpc | `~/library/music`, 127.0.0.1 only, media keys through mpd-mpris (official repos) |
 | Images | imv | |
 
 **Where:** `install/apps.sh`, `config/zathura/`, `config/mpd/`, `config/mpv/`
-**Status:** done. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Open: `zathurarc` uses #141416 and #232325, outside the Dark Solid palette (use #1c1c1e and #2a2a2d)
+**Status:** done. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Open: `zathurarc` still uses dark colors (#141416, #232325); move it to Light Solid (#ffffff, #ececf0). rmpc colors to check against Light Solid.
 
 ## Utilities
 

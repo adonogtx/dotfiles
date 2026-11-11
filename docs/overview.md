@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One bar on top, one panel for every control, Dark Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, 一期一会 on the boot screen, and Musashi's phrase on the lock screen.
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One bar on top, one panel for every control, Light Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, 一期一会 on the boot screen, and Musashi's phrase on the lock screen.
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -26,7 +26,7 @@ GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 | `config/<program>/` | Copied to `~/.config/<program>/` by hand |
 | `config/plymouth/ichigo/`, `config/sddm/`, `config/networkmanager/` | System files, copied with sudo (`docs/post-install.md`, step 4) |
 | `config/bin/` | Small scripts (`gus-*`), copied to `~/.local/bin/` |
-| `assets/wallpapers/` | Wallpaper (`dark-solid.png`, copied to `~/.local/share/wallpapers/`) |
+| `assets/wallpapers/` | Wallpaper (`light-solid.png`, copied to `~/.local/share/wallpapers/`) |
 | `org/` | Starter org files |
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
 | `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md` |
@@ -63,6 +63,7 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 
 | Topic | Note |
 |---|---|
+| Light Solid | Decided 2026-11-11 (`desktop.md`, Theme). To build in order: `docs/theme.md`, `Theme.qml` and `theme.lua`, each app, the wallpaper, `musashi.png` and `phrase.png`, icons and GTK. Pick the light Doom theme |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |
 | Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `jq` next to `slurp` and `python-gobject` next to `power-profiles-daemon` in `install/`; commit today's changes |
 | Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |
