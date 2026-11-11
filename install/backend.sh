@@ -8,6 +8,7 @@ database=(postgresql dbeaver)
 pac "${ide[@]}" "${containers[@]}" "${database[@]}"
 
 aur bruno-bin               # Bruno API client
+aur postman-bin             # Postman, only for the DevDojo course
 
 # Java toolchain through sdkman, kept in XDG data.
 export SDKMAN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/sdkman"

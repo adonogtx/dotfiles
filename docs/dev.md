@@ -8,7 +8,7 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 **Why:** Switch JDK versions per project without touching pacman.
 **Not chosen:** mise, pacman JDKs.
 **Where:** `install/backend.sh`, `config/zsh/.zshrc`
-**Status:** done. On JDK 23 and later, Lombok needs `annotationProcessorPaths` in the project's `maven-compiler-plugin` (start.spring.io projects already have it).
+**Status:** done. Default stays Java 25. Java 21 (`21.0.13.0+9-tem`) installed 2026-11-11 for the DevDojo course, pinned in `~/dev/devdojo/.sdkmanrc`. On JDK 23 and later, Lombok needs `annotationProcessorPaths` in the project's `maven-compiler-plugin` (start.spring.io projects already have it).
 
 ## IDE
 
@@ -42,11 +42,11 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 
 ## API
 
-**Decision:** Bruno for API calls; collections live as `.bru` files inside each project repo.
-**Why:** No account, collections versioned with the code, visible in the portfolio.
-**Not chosen:** Postman (account, heavy; most used in companies, but the skills transfer). httpie (duplicates Bruno). exercism CLI (exercises stay on the website).
+**Decision:** Bruno for my projects; collections live as `.bru` files inside each project repo. Postman (`postman-bin`, AUR) only for the DevDojo course.
+**Why:** Bruno: no account (Postman needs one and is heavy), collections versioned with the code, visible in the portfolio. Postman: the course uses it.
+**Not chosen:** httpie (duplicates Bruno). exercism CLI (exercises stay on the website).
 **Where:** `install/backend.sh`
-**Status:** done. Remove `httpie` and `exercism` from `install/backend.sh`.
+**Status:** done. Postman installed 2026-11-11 for the DevDojo course.
 
 ## Git
 
