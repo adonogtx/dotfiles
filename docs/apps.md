@@ -41,12 +41,12 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Notes: Doom Emacs
 
-**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: a light Doom theme, to pick (doom-xcode until Light Solid). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off.
+**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: doom-one-light (Light Solid, 2026-11-11). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off.
 **Why:** Agenda and capture already built; one text format for life.
-**Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency).
+**Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency). doom-xcode (the theme until 2026-11-11: dark, matched Dark Solid).
 **Rule:** if configuring takes more than a day, go back to these four files.
 **Where:** `install/editors.sh`, `config/doom/`, `org/` (starter files with the capture headings: inbox, refile, applications)
-**Status:** done. Starter files copied to `~/org` on 2026-11-10 with `cp -n`. Light theme to pick and set (2026-11-11).
+**Status:** done. Starter files copied to `~/org` on 2026-11-10 with `cp -n`. doom-one-light set, done and tested 2026-11-11.
 
 ## Media and documents
 

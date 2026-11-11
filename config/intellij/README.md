@@ -10,4 +10,4 @@ cp config/intellij/idea64.vmoptions ~/.config/JetBrains/<IdeaVersion>/idea64.vmo
 
 Or in IntelliJ: Help › Edit Custom VM Options, and paste the line.
 
-Look used in the deck: Settings › Appearance › Theme: Dark, New UI on, editor font PlemolJP Console NF 13.
+Look used in the deck: Settings › Appearance › Theme: IntelliJ Light, New UI on, editor font PlemolJP Console NF 13.

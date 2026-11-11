@@ -2,11 +2,11 @@
 
 (setq user-full-name "Gustavo Thomaz Adono")
 
-;;; Look: Takuya's type family, Xcode dark to match the desktop
+;;; Look: Takuya's type family, doom-one-light to match Light Solid
 (setq doom-font (font-spec :family "PlemolJP Console NF" :size 17)
       doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :size 17)
       doom-serif-font (font-spec :family "IBM Plex Serif" :size 17)
-      doom-theme 'doom-xcode
+      doom-theme 'doom-one-light
       display-line-numbers-type 'relative)
 
 ;;; Org: everything in ~/org, file names in English and lowercase

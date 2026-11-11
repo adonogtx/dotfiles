@@ -12,11 +12,11 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 
 ## IDE
 
-**Decision:** IntelliJ IDEA (`intellij-idea-oss` from the Arch repos), Dark theme, New UI, PlemolJP Console NF 13, native Wayland with `-Dawt.toolkit.name=WLToolkit`. Project SDK: the sdkman JDK.
-**Why:** Sharp text at 1.25, no XWayland glitches. Updates come with `pacman -Syu`, covered by snapshots. The package now ships the JetBrains Runtime, which fixed the old font and Markdown issues.
-**Not chosen:** VS Code, Doom for Java. JetBrains Toolbox (a second package manager, only worth it for a paid Ultimate license).
+**Decision:** IntelliJ IDEA (`intellij-idea-oss` from the Arch repos), IntelliJ Light theme, New UI, PlemolJP Console NF 13, native Wayland with `-Dawt.toolkit.name=WLToolkit`. Project SDK: the sdkman JDK.
+**Why:** IntelliJ Light keeps one palette for shell and apps (Light Solid). Sharp text at 1.25, no XWayland glitches. Updates come with `pacman -Syu`, covered by snapshots. The package now ships the JetBrains Runtime, which fixed the old font and Markdown issues.
+**Not chosen:** VS Code, Doom for Java. Dark theme (until 2026-11-11, with Dark Solid). JetBrains Toolbox (a second package manager, only worth it for a paid Ultimate license).
 **Where:** `install/backend.sh`, `config/intellij/`
-**Status:** done. First run checks: Help, About shows `sun.awt.wl.WLToolkit`; a `README.md` preview renders; New Project offers Spring Boot (if not, use start.spring.io). If the Markdown preview fails, reconsider Toolbox.
+**Status:** done. IntelliJ Light set by hand in Settings, Appearance (done and tested 2026-11-11). First run checks: Help, About shows `sun.awt.wl.WLToolkit`; a `README.md` preview renders; New Project offers Spring Boot (if not, use start.spring.io). If the Markdown preview fails, reconsider Toolbox.
 
 ## Containers
 
