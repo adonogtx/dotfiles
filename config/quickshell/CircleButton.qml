@@ -23,7 +23,7 @@ Item {
         scale: mouse.pressed ? 0.92 : 1
         Behavior on color { ColorAnimation { duration: 200; easing.type: Easing.OutCubic } }
         Behavior on scale { NumberAnimation { duration: Theme.fast; easing.type: Easing.OutCubic } }
-        Glyph { name: btn.icon; level: btn.level; color: Theme.label; width: 17; height: 17; anchors.centerIn: parent }
+        Glyph { name: btn.icon; level: btn.level; color: btn.on ? Theme.onAccent : Theme.label; width: 17; height: 17; anchors.centerIn: parent }
         MouseArea {
             id: mouse
             anchors.fill: parent

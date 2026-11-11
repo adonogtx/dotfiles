@@ -1,0 +1,27 @@
+# Light Solid palette. Background is the terminal token, text is label.
+# ANSI colors are Apple's high contrast light system colors, slots 1 to 6 at
+# 5:1 or more on the background; green is darker than the shell's green token.
+# Brights repeat the normals: the brighter light variants fall under 3:1.
+# Every slot is listed in docs/theme.md, ANSI palette (terminal only).
+background = #fbfbfc
+foreground = #1d1d1f
+cursor-color = #007aff
+selection-background = #007aff
+selection-foreground = #ffffff
+
+palette = 0=#1d1d1f
+palette = 1=#d70015
+palette = 2=#1f7a36
+palette = 3=#b25000
+palette = 4=#0040dd
+palette = 5=#8944ab
+palette = 6=#0071a4
+palette = 7=#aeaeb2
+palette = 8=#6e6e73
+palette = 9=#d70015
+palette = 10=#1f7a36
+palette = 11=#b25000
+palette = 12=#0040dd
+palette = 13=#8944ab
+palette = 14=#0071a4
+palette = 15=#e0e0e4

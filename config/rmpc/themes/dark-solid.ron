@@ -1,0 +1,179 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+// Dark Solid for rmpc. Tokens from docs/theme.md:
+// label #f5f5f7, secondary #98989d, tertiary #636366, line #38383a,
+// tile #2a2a2d, accent #0a84ff (selection only), green #30d158, red #ff453a.
+// Background stays the terminal's (#1c1c1e).
+(
+    default_album_art_path: None,
+    format_tag_separator: ", ",
+    browser_column_widths: [20, 38, 42],
+    background_color: None,
+    text_color: "#f5f5f7",
+    header_background_color: None,
+    modal_background_color: "#232325",
+    modal_backdrop: true,
+    preview_label_style: (fg: "#98989d"),
+    preview_metadata_group_style: (fg: "#f5f5f7", modifiers: "Bold"),
+    // Song that is playing
+    highlighted_item_style: (fg: "#f5f5f7", modifiers: "Bold"),
+    // Row under the cursor: blue only selects
+    current_item_style: (fg: "#f5f5f7", bg: "#0a84ff"),
+    borders_style: (fg: "#38383a"),
+    highlight_border_style: (fg: "#636366"),
+    symbols: (
+        song: "󰎈",
+        dir: "󰉋",
+        playlist: "󰲸",
+        marker: "●",
+        ellipsis: "…",
+        song_style: (fg: "#636366"),
+        dir_style: (fg: "#98989d"),
+        playlist_style: (fg: "#98989d"),
+    ),
+    level_styles: (
+        info: (fg: "#98989d"),
+        warn: (fg: "#f5f5f7"),
+        error: (fg: "#ff453a"),
+        debug: (fg: "#636366"),
+        trace: (fg: "#636366"),
+    ),
+    progress_bar: (
+        symbols: ["─", "─", "●", "─", "─"],
+        track_style: (fg: "#38383a"),
+        elapsed_style: (fg: "#f5f5f7"),
+        thumb_style: (fg: "#f5f5f7"),
+        use_track_when_empty: true,
+    ),
+    scrollbar: None,
+    tab_bar: (
+        active_style: (fg: "#f5f5f7", bg: "#2a2a2d", modifiers: "Bold"),
+        inactive_style: (fg: "#636366"),
+    ),
+    lyrics: (
+        timestamp: false
+    ),
+    browser_song_format: [
+        (
+            kind: Group([
+                (kind: Property(Track)),
+                (kind: Text("  ")),
+            ]),
+            style: (fg: "#636366"),
+        ),
+        (
+            kind: Group([
+                (kind: Property(Artist)),
+                (kind: Text("  ")),
+                (kind: Property(Title)),
+            ]),
+            default: (kind: Property(Filename))
+        ),
+    ],
+    // Untagged files fall back to the file name instead of "Unknown"
+    song_table_format: [
+        (
+            prop: (kind: Property(Title),
+                default: (kind: Property(Filename))
+            ),
+            label_prop: (kind: Text("Title")),
+            width: "50%",
+        ),
+        (
+            prop: (kind: Property(Artist), style: (fg: "#98989d"),
+                default: (kind: Text(""))
+            ),
+            label_prop: (kind: Text("Artist")),
+            width: "25%",
+        ),
+        (
+            prop: (kind: Property(Album), style: (fg: "#636366"),
+                default: (kind: Text(""))
+            ),
+            label_prop: (kind: Text("Album")),
+            width: "15%",
+        ),
+        (
+            prop: (kind: Property(Duration), style: (fg: "#636366"),
+                default: (kind: Text(""))
+            ),
+            label_prop: (kind: Text("Time")),
+            width: "10%",
+            alignment: Right,
+        ),
+    ],
+    layout: Split(
+        direction: Vertical,
+        panes: [
+            (size: "1", pane: Pane(Empty())),
+            (
+                size: "1",
+                pane: Split(
+                    direction: Horizontal,
+                    panes: [
+                        (size: "2", pane: Pane(Empty())),
+                        (size: "100%", pane: Pane(Tabs)),
+                        (size: "12", pane: Component("modes")),
+                        (size: "2", pane: Pane(Empty())),
+                    ]
+                )
+            ),
+            (pane: Pane(TabContent), size: "100%"),
+            (size: "1", pane: Pane(Empty())),
+            (size: "1", pane: Component("transport")),
+            (size: "1", pane: Pane(Empty())),
+        ],
+    ),
+    components: {
+        // Repeat, random, consume, single: grey when off, white when on
+        "modes": Pane(Property(
+            content: [
+                (kind: Property(Status(RepeatV2(
+                    on_label: " z", off_label: " z",
+                    on_style: (fg: "#f5f5f7", modifiers: "Bold"), off_style: (fg: "#38383a"),
+                )))),
+                (kind: Property(Status(RandomV2(
+                    on_label: " x", off_label: " x",
+                    on_style: (fg: "#f5f5f7", modifiers: "Bold"), off_style: (fg: "#38383a"),
+                )))),
+                (kind: Property(Status(ConsumeV2(
+                    on_label: " c", off_label: " c", oneshot_label: " c",
+                    on_style: (fg: "#f5f5f7", modifiers: "Bold"), off_style: (fg: "#38383a"),
+                    oneshot_style: (fg: "#98989d"),
+                )))),
+                (kind: Property(Status(SingleV2(
+                    on_label: " v", off_label: " v", oneshot_label: " v",
+                    on_style: (fg: "#f5f5f7", modifiers: "Bold"), off_style: (fg: "#38383a"),
+                    oneshot_style: (fg: "#98989d"),
+                )))),
+            ], align: Right
+        )),
+        // Bottom line: state, elapsed, bar, total, volume
+        "transport": Split(
+            direction: Horizontal,
+            panes: [
+                (size: "2", pane: Pane(Empty())),
+                (size: "3", pane: Pane(Property(content: [
+                    (kind: Transform(Replace(content: (kind: Property(Status(StateV2()))), replacements: [
+                        (match: "Playing", replace: (kind: Text("󰐊"), style: (fg: "#f5f5f7"))),
+                        (match: "Paused", replace: (kind: Text("󰏤"), style: (fg: "#98989d"))),
+                        (match: "Stopped", replace: (kind: Text("󰓛"), style: (fg: "#636366"))),
+                    ]))),
+                ], align: Left))),
+                (size: "6", pane: Pane(Property(content: [
+                    (kind: Property(Status(Elapsed)), style: (fg: "#98989d")),
+                ], align: Left))),
+                (size: "100%", pane: Pane(ProgressBar)),
+                (size: "7", pane: Pane(Property(content: [
+                    (kind: Property(Status(Duration)), style: (fg: "#636366")),
+                ], align: Right))),
+                (size: "3", pane: Pane(Empty())),
+                (size: "2", pane: Pane(Property(content: [(kind: Text("󰕾"), style: (fg: "#636366"))]))),
+                (size: "12", pane: Pane(Volume(kind: Slider(symbols: (filled: "─", thumb: "●", track: "─"), filled_style: (fg: "#f5f5f7"), thumb_style: (fg: "#f5f5f7"), track_style: (fg: "#38383a"))))),
+                (size: "4", pane: Pane(Property(content: [(kind: Property(Status(Volume)), style: (fg: "#98989d"))], align: Right))),
+                (size: "2", pane: Pane(Empty())),
+            ]
+        ),
+    },
+)

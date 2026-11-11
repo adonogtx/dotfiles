@@ -24,7 +24,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         color: item.current ? Theme.accent : Theme.line
         Behavior on color { ColorAnimation { duration: 200; easing.type: Easing.OutCubic } }
-        Glyph { name: item.icon; level: item.level; color: Theme.label; width: 13; height: 13; anchors.centerIn: parent }
+        Glyph { name: item.icon; level: item.level; color: item.current ? Theme.onAccent : Theme.label; width: 13; height: 13; anchors.centerIn: parent }
     }
     Text {
         anchors.left: circle.right

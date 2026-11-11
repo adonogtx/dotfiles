@@ -89,7 +89,7 @@ PanelWindow {
         layer.effect: MultiEffect {
             shadowEnabled: true
             shadowColor: "black"
-            shadowOpacity: 0.45
+            shadowOpacity: Theme.shadowOpacity
             shadowBlur: 1.0
             blurMax: 24
             shadowVerticalOffset: 8
@@ -104,15 +104,6 @@ PanelWindow {
         }
         Behavior on height {
             NumberAnimation { duration: Theme.glide; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.settle }
-        }
-
-        // A line of light along the top edge.
-        Rectangle {
-            x: Theme.radiusPanel
-            y: 1
-            width: parent.width - Theme.radiusPanel * 2
-            height: 1
-            color: Theme.sheen
         }
 
         Loader {

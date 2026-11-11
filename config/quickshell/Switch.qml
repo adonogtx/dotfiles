@@ -22,7 +22,7 @@ Rectangle {
         height: sw.knob
         width: area.pressed ? sw.knob + 4 : sw.knob
         radius: height / 2
-        color: Theme.label
+        color: Theme.onAccent
         x: sw.on ? sw.width - width - sw.inset : sw.inset
         Behavior on x { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
         Behavior on width { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }

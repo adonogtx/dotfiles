@@ -101,7 +101,7 @@ Column {
                     text: modelData.day
                     font.family: Theme.sans; font.pixelSize: 12
                     font.weight: modelData.isToday ? Font.Medium : Font.Normal
-                    color: modelData.isToday ? Theme.label : modelData.inMonth ? Theme.label : Theme.tertiary
+                    color: modelData.isToday ? Theme.onAccent : modelData.inMonth ? Theme.label : Theme.tertiary
                     opacity: modelData.inMonth ? 1 : 0.6
                 }
             }

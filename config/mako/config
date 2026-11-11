@@ -1,4 +1,4 @@
-# ~/.config/mako/config · Dark Solid banners, top right, 5 s
+# ~/.config/mako/config · Light Solid banners, top right, 5 s
 font=IBM Plex Sans 11
 width=360
 padding=12,16
@@ -11,11 +11,11 @@ max-icon-size=32
 default-timeout=5000
 anchor=top-right
 
-background-color=#1f1f21
-text-color=#f5f5f7
-border-color=#ffffff14
-progress-color=over #0a84ff
+background-color=#ffffff
+text-color=#1d1d1f
+border-color=#e0e0e4
+progress-color=over #ececf0
 
 [urgency=high]
-border-color=#ff453a
+border-color=#d70015
 default-timeout=0

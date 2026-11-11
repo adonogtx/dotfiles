@@ -1,7 +1,7 @@
-# Ghostty · Dark Solid
+# Ghostty · Light Solid
 font-family = PlemolJP Console NF
 font-size = 13
-theme = dark-solid
+theme = light-solid
 
 window-padding-x = 16
 window-padding-y = 12

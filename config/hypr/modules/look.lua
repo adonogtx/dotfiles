@@ -1,4 +1,4 @@
--- Dark Solid: opaque windows, hairline borders, one soft shadow, no blur.
+-- Light Solid: opaque windows, hairline borders, one soft shadow, no blur.
 local t = require("modules.theme")
 
 hl.config({

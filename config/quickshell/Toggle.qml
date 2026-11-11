@@ -26,7 +26,7 @@ Item {
         scale: circleMouse.pressed ? 0.92 : 1
         Behavior on color { ColorAnimation { duration: 200; easing.type: Easing.OutCubic } }
         Behavior on scale { NumberAnimation { duration: Theme.fast; easing.type: Easing.OutCubic } }
-        Glyph { name: row.icon; level: row.level; color: Theme.label; width: 14; height: 14; anchors.centerIn: parent }
+        Glyph { name: row.icon; level: row.level; color: row.on ? Theme.onAccent : Theme.label; width: 14; height: 14; anchors.centerIn: parent }
         MouseArea {
             id: circleMouse
             anchors.fill: parent

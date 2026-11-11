@@ -32,6 +32,11 @@ alias la="eza -la --git --group-directories-first"
 alias tree="eza --tree"
 alias e="emacsclient -c -a ''"
 
+# Light Solid in terminal tools. bat follows the ANSI palette (Ghostty theme);
+# fzf starts from its light scheme and keeps the terminal background.
+export BAT_THEME="ansi"
+export FZF_DEFAULT_OPTS="--color=light,fg:-1,bg:-1,hl:4,fg+:-1,bg+:#ececf0,hl+:4,gutter:-1,info:8,prompt:4,pointer:4,marker:2,spinner:8,header:8,border:#e0e0e4"
+
 # Java (sdkman, kept in XDG data). Keep this block last.
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"

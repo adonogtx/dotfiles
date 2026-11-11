@@ -101,7 +101,7 @@ PanelWindow {
         layer.effect: MultiEffect {
             shadowEnabled: true
             shadowColor: "black"
-            shadowOpacity: 0.5
+            shadowOpacity: Theme.shadowOpacity
             shadowBlur: 1.0
             blurMax: 32
             shadowVerticalOffset: 10
@@ -117,13 +117,6 @@ PanelWindow {
             NumberAnimation { duration: 220; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.settle }
         }
         clip: true
-
-        Rectangle {
-            x: Theme.radiusPanel; y: 1
-            width: parent.width - Theme.radiusPanel * 2
-            height: 1
-            color: Theme.sheen
-        }
 
         Column {
             id: column
@@ -221,7 +214,7 @@ PanelWindow {
                                 elide: Text.ElideRight
                                 font.family: Theme.sans
                                 font.pixelSize: Theme.body
-                                color: Theme.label
+                                color: hit.chosen ? Theme.onAccent : Theme.label
                             }
                             Text {
                                 id: kind
@@ -231,7 +224,7 @@ PanelWindow {
                                 text: hit.modelData.genericName || ""
                                 font.family: Theme.sans
                                 font.pixelSize: 11
-                                color: hit.chosen ? Qt.rgba(1, 1, 1, 0.75) : Theme.tertiary
+                                color: hit.chosen ? Qt.rgba(Theme.onAccent.r, Theme.onAccent.g, Theme.onAccent.b, 0.75) : Theme.tertiary
                                 Behavior on color { ColorAnimation { duration: 160 } }
                             }
                             MouseArea {

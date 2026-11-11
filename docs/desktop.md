@@ -29,13 +29,14 @@ Hyprland, the bar, login, lock, look and input. Topic blocks: **Decision, Why, N
 | tile | #ececf0 | tertiary | #aeaeb2 |
 | line | #e0e0e4 | accent | #007aff |
 | terminal | #fbfbfc | green, red | #248a3d, #d70015 |
+| on accent | #ffffff | | |
 
-Blue only selects, green and red only report state. 4 px grid.
+Blue only selects, green and red only report state. Text, glyphs and switch knobs on a blue fill use on accent. Window borders: line, tertiary when focused (one line color on both would hide focus). 4 px grid.
 Panels get depth without translucency: each surface falls one shade top to bottom (panel #ffffff to #f7f7f9), a 1 px edge in #e0e0e4, one soft shadow. Motion: hover and press 140 ms; anything that changes shape 300 ms on cubic-bezier(0.16, 1, 0.3, 1); content fades in just after its panel. Section labels 10 px, uppercase, tracked.
 **Why:** The dark theme felt heavy and tiring; a light palette reads calmer. One system, no theme switching. The depth and motion rules come from studying Ricelin (MIT).
 **Not chosen:** Dark Solid (the theme until 2026-11-11: felt heavy). Glass (blur and translucency reverse Windows). Gruvbox, Midnight Shibuya, Tokyo, Kanagawa (all tried in the decks). Palettes taken from the wallpaper (Impasto, Ricelin). Pure white terminal.
 **Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`. Wallpaper: `assets/wallpapers/light-solid.png`, copied to `~/.local/share/wallpapers/` (read by `theme.lua` and `hyprlock.conf`). GTK through gsettings (`docs/post-install.md`, step 3).
-**Status:** to build (decided 2026-11-11). Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then each app, then the wallpaper, lock and boot images.
+**Status:** building (decided 2026-11-11). Step 1, `docs/theme.md`, done 2026-11-11. Step 2, `Theme.qml` and `theme.lua`, done and tested 2026-11-11; wallpaper stays `dark-solid.png` until step 5. Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then each app, then the wallpaper, lock and boot images.
 
 ## Bar
 
