@@ -36,7 +36,7 @@ Panels get depth without translucency: each surface falls one shade top to botto
 **Why:** The dark theme felt heavy and tiring; a light palette reads calmer. One system, no theme switching. The depth and motion rules come from studying Ricelin (MIT).
 **Not chosen:** Dark Solid (the theme until 2026-11-11: felt heavy). Glass (blur and translucency reverse Windows). Gruvbox, Midnight Shibuya, Tokyo, Kanagawa (all tried in the decks). Palettes taken from the wallpaper (Impasto, Ricelin). Pure white terminal.
 **Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`. Wallpaper: `assets/wallpapers/light-solid.png`, copied to `~/.local/share/wallpapers/` (read by `theme.lua` and `hyprlock.conf`). GTK through gsettings (`docs/post-install.md`, step 3).
-**Status:** building (decided 2026-11-11). Step 1, `docs/theme.md`, done 2026-11-11. Step 2, `Theme.qml` and `theme.lua`, done and tested 2026-11-11; wallpaper stays `dark-solid.png` until step 5. Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then each app, then the wallpaper, lock and boot images.
+**Status:** building (decided 2026-11-11). Step 1, `docs/theme.md`, done 2026-11-11. Step 2, `Theme.qml` and `theme.lua`, done and tested 2026-11-11; wallpaper `light-solid.png` set in `theme.lua` 2026-11-11 (step 5). Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then each app, then the wallpaper, lock and boot images.
 
 ## Bar
 
@@ -87,7 +87,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 **Why:** Maintained upstream; a custom lock is security code we would own. Boot and lock read as one family: same axis, same field, same place; only the phrase changes.
 **Not chosen:** Quickshell lock (v3, after it is tested). The 2026-11-09 layout (100 px clock in the middle, field 240 px from the bottom). The phrase in a vertical column (2026-11-10).
 **Where:** `config/hypr/hyprlock.conf`, `config/hypr/musashi.png`, `config/hypr/hypridle.conf`
-**Status:** to build (decided 2026-11-10). `musashi.png` in label ink and the field in Light Solid colors (2026-11-11). Test with `hyprlock` from a terminal before replacing the old file; the old one stays in git.
+**Status:** done and tested 2026-11-11: `musashi.png` in label ink (656 x 76), field, date and caption in Light Solid tokens, background `light-solid.png`. The image `size` is 61 (76 / 1.25) so `musashi.png` shows at its real 76 px: sharp, and the same 64 px brush as the boot phrase; the caption sits 14 px below it. Offsets are logical pixels for the laptop panel (1536 x 864 at 1.25); another monitor size moves the 44% point. Test with `hyprlock` from a terminal before replacing the old file; the old one stays in git.
 
 ## Fonts
 
