@@ -1,4 +1,4 @@
-// One line icon. Every icon shares the same stroke, so the bar reads as one family.
+// One line icon. Every icon shares the same stroke, so the pill reads as one family.
 // level: Wi-Fi 0..3 arcs, sound 0..2 waves; -1 draws every part.
 // Paths adapted from Tabler Icons (MIT License, https://tabler.io/icons), 24 x 24 grid.
 // Parts that are off draw faint, which is how Wi-Fi and sound show their level.
@@ -27,23 +27,29 @@ Item {
     readonly property var simple: ({
         "bluetooth": ["M7 8l10 8l-5 4l0 -16l5 4l-10 8"],
         "search": ["M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0", "M21 21l-6 -6"],
-        "adjustments": [
-            "M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 6l8 0", "M16 6l4 0",
-            "M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 12l2 0", "M10 12l10 0",
-            "M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 18l11 0", "M19 18l1 0"
-        ],
         "sun": [
             "M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0",
             "M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"
         ],
-        "camera": [
-            "M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2",
-            "M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"
-        ],
-        "record": ["M12 12m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"],
         "chevron-right": ["M9 6l6 6l-6 6"],
         "chevron-left": ["M15 6l-6 6l6 6"],
         "check": ["M5 12l5 5l10 -10"],
+        "database": [
+            "M4 6a8 3 0 1 0 16 0a8 3 0 1 0 -16 0",
+            "M4 6v6a8 3 0 0 0 16 0v-6",
+            "M4 12v6a8 3 0 0 0 16 0v-6"
+        ],
+        "calendar": [
+            "M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z",
+            "M16 3v4", "M8 3v4", "M4 11h16"
+        ],
+        "cup": [
+            "M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1",
+            "M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2",
+            "M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2",
+            "M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z",
+            "M16.746 16.726a3 3 0 1 0 .252 -5.555"
+        ],
         "moon": ["M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"],
         "battery": ["M6 7h11a2 2 0 0 1 2 2v.5a.5 .5 0 0 0 .5 .5a.5 .5 0 0 1 .5 .5v3a.5 .5 0 0 1 -.5 .5a.5 .5 0 0 0 -.5 .5v.5a2 2 0 0 1 -2 2h-11a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2"],
         "bolt": ["M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"],

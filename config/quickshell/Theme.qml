@@ -10,13 +10,14 @@ Singleton {
     readonly property color panel: "#ffffff"
     readonly property color tile: "#ececf0"
     readonly property color line: "#e0e0e4"
-    readonly property color hairline: line
 
     // Text
     readonly property color label: "#1d1d1f"
     readonly property color secondary: "#6e6e73"
     readonly property color tertiary: "#aeaeb2"
-    readonly property color onAccent: panel        // text and glyphs on an accent fill
+    // "on accent" in theme.md. Not named onAccent: QML reads on + capital as a signal handler,
+    // and the property silently stayed black.
+    readonly property color textOnAccent: panel    // text and glyphs on an accent fill
 
     // Meaning
     readonly property color accent: "#007aff"
@@ -27,30 +28,37 @@ Singleton {
     readonly property string sans: "IBM Plex Sans"
     readonly property string jp: "IBM Plex Sans JP"
     readonly property int body: 13
-    readonly property int detail: 12
 
     // Grid
-    readonly property int barHeight: 28
     readonly property int icon: 16
-    readonly property int itemPad: 5      // horizontal padding inside a bar item
-    readonly property int itemGap: 2      // space between bar items
-    readonly property int edge: 12        // bar padding at the screen edges
-    readonly property int radiusItem: 5
-    readonly property int fast: 150       // ms, every animation
+    readonly property int fast: 140       // ms, hover and press (pill-spec.md, Motion)
 
-    // Panels. Tiles sit 8 px inside an 18 px panel, so their corners are 10.
+    // Panels (the Launcher).
     readonly property int radiusPanel: 18
-    readonly property int radiusTile: 10
-    readonly property int panelPad: 8
-    readonly property int tilePad: 12
-    readonly property int controlWidth: 320
+
+    // Pill (desktop.md, Bar; exact values in docs/pill-spec.md).
+    readonly property int pillTop: 12         // from the screen's top edge
+    readonly property int pillHeight: 34      // rounding is full: radius 17 at rest
+    readonly property int pillPad: 13         // text to the pill's ends
+    readonly property int pillGap: 10         // between items at rest
+    readonly property int pillText: 15        // date and time
+    readonly property int pillOpenWidth: 480
+    readonly property int calendarWidth: 384
+    readonly property int openRadius: 21
+    readonly property int openTop: 14         // date strip to the first block
+    readonly property int openSide: 19
+    readonly property int openBottom: 19
+    readonly property int blockGap: 14        // between blocks of the open panel
+    readonly property int rowHeight: 40       // list rows in Wi-Fi and Bluetooth
+    // Small shadows under white parts: slider fill, switch knob, chosen segment (black, 0 1 3).
+    readonly property real fillShadow: 0.18
+    readonly property real knobShadow: 0.25
+    readonly property real segmentShadow: 0.15
 
     // Depth without translucency: each surface falls one shade from top to bottom,
     // has a 1 px edge in line, and the panel casts one soft shadow (no blur anywhere).
     readonly property color panelTop: panel
     readonly property color panelBottom: "#f7f7f9"
-    readonly property color tileTop: tile
-    readonly property color tileBottom: Qt.darker(tile, 1.02)
     readonly property color rim: line
     readonly property color edgeSoft: line
     readonly property color wash: Qt.rgba(0, 0, 0, 0.04)        // hover
@@ -58,7 +66,6 @@ Singleton {
     readonly property int shadowPad: 28                          // room around a panel for its shadow
     readonly property real shadowOpacity: 0.12                    // black, under every panel
     readonly property color lineHover: Qt.darker(line, 1.06)     // a grey control under the pointer
-    readonly property color labelSoft: Qt.rgba(label.r, label.g, label.b, 0.8) // list text that is not the current one
 
     // Motion: quick for hover, slow settle for anything that changes shape.
     readonly property int glide: 300

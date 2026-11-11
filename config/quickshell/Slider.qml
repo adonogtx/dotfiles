@@ -1,14 +1,16 @@
-// A slider: dark capsule, white fill with a dark icon drawn inside it.
-// The fill glides to outside changes, follows the pointer exactly while dragging,
-// and the track lightens a touch under the pointer. value is 0..1.
+// A slider (pill-spec.md, Sliders): light track in line, white fill with a small shadow,
+// the icon in secondary inside the fill, 7 from its left edge. The fill is never dark.
+// The fill glides to outside changes and follows the pointer exactly while dragging.
+// value is 0..1.
 import QtQuick
+import QtQuick.Effects
 
 Item {
     id: slider
     property real value: 0
     property string icon
     property int level: -1
-    property int barHeight: 22
+    property int barHeight: 24
     signal moved(real v)
 
     implicitHeight: barHeight
@@ -17,31 +19,38 @@ Item {
     Rectangle {
         id: track
         anchors.fill: parent
-        radius: height / 2
+        radius: 12
         color: area.containsMouse || area.pressed ? Theme.lineHover : Theme.line
         Behavior on color { ColorAnimation { duration: Theme.fast } }
-        clip: true
 
         Rectangle {
             id: fill
             width: Math.max(track.height, track.width * slider.clamped)
             height: track.height
-            radius: track.radius
-            color: Theme.label
+            radius: 12
+            color: Theme.panel
             Behavior on width {
                 enabled: !area.pressed
                 NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+            }
+
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                shadowEnabled: true
+                shadowColor: "black"
+                shadowOpacity: Theme.fillShadow
+                shadowBlur: 0.5
+                blurMax: 6
+                shadowVerticalOffset: 1
             }
         }
         Glyph {
             visible: slider.icon !== ""
             name: slider.icon
             level: slider.level
-            color: Theme.panel
-            stroke: 2
+            color: Theme.secondary
             width: 13; height: 13
-            anchors.left: parent.left
-            anchors.leftMargin: (track.height - 13) / 2 + 1
+            x: 7
             anchors.verticalCenter: parent.verticalCenter
         }
     }

@@ -34,7 +34,7 @@ for key, dir in pairs({ H = "left", J = "down", K = "up", L = "right" }) do
   bind(key, hl.dsp.focus({ direction = dir }))
 end
 
--- Workspaces 1 to 5 (the bar shows five dots), also from the upstream example
+-- Workspaces 1 to 5 (the pill shows five dots), also from the upstream example
 for i = 1, 5 do
   bind(tostring(i),     hl.dsp.focus({ workspace = i }))
   bind("SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))

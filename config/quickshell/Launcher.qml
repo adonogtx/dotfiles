@@ -214,7 +214,7 @@ PanelWindow {
                                 elide: Text.ElideRight
                                 font.family: Theme.sans
                                 font.pixelSize: Theme.body
-                                color: hit.chosen ? Theme.onAccent : Theme.label
+                                color: hit.chosen ? Theme.textOnAccent : Theme.label
                             }
                             Text {
                                 id: kind
@@ -224,7 +224,7 @@ PanelWindow {
                                 text: hit.modelData.genericName || ""
                                 font.family: Theme.sans
                                 font.pixelSize: 11
-                                color: hit.chosen ? Qt.rgba(Theme.onAccent.r, Theme.onAccent.g, Theme.onAccent.b, 0.75) : Theme.tertiary
+                                color: hit.chosen ? Qt.rgba(Theme.textOnAccent.r, Theme.textOnAccent.g, Theme.textOnAccent.b, 0.75) : Theme.tertiary
                                 Behavior on color { ColorAnimation { duration: 160 } }
                             }
                             MouseArea {

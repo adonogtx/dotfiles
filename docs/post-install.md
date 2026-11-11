@@ -10,7 +10,7 @@ Install with `archinstall`:
 |---|---|---|
 | Disk | btrfs, default subvolumes (`@`, `@home`, `@log`, `@pkg`, `@.snapshots`) | snapshots in step 2 expect this layout |
 | Encryption | **LUKS, on** | a stolen laptop is otherwise an open book; autologin depends on it |
-| Network | NetworkManager | the bar's Wi-Fi menu talks to it; `nmtui` works before there is a desktop |
+| Network | NetworkManager | the pill's Wi-Fi section talks to it; `nmtui` works before there is a desktop |
 | Audio | PipeWire | `pipewire-pulse` conflicts with PulseAudio and `--noconfirm` would stop there |
 | Profile | minimal, no desktop | everything else comes from this repo |
 | User | yours, with sudo | the scripts refuse to run as root |
@@ -74,7 +74,7 @@ Check, in this order:
 1. `hyprctl configerrors` prints nothing. A broken module shows a red notification and the others still load.
 2. Super + Return opens Ghostty. This bind is first in `binds.lua` so you always have a terminal.
 3. **Test the lock before you trust it:** run `hyprlock` from Ghostty, unlock, then try a wrong password once. If hyprlock fails to start, idle and suspend will not lock the screen, and autologin would leave the session open.
-4. The bar shows five dots, Ctrl + Space shows あ in it.
+4. Switching workspace shows the five dots in the pill; with Ctrl + Space, あ in the open pill's footer turns to full ink.
 
 Super + Shift + E logs out back to the TTY. Keep `Ctrl + Alt + F2` in mind: a text login always works there.
 
@@ -179,8 +179,8 @@ systemctl --user start mpd mpd-mpris
 | Login loops after boot | Ctrl + Alt + F2, `sudo systemctl disable sddm`, reboot, read `journalctl -b -1 -u sddm` |
 | LUKS password asked in text, no Plymouth | `plymouth` is missing from `HOOKS` or after `sd-encrypt`; fix, `sudo mkinitcpio -P` |
 | Lock screen shows a crash message | Ctrl + Alt + F3, log in as yourself, run `WAYLAND_DISPLAY=wayland-1 hyprlock`, then go back with Ctrl + Alt + F1 |
-| Bar is gone | `quickshell` from a terminal shows the QML error |
-| Workspace dots do not switch on click | Your Hyprland may still accept the old dispatcher text: change the line in `Workspaces.qml` to `Hyprland.dispatch("workspace " + parent.wsId)` |
+| Pill is gone | `quickshell` from a terminal shows the QML error |
+| Workspace dots do not switch on click | Your Hyprland may still accept the old dispatcher text: change the line in `WorkspaceDots.qml` to `Hyprland.dispatch("workspace " + dot.wsId)` |
 | An update broke the system | Boot the previous snapshot from the boot menu, or restore `@` by hand (step 2) |
 
 ## Optional

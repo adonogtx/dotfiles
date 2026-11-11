@@ -13,14 +13,14 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 ## Launcher
 
 **Decision:** Launcher in Quickshell on Super + Space: centred a third of the way down the screen, placeholder "Search", nothing listed until you type, ranked app results with 28 px icons on 42 px rows, a blue highlight that glides between them, Enter opens, Escape closes. fuzzel stays only as the clipboard history picker (Super + C).
-**Why:** Same look and motion as the rest of the bar; a plain name, no borrowed product names; one less app styled separately.
+**Why:** Same look and motion as the rest of the pill; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
 **Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
 **Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center. fuzzel colors to Light Solid (2026-11-11): panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border; done and tested 2026-11-11. Icon theme stays WhiteSur-dark until the icons step.
 
 ## Notifications
 
-**Decision:** mako, top right, Light Solid, 5 s, urgent ones stay.
+**Decision:** mako, top right, 12 from the top and right edges, Light Solid, 5 s, urgent ones stay.
 **Why:** Works today; the Notification Center is v2 work, not a reason to change now.
 **Where:** `config/mako/`
 **Status:** done. Light Solid colors (2026-11-11): panel background, label text, line border, red border when urgent, progress bar in tile (not accent: progress is not a selection, and label text stays readable over both halves); done and tested 2026-11-11. Replaced by the Quickshell Notification Center in v2

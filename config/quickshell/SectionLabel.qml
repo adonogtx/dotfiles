@@ -1,4 +1,5 @@
-// Small tracked heading inside a tile: OUTPUT, OTHER NETWORKS.
+// Small tracked label (pill-spec.md): DISPLAY, OUTPUT, OTHER NETWORKS.
+// 10, uppercase, tracking 1.2, secondary.
 import QtQuick
 
 Text {
@@ -7,6 +8,5 @@ Text {
     font.weight: Font.Medium
     font.capitalization: Font.AllUppercase
     font.letterSpacing: Theme.labelTracking
-    color: Theme.tertiary
-    leftPadding: 4
+    color: Theme.secondary
 }

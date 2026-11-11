@@ -86,7 +86,7 @@ Snapshots appear in the Limine menu through `limine-snapper-sync` (AUR); `limine
 | Disk | LUKS, required (autologin depends on it) |
 | Firewall | ufw: deny incoming, allow outgoing |
 | Lock | hyprlock at 5 min idle and before suspend |
-| Bar commands | argument lists only, never shell strings with outside text |
+| Pill commands | argument lists only, never shell strings with outside text |
 | Wi-Fi passwords | typed in the Control Center, sent to nmcli through stdin, never on a command line |
 | Clipboard | history capped at 50, Super + Shift + C wipes it |
 | Docker | ports always published on 127.0.0.1 (Docker bypasses ufw) |
@@ -114,6 +114,6 @@ Snapshots appear in the Limine menu through `limine-snapper-sync` (AUR); `limine
 | LUKS password asked in text, no boot screen | `plymouth` missing from `HOOKS` or placed after the encrypt hook, or `splash` missing from `/etc/default/limine`; fix, `sudo limine-mkinitcpio` |
 | Boot hangs with no text | In the Limine menu press E, remove `quiet splash`, boot to see the messages |
 | Lock crashed | Ctrl + Alt + F3, log in, `WAYLAND_DISPLAY=wayland-1 hyprlock`, back with Ctrl + Alt + F1 |
-| Bar gone | Run `quickshell` in a terminal to see the file and line |
+| Pill gone | Run `quickshell` in a terminal to see the file and line |
 | Wi-Fi drops every few seconds | Two daemons on `wlan0`: `systemctl is-active wpa_supplicant iwd systemd-networkd` must read inactive, active, inactive (see Network) |
 | Update broke the system | Boot the previous snapshot from the Limine menu |

@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One bar on top, one panel for every control, Light Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, and Musashi's phrase on the lock screen.
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, Light Solid look (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, and Musashi's phrase on the lock screen.
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -29,7 +29,7 @@ GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 | `assets/wallpapers/` | Wallpaper (`light-solid.png`, copied to `~/.local/share/wallpapers/`) |
 | `org/` | Starter org files |
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
-| `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md` |
+| `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md`, `pill-spec.md` (exact sizes and colors of the pill) |
 
 No symlinks, no Stow, no package list files.
 
@@ -41,7 +41,7 @@ No symlinks, no Stow, no package list files.
 | 1 | archinstall with the choices in `base.md`, Installation (Limine as bootloader) | Boots, asks the LUKS password |
 | 2 | `nmtui`, `git clone https://github.com/adonogtx/dotfiles.git ~/dev/dotfiles`, `./install.sh base system` | No errors |
 | 3 | Snapper setup by hand, timeline off, cleanup on (`base.md`, Snapshots) | `snapper list` shows a snapshot |
-| 4 | `./install.sh desktop fonts icons japanese terminal`, copy configs (including `~/.zshrc`, the wallpaper and the gsettings), `fc-cache -fr` | `start-hyprland` from the TTY shows the bar; new terminal shows the robbyrussell prompt |
+| 4 | `./install.sh desktop fonts icons japanese terminal`, copy configs (including `~/.zshrc`, the wallpaper and the gsettings), `fc-cache -fr` | `start-hyprland` from the TTY shows the pill; new terminal shows the robbyrussell prompt |
 | 5 | Network fix (`base.md`, Network). Test `hyprlock` once, wrong password once; then the login, silent boot in `/etc/default/limine` and `sudo limine-mkinitcpio` (`docs/post-install.md`, step 4) | `nmcli device` connected; lock works; `HOOKS` has `plymouth` before the encrypt hook; first `cmdline:` in `/boot/limine.conf` starts with `cryptdevice=` |
 | 6 | Reboot | Boot screen asks the password once, no text before it, desktop opens |
 | 7 | `./install.sh backend editors apps`, copy configs, `sudo usermod -aG docker "$USER"`, open IntelliJ once then copy `idea64.vmoptions` | Apps open from their keys; `groups` shows docker; IntelliJ checks in `dev.md`, IDE |
@@ -54,7 +54,7 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 
 | Version | Contents |
 |---|---|
-| v1 | Everything marked done in these docs: the bar, the Control Center with its sections, the calendar, the launcher, the lock, the login |
+| v1 | Everything marked done in these docs: the pill, the Control Center with its sections, the calendar, the launcher, the lock, the login |
 | v1.1 | One command install: `./install.sh all` installs every module, copies configs with a backup of what exists, enables services, and stops twice (AUR review, lock test before autologin). Changes principle 4 when built |
 | v2 | Notification Center (replaces mako) |
 | v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode, end of day closing |

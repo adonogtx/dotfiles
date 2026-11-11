@@ -1,5 +1,5 @@
 // Sound section of the Control Center: pick the output and the microphone on a
-// segmented control, then set each volume. One tile for each direction.
+// segmented control, then set each volume. OUTPUT, a line, INPUT; no boxes (pill-spec.md).
 import Quickshell
 import Quickshell.Services.Pipewire
 import QtQuick
@@ -7,7 +7,7 @@ import QtQuick
 Column {
     id: section
     property var panel
-    spacing: Theme.panelPad
+    spacing: Theme.blockGap
 
     readonly property var nodes: Pipewire.nodes.values
     readonly property var outputs: nodes.filter(n => n.audio && n.isSink && !n.isStream)
@@ -40,53 +40,56 @@ Column {
             { title: "Input", isOutput: false }
         ]
 
-        Tile {
-            id: tile
+        Column {
+            id: block
             required property var modelData
+            required property int index
             readonly property var list: modelData.isOutput ? section.outputs : section.inputs
             readonly property var node: modelData.isOutput ? section.sink : section.source
             width: section.width
-            height: col.height + Theme.tilePad * 2
+            spacing: Theme.blockGap
+
+            Hairline { visible: block.index > 0 }
 
             Column {
-                id: col
-                x: Theme.tilePad; y: Theme.tilePad
-                width: parent.width - Theme.tilePad * 2
-                spacing: 10
+                width: parent.width
+                spacing: 6
 
-                SectionLabel { text: tile.modelData.title; leftPadding: 0 }
+                SectionLabel { text: block.modelData.title }
 
                 Segmented {
-                    visible: tile.list.length > 1
+                    visible: block.list.length > 1
                     width: parent.width
-                    options: tile.list.map(n => ({
-                        label: section.shortName(n, tile.modelData.isOutput ? "Speakers" : "Built-in"),
-                        icon: section.icon(n, tile.modelData.isOutput ? "laptop" : "microphone"),
+                    options: block.list.map(n => ({
+                        label: section.shortName(n, block.modelData.isOutput ? "Speakers" : "Built-in"),
+                        icon: section.icon(n, block.modelData.isOutput ? "laptop" : "microphone"),
                         value: n
                     }))
-                    current: tile.node
+                    current: block.node
                     onPicked: (n) => {
-                        if (tile.modelData.isOutput) Pipewire.preferredDefaultAudioSink = n
+                        if (block.modelData.isOutput) Pipewire.preferredDefaultAudioSink = n
                         else Pipewire.preferredDefaultAudioSource = n
                     }
                 }
 
                 // With a single device there is nothing to choose: just say which one it is.
                 Text {
-                    visible: tile.list.length <= 1
-                    text: tile.node ? section.panel.nodeName(tile.node) : "No device"
-                    font.family: Theme.sans; font.pixelSize: 11
+                    visible: block.list.length <= 1
+                    text: block.node ? section.panel.nodeName(block.node) : "No device"
+                    font.family: Theme.sans; font.pixelSize: 12
                     color: Theme.secondary
                 }
 
+                Item { width: 1; height: 2 }
+
                 Slider {
                     width: parent.width
-                    icon: tile.modelData.isOutput
-                          ? (tile.node && tile.node.audio && tile.node.audio.muted ? "volume-muted" : "volume")
+                    icon: block.modelData.isOutput
+                          ? (block.node && block.node.audio && block.node.audio.muted ? "volume-muted" : "volume")
                           : "microphone"
-                    level: tile.modelData.isOutput ? section.panel.soundLevel(tile.node) : -1
-                    value: tile.node && tile.node.audio ? tile.node.audio.volume : 0
-                    onMoved: (v) => section.panel.setVolume(tile.node, v)
+                    level: block.modelData.isOutput ? section.panel.soundLevel(block.node) : -1
+                    value: block.node && block.node.audio ? block.node.audio.volume : 0
+                    onMoved: (v) => section.panel.setVolume(block.node, v)
                 }
             }
         }

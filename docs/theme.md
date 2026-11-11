@@ -6,7 +6,7 @@ One set of tokens, repeated in each program's own format. When you change a valu
 
 | Token | Value | Used in |
 |---|---|---|
-| bar | #f6f6f8 | quickshell/Theme.qml |
+| bar | #f6f6f8 | Plymouth background |
 | panel | #ffffff to #f7f7f9 | Theme.qml, mako, fuzzel, zathura statusbar, inputbar, notifications and completion, hyprlock field |
 | tile | #ececf0 | Theme.qml, zathura background around pages (pages stand out), mako progress bar (progress is not a selection; label reads on both halves) |
 | line | #e0e0e4 | Theme.qml, workspace tab, 1 px edges |
@@ -18,7 +18,7 @@ One set of tokens, repeated in each program's own format. When you change a valu
 | green | #248a3d | charging, success |
 | red | #d70015 | low battery, errors, urgent banners |
 | night | #1c1c1e page, #f5f5f7 text | zathura Ctrl + R only: night mode in the old Dark Solid values |
-| on accent | #ffffff (panel) | text, glyphs and switch knobs on an accent fill, Ghostty selection text |
+| on accent | #ffffff (panel) | text, glyphs and switch knobs on an accent fill (`textOnAccent` in Theme.qml), Ghostty selection text |
 | border | line, tertiary when focused | Hyprland windows (theme.lua), mako, fuzzel |
 
 ## ANSI palette (terminal only)
@@ -58,7 +58,7 @@ Used only by `ghostty/themes/light-solid` and, through it, by every terminal pro
 | Bar | 28 tall, 14 px icons, 12 px edge padding |
 | Windows | rounding 10, gaps 6 inside and 12 outside, 1 px hairline |
 | Menus and banners | rounding 12 to 14 |
-| Bar icons | one line family (`Glyph.qml`, Tabler paths), stroke 1.6 on a 24 grid, grey, full ink on hover or when open |
+| Pill icons | one line family (`Glyph.qml`, Tabler paths), stroke 1.8 on a 24 grid; sizes and colors in `pill-spec.md` |
 | Control Center | 320 wide: panel rounding 18; tiles in tile, 8 px inside, rounding 10. Main view: four 38 px circles (blue when on) with names, then Display, Sound and Microphone capsule sliders. Sections: Wi-Fi list, Bluetooth list, Sound and Display with segmented controls, Battery |
 | Depth | each surface falls one shade top to bottom (panel #ffffff to #f7f7f9), a 1 px edge in line, one soft shadow under panels; no blur, no translucency |
 | Motion | hover and press 140 ms ease out; anything that changes shape 300 ms on cubic-bezier(0.16, 1, 0.3, 1); content fades in 60 ms after its panel; panels fade out in 180 ms |

@@ -1,61 +1,59 @@
-// Gus · Quickshell entry point. One bar per screen; one panel and one Launcher shared.
-// Bar icons open the Control Center on their section; keys reach it through IPC:
-//   quickshell ipc call menus toggle wifi | bluetooth | sound | display | battery | control
+// Gus · Quickshell entry point. One pill per screen (desktop.md, Bar) and one Launcher.
+// A click on the pill opens the Control Center; keys reach it through IPC:
+//   quickshell ipc call menus toggle wifi | bluetooth | sound | display | battery | control | calendar
 //   quickshell ipc call launcher toggle
 import Quickshell
 import Quickshell.Io
+import Quickshell.Wayland
+import Quickshell.Hyprland
 import QtQuick
 
 ShellRoot {
     id: root
     property string menu: ""          // "", "control", "calendar"
     property string section: "main"
-    property real menuX: 0
-    property var menuBar: null
+    property var menuPill: null       // the pill that holds the open panel
 
-    // kind: wifi, bluetooth, sound, microphone, battery, control (main view) or calendar.
-    function toggle(kind, x, barWindow) {
+    // kind: wifi, bluetooth, sound, microphone, display, battery, control (main view) or calendar.
+    function toggle(kind, pill) {
         const menu = kind === "calendar" ? "calendar" : "control"
         const section = kind === "control" || kind === "calendar" ? "main"
                       : kind === "microphone" ? "sound" : kind
         if (root.menu === menu && root.section === section) { root.menu = ""; return }
-        root.menuX = x
-        root.menuBar = barWindow
+        root.menuPill = pill
         root.section = section
         root.menu = menu
     }
 
-    Variants {
-        model: Quickshell.screens
-
-        Bar {
-            id: bar
-            menu: root.menuBar === bar ? root.menu : ""
-            section: root.menuBar === bar ? root.section : ""
-            onMenuRequested: (name, x) => root.toggle(name, x, bar)
-            onLauncherRequested: launcher.open = !launcher.open
-        }
+    // The pill on the focused monitor, for keys and IPC.
+    function focusedPill() {
+        const list = pills.instances
+        const mon = Hyprland.focusedMonitor
+        for (let i = 0; i < list.length; i++)
+            if (mon && list[i].screen && list[i].screen.name === mon.name) return list[i]
+        return list.length > 0 ? list[0] : null
     }
 
-    MenuWindow {
-        screen: root.menuBar ? root.menuBar.screen : Quickshell.screens[0]
-        menu: root.menu
-        section: root.section
-        anchorX: root.menuX
-        barWindow: root.menuBar
-        onDismissed: root.menu = ""
-        onSwitchTo: (name) => root.section = name
+    Variants {
+        id: pills
+        model: Quickshell.screens
+
+        Pill {
+            id: pill
+            menu: root.menuPill === pill ? root.menu : ""
+            section: root.menuPill === pill ? root.section : "main"
+            onMenuRequested: (name) => root.toggle(name, pill)
+            onDismissed: root.menu = ""
+            onSwitchTo: (name) => root.section = name
+            IdleInhibitor { window: pill; enabled: Awake.on }
+        }
     }
 
     Launcher { id: launcher }
 
-    // From keys there is no icon to sit under, so the panel opens at the right edge.
     IpcHandler {
         target: "menus"
-        function toggle(name: string): void {
-            const width = Quickshell.screens[0] ? Quickshell.screens[0].width : 1536
-            root.toggle(name, width, root.menuBar)
-        }
+        function toggle(name: string): void { root.toggle(name, root.focusedPill()) }
         function close(): void { root.menu = "" }
     }
 }

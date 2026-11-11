@@ -1,5 +1,8 @@
-// One entry in an expanded section: a small circle icon, a name, a note or a check.
-// current entries get a blue circle; the row washes in softly under the pointer.
+// One row in Wi-Fi or Bluetooth (pill-spec.md, Rows): height 40, rounding 10, padding 0 10,
+// gap 11, icon 16 with no circle. Normal: no background, icon secondary, name 14 label.
+// Connected (current): tile background, icon label. Detail on the right, 12 secondary
+// ("Connect", "Pair", battery %); an optional second line, 11 secondary. checked draws the blue check;
+// locked draws the lock (16, secondary) on a secured Wi-Fi network that is not connected.
 import QtQuick
 
 Rectangle {
@@ -7,51 +10,87 @@ Rectangle {
     property string icon
     property int level: -1
     property string text
+    property string subtitle
     property string note
     property bool current: false
+    property bool checked: false
+    property bool locked: false
     property bool busy: false
     signal activated()
 
-    implicitHeight: 34
-    radius: 8
-    color: mouse.pressed ? Theme.washStrong : mouse.containsMouse ? Theme.wash : "transparent"
+    implicitHeight: Theme.rowHeight
+    radius: 10
+    color: item.current ? Theme.tile
+         : mouse.pressed ? Theme.washStrong : mouse.containsMouse ? Theme.wash : "transparent"
     Behavior on color { ColorAnimation { duration: Theme.fast; easing.type: Easing.OutCubic } }
 
-    Rectangle {
-        id: circle
-        width: 24; height: 24; radius: 12
-        x: 6
+    Glyph {
+        id: glyph
+        name: item.icon
+        level: item.level
+        color: item.current ? Theme.label : Theme.secondary
+        width: 16; height: 16
+        x: 10
         anchors.verticalCenter: parent.verticalCenter
-        color: item.current ? Theme.accent : Theme.line
-        Behavior on color { ColorAnimation { duration: 200; easing.type: Easing.OutCubic } }
-        Glyph { name: item.icon; level: item.level; color: item.current ? Theme.onAccent : Theme.label; width: 13; height: 13; anchors.centerIn: parent }
     }
-    Text {
-        anchors.left: circle.right
-        anchors.leftMargin: 10
-        anchors.right: noteText.left
-        anchors.rightMargin: 8
+    Column {
+        anchors.left: glyph.right
+        anchors.leftMargin: 11
+        anchors.right: right.left
+        anchors.rightMargin: 11
         anchors.verticalCenter: parent.verticalCenter
-        text: item.text
-        elide: Text.ElideRight
-        font.family: Theme.sans
-        font.pixelSize: Theme.body
-        color: item.current ? Theme.label : Theme.labelSoft
+        spacing: 1
+        Text {
+            width: parent.width
+            text: item.text
+            elide: Text.ElideRight
+            font.family: Theme.sans
+            font.pixelSize: 14
+            color: Theme.label
+        }
+        Text {
+            visible: item.subtitle !== ""
+            width: parent.width
+            text: item.subtitle
+            elide: Text.ElideRight
+            font.family: Theme.sans
+            font.pixelSize: 11
+            color: Theme.secondary
+        }
     }
-    Text {
-        id: noteText
+    Row {
+        id: right
         anchors.right: parent.right
         anchors.rightMargin: 10
         anchors.verticalCenter: parent.verticalCenter
-        text: item.note
-        font.family: Theme.sans
-        font.pixelSize: 11
-        color: Theme.secondary
-        SequentialAnimation on opacity {
-            running: item.busy
-            loops: Animation.Infinite
-            NumberAnimation { from: 1; to: 0.35; duration: 700; easing.type: Easing.InOutSine }
-            NumberAnimation { from: 0.35; to: 1; duration: 700; easing.type: Easing.InOutSine }
+        spacing: 6
+        Text {
+            visible: item.note !== ""
+            anchors.verticalCenter: parent.verticalCenter
+            text: item.note
+            font.family: Theme.sans
+            font.pixelSize: 12
+            color: Theme.secondary
+            SequentialAnimation on opacity {
+                running: item.busy
+                loops: Animation.Infinite
+                NumberAnimation { from: 1; to: 0.35; duration: 700; easing.type: Easing.InOutSine }
+                NumberAnimation { from: 0.35; to: 1; duration: 700; easing.type: Easing.InOutSine }
+            }
+        }
+        Glyph {
+            visible: item.locked
+            anchors.verticalCenter: parent.verticalCenter
+            name: "lock"
+            width: 16; height: 16
+            color: Theme.secondary
+        }
+        Glyph {
+            visible: item.checked
+            anchors.verticalCenter: parent.verticalCenter
+            name: "check"
+            width: 16; height: 16
+            color: Theme.accent
         }
     }
     MouseArea {

@@ -1,6 +1,6 @@
 # Desktop
 
-Hyprland, the bar, login, lock, look and input. Topic blocks: **Decision, Why, Not chosen, Where, Status.**
+Hyprland, the pill, login, lock, look and input. Topic blocks: **Decision, Why, Not chosen, Where, Status.**
 
 ## Compositor
 
@@ -40,16 +40,22 @@ Panels get depth without translucency: each surface falls one shade top to botto
 
 ## Bar
 
-**Decision:** Quickshell, 28 px, solid bar token. Left: 木 (tree) in label ink, five workspace tabs (tile rounded square behind the active number, numbers with windows grey, empty ones faint). Right: あ input seal, Bluetooth, Wi-Fi, sound, battery, Control Center, date `11月9日(月)  14:24` (date in label ink, time grey). Icons are one line family (`Glyph.qml`, Tabler paths, MIT): 16 px, stroke 1.8 on the 24 grid (1.2 px on screen), grey, full ink on hover; the battery outline uses the same ink, and a green bolt stands beside it while charging; Wi-Fi arcs and sound waves show the level. Each status icon opens the Control Center on its section; the date opens the calendar; scroll on sound changes volume.
-Three status items appear only while relevant, left of あ: recording (red dot and elapsed time while `gus-record` runs; click stops it), microphone in use (full ink while any app captures the microphone, through PipeWire), disk (red, with the use of `/`, above 90%).
-**Why:** One panel for every control, no TUIs. The conditional items cover what a fixed bar cannot show: a recording left running, an app listening, snapshots filling btrfs before pacman breaks.
-**Not chosen:** Waybar (less control). Focused app name and dock (removed on purpose). Separate menus per icon, hairline style, pill groups, Dynamic Island (Impasto), typographic bar: all tried on 2026-11-09. TUIs (bluetui, nmtui, wiremix, impala). The kamon in the bar. 八 instead of 木 (2026-11-10: no reason beyond change; 八 is too thin at bar size). A search icon (2026-11-10: Super + Space is enough). An updates indicator (2026-11-10: the weekly update stays a ritual, `base.md`, Updates). A Do Not Disturb icon (belongs to the Keiko focus mode, v3).
-**Where:** `config/quickshell/`, one file per piece (`Bar.qml`, `Tree.qml`, `Workspaces.qml`, `*Item.qml`); conditional items in `RecordItem.qml`, `MicItem.qml`, `DiskItem.qml`; `config/bin/gus-record` writes its pid to `$XDG_RUNTIME_DIR` so the bar can see it.
-**Status:** done. Frozen after the 2026-11-09 redesigns, except the three conditional items decided on 2026-11-10 (to build). Light Solid colors done and tested 2026-11-11 (colors come from `Theme.qml`). Wi-Fi sits 1.5 grid units higher (`offsets` in `Glyph.qml`) because its ink is low. Check whether `Hairline.qml` and `Toggle.qml` are still used; remove them if not.
+**Decision:** Quickshell, one pill centred at the top, studied from Ricelin by Gakuseei, in Light Solid.
+- Rest: 12 from the top edge, height 34, rounding full, panel surface, 1 px edge in line, one soft shadow. It hugs the text: the Japanese date in label and the time in secondary (`11月11日(水)  11:35`), IBM Plex Sans JP. Nothing else on screen. Windows start below it (12 + 34 + the 12 outer gap).
+- Live items join the pill, left of the date, only while true, separated by one hairline: recording (red dot and elapsed time while `gus-record` runs; click stops it), microphone in use (any app capturing, through PipeWire), Awake on (cup icon), disk (red, with the use of `/`, above 90%). Icons are one line family (`Glyph.qml`, Tabler paths, MIT): 16 px, stroke 1.8 on the 24 grid.
+- Workspace switch: for about 1 s the pill shows only five dots (active long, with windows grey, empty faint), then morphs back. No number, no kanji.
+- A click anywhere on the pill opens the Control Center. The calendar opens from the Calendar link in the open pill's footer. Escape or click outside closes.
+- Open: the pill grows down to 480 wide, the calendar 384; the date stays where it was at the top. Inside: the Control Center (below), footer with あ, workspace dots and a Calendar link.
+- Motion: shape changes 300 ms on cubic-bezier(0.16, 1, 0.3, 1), content fades in after the shape; fixed window size, only the panel inside animates.
+- Exact sizes and colors: `docs/pill-spec.md` (this block wins when they disagree).
+**Why:** One piece that becomes every control, no separate islands (unlike Impasto's); photo wallpapers stay uncut (2026-11-11). Cost: windows get 18 px less height than under the old bar, accepted.
+**Not chosen:** Waybar (less control). Focused app name and dock (removed on purpose). Separate menus per icon, hairline style, typographic bar: all tried on 2026-11-09. 28 px bar across the top (until 2026-11-11). Vertical bar on the left (2026-11-11). Floating bar on top (2026-11-11). Media and now playing in the pill (not used). 木 and the status icons at rest (2026-11-11: nothing else on screen). TUIs (bluetui, nmtui, wiremix, impala). The kamon in the bar. 八 instead of 木 (2026-11-10: no reason beyond change; 八 is too thin at bar size). A search icon (2026-11-10: Super + Space is enough). An updates indicator (2026-11-10: the weekly update stays a ritual, `base.md`, Updates). A Do Not Disturb icon (belongs to the Keiko focus mode, v3).
+**Where:** `config/quickshell/`: `shell.qml` (one pill per screen, the `menus` IPC), `Pill.qml` (one window per screen, fixed size, only the shape animates; the mask follows the shape), `PillRest.qml` (live items, line, date), `PillDate.qml`, `WorkspaceDots.qml` (on switch and in the footer), `PillFooter.qml`, `Awake.qml` (the Awake state; each pill holds an idle inhibitor while it is on), `LiveItem.qml` with `RecordItem.qml` (`ps -o etimes= -C wf-recorder`: the exact name, like `gus-record`'s `pgrep -x`, plus the elapsed seconds, so the time survives a Quickshell restart), `MicItem.qml` (a PipeWire link from a hardware source to a stream), `AwakeItem.qml`, `DiskItem.qml` (`df` once a minute). Exact sizes in `docs/pill-spec.md`.
+**Status:** done and tested 2026-11-11. Built in five steps, each tested: rest, open with the Control Center and the calendar, dots on workspace switch and the footer, live items, cleanup (the old bar, its items, `MenuWindow.qml`, `Toggle.qml` and `Tile.qml` removed; they stay in git). The token `onAccent` read as a signal handler in QML and stayed black; it is `textOnAccent` in `Theme.qml`. A Quickshell reload resets Awake to off.
 
 ## Control Center
 
-**Decision:** One panel under the bar. Main view: four 38 px circles (Wi-Fi, Bluetooth, Night Shift, Battery) with their names; the circle toggles, the name opens the section. Below, three capsule sliders (Display, Sound, Microphone), each with a small chevron to its section. Sections expand in place with a back chevron:
+**Decision:** Inside the open pill (Bar). Main view: five 38 px circles (Wi-Fi, Bluetooth, Night Shift, Awake, Battery) with fixed names; the circle toggles, the name opens the section (Night Shift and Awake have no section: the name toggles; Battery: circle and name open its section). No inner boxes: blocks sit on the panel, separated by 1 px lines. Awake holds hypridle (idle inhibitor) while on; off keeps dim 4, lock 5, suspend 30; lock before sleep in both cases. No minutes picker. Awake resets to off when Quickshell or the system restarts. Sections fill the 480 width of the open pill. Below, three capsule sliders (Display, Sound, Microphone), each with a small chevron to its section. Sections expand in place with a back chevron:
 
 | Section | Contents |
 |---|---|
@@ -59,11 +65,11 @@ Three status items appear only while relevant, left of あ: recording (red dot a
 | Display | Brightness, text size (GNOME `text-scaling-factor`, GTK apps only), Night Shift switch |
 | Battery | Charge, time left, energy mode (Saver, Balanced, Performance) through power-profiles-daemon |
 
-Calendar drops from the date: one month, today in blue, arrows, weeks start on Sunday.
+Calendar opens in the pill from the footer's Calendar link: one month, header in Japanese (`2026年11月`), weekday initials 日 月 火 水 木 金 土, today in blue, arrows, weeks start on Sunday.
 **Why:** Low friction: the basics in one place, nothing else. Capture and record stay on their keys.
-**Not chosen:** Separate menus per icon. Tiles grid, settings rows. Mixer faders. Display scale control (would break `base.md`, Hardware). Per-app volume.
-**Where:** `config/quickshell/MenuWindow.qml`, `ControlCenter.qml`, `*Section.qml`, `Calendar.qml`, shared pieces (`Tile`, `CircleButton`, `Slider`, `Segmented`, `Switch`, `ListItem`)
-**Status:** done. `MenuWindow.qml` keeps a fixed height (screen height minus 40) and animates only the panel inside; resizing the window on every frame made it shake (fixed 2026-11-10). The mask keeps the empty part click-through. The energy mode needs `python-gobject` for `powerprofilesctl` (add it next to `power-profiles-daemon` in `install/`). Wi-Fi section to confirm with NetworkManager on the iwd backend (`base.md`, Network).
+**Not chosen:** Separate menus per icon. Tiles grid, settings rows. Tiles behind each group (until 2026-11-11). Network, device names or percentages under the circles (until 2026-11-11). A dark slider fill (until 2026-11-11). Mixer faders. Display scale control (would break `base.md`, Hardware). Per-app volume.
+**Where:** `config/quickshell/Pill.qml` (host), `ControlCenter.qml`, `*Section.qml`, `Calendar.qml`, `PillFooter.qml`, shared pieces (`CircleButton`, `Slider`, `Segmented`, `Switch`, `ListItem`, `PowerRow`, `Hairline`, `SectionLabel`, `SectionHeader`); sizes in `docs/pill-spec.md`
+**Status:** done and tested 2026-11-11, inside the pill, to `pill-spec.md`. `Pill.qml` keeps a fixed window size and animates only the shape; resizing the window on every frame made the old panel shake (fixed 2026-11-10). The mask keeps the empty part click-through. The energy mode needs `python-gobject` for `powerprofilesctl` (add it next to `power-profiles-daemon` in `install/`). On the iwd backend NetworkManager reports the band only for the connected network, which is why only that row has a second line.
 
 ## Login
 
@@ -83,7 +89,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 
 ## Lock
 
-**Decision:** hyprlock, everything on the centre axis, same field style as the boot screen (Login). Top: Japanese date and time, small, grey (`11月10日(火)  23:40`). Centre: 常に兵法の道を離れず in Yuji Syuku as an image (`musashi.png`), its centre at 44% of the screen height, with the caption "Never stray from the Way." at 14 below it. Password field 290 x 42 with its centre 120 px below the phrase's centre. hypridle dims at 4 min, locks at 5, suspends at 30, locks before sleep. Super + Ctrl + Q locks.
+**Decision:** hyprlock, everything on the centre axis, same field style as the boot screen (Login). Top: Japanese date and time, small, grey (`11月10日(火)  23:40`). Centre: 常に兵法の道を離れず in Yuji Syuku as an image (`musashi.png`), its centre at 44% of the screen height, with the caption "Never stray from the Way." at 14 below it. Password field 290 x 42 with its centre 120 px below the phrase's centre. hypridle dims at 4 min, locks at 5, suspends at 30, locks before sleep. Awake in the Control Center pauses dim, lock and suspend; lock before sleep stays on. Super + Ctrl + Q locks.
 **Why:** Maintained upstream; a custom lock is security code we would own. Boot and lock share the field style; each has its own symbol (crest on boot, phrase on lock).
 **Not chosen:** Quickshell lock (v3, after it is tested). The 2026-11-09 layout (100 px clock in the middle, field 240 px from the bottom). The phrase in a vertical column (2026-11-10).
 **Where:** `config/hypr/hyprlock.conf`, `config/hypr/musashi.png`, `config/hypr/hypridle.conf`
@@ -126,7 +132,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 | Super + Shift + R | Record region on and off |
 | Super + Ctrl + Q | Lock |
 | Super + N | Night Shift |
-| Super + Shift + W / A / B | Control Center on Wi-Fi / Sound / Bluetooth |
+| Super + Shift + W / A / B | Open the pill on Wi-Fi / Sound / Bluetooth |
 | Super + Shift + E | Log out |
 
 Menus and the launcher are reached through Quickshell IPC: `quickshell ipc call menus toggle <section>`, `quickshell ipc call launcher toggle`.

@@ -1,7 +1,10 @@
-// Control Center, shown inside MenuWindow. One panel for every system control.
-// Main view: four circles (Wi-Fi, Bluetooth, Night Shift, Battery) and three sliders
-// (Display, Sound, Microphone). A circle toggles; its name opens the section. The small
-// chevron beside a slider opens Display or Sound. Bar icons open the panel on their section.
+// Control Center, shown inside the open pill.
+// Exact sizes: docs/pill-spec.md. No inner boxes: blocks sit on the panel, 1 px lines between.
+// Main view: five circles with fixed names (Wi-Fi, Bluetooth, Night Shift, Awake, Battery),
+// three labelled sliders (Display, Sound, Microphone), a line, the footer. A circle toggles;
+// its name opens the section. Night Shift and Awake have no section: the name toggles.
+// Battery has nothing to toggle: circle and name open its section. The small chevron
+// beside a slider opens Display or Sound.
 // Every command is an argument list: network and device names never reach a shell.
 import Quickshell
 import Quickshell.Io
@@ -14,7 +17,7 @@ Column {
     id: cc
     property var host
     property string section: "main"     // main, wifi, bluetooth, sound, display, battery
-    spacing: Theme.panelPad
+    spacing: Theme.blockGap
 
     // State
 
@@ -69,7 +72,7 @@ Column {
     }
     Component.onCompleted: refresh()
 
-    // Changing section: the panel's height glides (MenuWindow) while the content fades back in.
+    // Changing section: the pill's height glides (Pill.qml) while the content fades back in.
     onSectionChanged: sectionFade.restart()
     NumberAnimation { id: sectionFade; target: cc; property: "opacity"; from: 0; to: 1; duration: 240; easing.type: Easing.OutCubic }
     Timer { interval: 2000; repeat: true; running: true; onTriggered: cc.refresh() }
@@ -156,83 +159,88 @@ Column {
     Component { id: displaySection; DisplaySection { panel: cc } }
     Component { id: batterySection; BatterySection { panel: cc } }
 
-    // Main view: four circles
+    // Main view: five circles in equal columns
 
-    Tile {
+    Row {
+        id: circles
         visible: cc.section === "main"
         width: parent.width
-        height: circles.height + 24
+        readonly property real column: width / 5
 
-        Row {
-            id: circles
-            anchors.centerIn: parent
-            spacing: (parent.width - 24 - 4 * 64) / 3
-
-            CircleButton {
-                icon: cc.wifiOn && cc.wifiSignal >= 0 ? "wifi" : "wifi-off"
-                level: cc.wifiSignal < 0 ? -1 : cc.wifiSignal < 40 ? 1 : cc.wifiSignal < 70 ? 2 : 3
-                label: !cc.wifiAvailable ? "Wi-Fi" : !cc.wifiOn ? "Wi-Fi Off" : (cc.wifiName || "Wi-Fi")
-                on: cc.wifiOn
-                onToggled: {
-                    if (!cc.wifiAvailable) { cc.host.switchTo("wifi"); return }
-                    Quickshell.execDetached(["nmcli", "radio", "wifi", cc.wifiOn ? "off" : "on"])
-                    soon.restart()
-                }
-                onOpened: cc.host.switchTo("wifi")
+        CircleButton {
+            width: circles.column
+            icon: cc.wifiOn && cc.wifiSignal >= 0 ? "wifi" : "wifi-off"
+            level: cc.wifiSignal < 0 ? -1 : cc.wifiSignal < 40 ? 1 : cc.wifiSignal < 70 ? 2 : 3
+            label: "Wi-Fi"
+            on: cc.wifiOn
+            onToggled: {
+                if (!cc.wifiAvailable) { cc.host.switchTo("wifi"); return }
+                Quickshell.execDetached(["nmcli", "radio", "wifi", cc.wifiOn ? "off" : "on"])
+                soon.restart()
             }
-            CircleButton {
-                icon: "bluetooth"
-                label: !cc.btOn ? "Bluetooth" : (cc.btDevice ? cc.btDevice.name : "Bluetooth")
-                on: cc.btOn
-                onToggled: if (cc.adapter !== null) cc.adapter.enabled = !cc.adapter.enabled
-                onOpened: cc.host.switchTo("bluetooth")
-            }
-            CircleButton {
-                icon: "moon"
-                label: "Night Shift"
-                on: cc.nightOn
-                onToggled: {
-                    Quickshell.execDetached(["gus-nightlight"])
-                    soon.restart()
-                }
-                onOpened: cc.host.switchTo("display")
-            }
-            CircleButton {
-                icon: cc.charging ? "bolt" : "battery"
-                label: cc.hasBattery ? Math.round(cc.charge * 100) + "%" : "Battery"
-                on: false
-                onToggled: cc.host.switchTo("battery")
-                onOpened: cc.host.switchTo("battery")
-            }
+            onOpened: cc.host.switchTo("wifi")
+        }
+        CircleButton {
+            width: circles.column
+            icon: "bluetooth"
+            label: "Bluetooth"
+            on: cc.btOn
+            onToggled: if (cc.adapter !== null) cc.adapter.enabled = !cc.adapter.enabled
+            onOpened: cc.host.switchTo("bluetooth")
+        }
+        CircleButton {
+            width: circles.column
+            icon: "moon"
+            label: "Night Shift"
+            on: cc.nightOn
+            onToggled: cc.toggleNight()
+            onOpened: cc.toggleNight()
+        }
+        CircleButton {
+            width: circles.column
+            icon: "cup"
+            label: "Awake"
+            on: Awake.on
+            onToggled: Awake.on = !Awake.on
+            onOpened: Awake.on = !Awake.on
+        }
+        CircleButton {
+            width: circles.column
+            icon: cc.charging ? "bolt" : "battery"
+            label: "Battery"
+            on: false
+            onToggled: cc.host.switchTo("battery")
+            onOpened: cc.host.switchTo("battery")
         }
     }
 
-    // Main view: three sliders, each with a chevron to its section
+    // Main view: three sliders, each with its label above and a chevron to its section
 
-    Tile {
+    Column {
+        id: sliders
         visible: cc.section === "main"
         width: parent.width
-        height: sliders.height + Theme.tilePad * 2
+        spacing: 12
 
-        Column {
-            id: sliders
-            x: Theme.tilePad; y: Theme.tilePad
-            width: parent.width - Theme.tilePad * 2
-            spacing: 10
+        Repeater {
+            model: [
+                { key: "display", title: "Display", icon: "sun", section: "display" },
+                { key: "sound", title: "Sound", icon: "volume", section: "sound" },
+                { key: "microphone", title: "Microphone", icon: "microphone", section: "sound" }
+            ]
 
-            Repeater {
-                model: [
-                    { key: "display", icon: "sun", section: "display" },
-                    { key: "sound", icon: "volume", section: "sound" },
-                    { key: "microphone", icon: "microphone", section: "sound" }
-                ]
+            Column {
+                id: line
+                required property var modelData
+                readonly property var node: modelData.key === "sound" ? cc.sink : modelData.key === "microphone" ? cc.source : null
+                width: sliders.width
+                spacing: 6
+
+                SectionLabel { text: line.modelData.title }
 
                 Item {
-                    id: line
-                    required property var modelData
-                    readonly property var node: modelData.key === "sound" ? cc.sink : modelData.key === "microphone" ? cc.source : null
-                    width: sliders.width
-                    height: 22
+                    width: parent.width
+                    height: 24
 
                     Slider {
                         anchors.left: parent.left
@@ -247,7 +255,7 @@ Column {
                             if (line.modelData.key === "display") {
                                 cc.brightness = v
                                 cc.pendingBrightness = v
-                                if (!brightTimer.running) brightTimer.start()
+                                cc.writeBrightness()
                             } else {
                                 cc.setVolume(line.node, v)
                             }
@@ -277,5 +285,17 @@ Column {
                 }
             }
         }
+    }
+
+    // Main view: a line, then the footer (only inside the pill, which can open the calendar)
+
+    readonly property bool hasFooter: cc.host !== undefined && cc.host !== null && typeof cc.host.openCalendar === "function"
+
+    Hairline { visible: cc.section === "main" && cc.hasFooter }
+
+    PillFooter {
+        visible: cc.section === "main" && cc.hasFooter
+        width: parent.width
+        onCalendarRequested: cc.host.openCalendar()
     }
 }
