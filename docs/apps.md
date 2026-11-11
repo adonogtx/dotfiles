@@ -16,7 +16,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Why:** Same look and motion as the rest of the pill; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
 **Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
-**Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center. fuzzel colors to Light Solid (2026-11-11): panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border; done and tested 2026-11-11. Icon theme stays WhiteSur-dark until the icons step.
+**Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center. fuzzel colors to Light Solid (2026-11-11): panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border; done and tested 2026-11-11.
 
 ## Notifications
 

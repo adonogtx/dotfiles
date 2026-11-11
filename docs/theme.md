@@ -14,7 +14,7 @@ One set of tokens, repeated in each program's own format. When you change a valu
 | label | #1d1d1f | everywhere; uosc timeline fill and active items |
 | secondary | #6e6e73 | Theme.qml, zathura statusbar, hyprlock placeholder |
 | tertiary | #aeaeb2 | Theme.qml, fuzzel placeholder, focused window border |
-| accent | #007aff | Control Center switches, Ghostty cursor and selection, zathura search, btop follow |
+| accent | #007aff | Control Center switches, pill circles that are on, the connected Wi-Fi check, Ghostty cursor and selection, zathura search, btop follow |
 | green | #248a3d | charging, success |
 | red | #d70015 | low battery, errors, urgent banners |
 | night | #1c1c1e page, #f5f5f7 text | zathura Ctrl + R only: night mode in the old Dark Solid values |
@@ -43,26 +43,25 @@ Used only by `ghostty/themes/light-solid` and, through it, by every terminal pro
 
 | Role | Font | Size |
 |---|---|---|
-| Bar, menus | IBM Plex Sans JP, 500 | 13 |
+| Pill date | IBM Plex Sans JP, 500 | 15 |
 | Detail | IBM Plex Sans | 12 |
 | Terminal, Emacs code | PlemolJP Console NF | 13 pt, 17 px in Emacs |
 | Emacs prose, headings | IBM Plex Sans, IBM Plex Serif | 17 |
-| Lock clock | IBM Plex Sans Light | 100 |
-| Lock phrase | IBM Plex Sans JP | 28 |
+| Lock phrase | Yuji Syuku, drawn into an image (`musashi.png`) | image |
+| Boot crest | none: an image (`kamon.png`) | image |
+| Boot loading word | IBM Plex Sans, drawn into an image (`loading.png`) | image |
 
 ## Shape and space
 
 | Thing | Value |
 |---|---|
 | Grid | 4 px |
-| Bar | 28 tall, 14 px icons, 12 px edge padding |
 | Windows | rounding 10, gaps 6 inside and 12 outside, 1 px hairline |
 | Menus and banners | rounding 12 to 14 |
 | Pill icons | one line family (`Glyph.qml`, Tabler paths), stroke 1.8 on a 24 grid; sizes and colors in `pill-spec.md` |
-| Control Center | 320 wide: panel rounding 18; tiles in tile, 8 px inside, rounding 10. Main view: four 38 px circles (blue when on) with names, then Display, Sound and Microphone capsule sliders. Sections: Wi-Fi list, Bluetooth list, Sound and Display with segmented controls, Battery |
+| Pill and Control Center | every size, color and motion in `pill-spec.md` |
 | Depth | each surface falls one shade top to bottom (panel #ffffff to #f7f7f9), a 1 px edge in line, one soft shadow under panels; no blur, no translucency |
 | Motion | hover and press 140 ms ease out; anything that changes shape 300 ms on cubic-bezier(0.16, 1, 0.3, 1); content fades in 60 ms after its panel; panels fade out in 180 ms |
-| Labels | section headings 10 px, uppercase, tracked 1.2, tertiary |
-| Workspaces | tabs: line rounded square (5) behind the active number |
+| Labels | section headings 10 px, uppercase, tracked 1.2, secondary |
 | Shadow | 24 range, 12% black, no blur anywhere |
 | Animation | about 150 ms, ease out |
