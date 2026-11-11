@@ -53,16 +53,16 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 | Job | App | Notes |
 |---|---|---|
 | PDF | zathura + mupdf | dark chrome, page untouched, Ctrl + R inverts |
-| Video | mpv + uosc | Japanese subtitles first, IBM Plex Sans JP |
+| Video | mpv + uosc | Japanese subtitles first, IBM Plex Sans JP; audio only files keep the uosc timeline and controls on screen |
 | Music | mpd + rmpc | `~/library/music`, 127.0.0.1 only, media keys through mpd-mpris (official repos) |
 | Images | imv | |
 
 **Where:** `install/apps.sh`, `config/zathura/`, `config/mpd/`, `config/mpv/`
-**Status:** done. mpd and mpd-mpris are user services; enabled after login, they start on the next one. Open: `zathurarc` uses #141416 and #232325, outside the Dark Solid palette (use #1c1c1e and #2a2a2d)
+**Status:** done. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Open: `zathurarc` uses #141416 and #232325, outside the Dark Solid palette (use #1c1c1e and #2a2a2d)
 
 ## Utilities
 
-**Decision:** Bitwarden, Anki (`anki`, official repos), Discord. Screenshots, recording and Night Shift through `gus-screenshot`, `gus-record`, `gus-nightlight`; files go to `~/media/pictures/screenshots` and `~/media/videos/recordings`.
+**Decision:** Bitwarden, Anki (`anki`, official repos), Discord. Screenshots, recording and Night Shift through `gus-screenshot`, `gus-record`, `gus-nightlight`; files go to `~/media/pictures/screenshots` and `~/media/videos/recordings`. Region screenshots: drag for an area, or click once to take the window under the cursor (window boxes from `hyprctl`, needs `jq`). Each screenshot is copied to the clipboard and announced by mako with a preview.
 **Not chosen:** `gus-float` and floating TUIs (removed with the Control Center). `anki-bin` (no longer in the AUR). bluetui (removed 2026-11-10, see `desktop.md`, Bar).
 **Where:** `install/apps.sh`, `config/bin/`
 **Status:** done. Open: `config/bin/gus-jdate` is in the repo but not documented; record its use here or remove it.

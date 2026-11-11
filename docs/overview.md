@@ -24,9 +24,9 @@ GitHub: `github.com/adonogtx/dotfiles` (replaces `adonogtx/zenOS` and the older 
 | `install/lib.sh` | Helpers: `pac`, `aur` (interactive yay), `enable_system`, `enable_user` |
 | `install/<module>.sh` | One per category, packages listed inside: base, system, desktop, fonts, icons, japanese, terminal, backend, editors, apps |
 | `config/<program>/` | Copied to `~/.config/<program>/` by hand |
-| `config/plymouth/ichigo/`, `config/sddm/` | System files for the login, copied with sudo (`docs/post-install.md`, step 4) |
+| `config/plymouth/ichigo/`, `config/sddm/`, `config/networkmanager/` | System files, copied with sudo (`docs/post-install.md`, step 4) |
 | `config/bin/` | Small scripts (`gus-*`), copied to `~/.local/bin/` |
-| `assets/` | Wallpaper |
+| `assets/wallpapers/` | Wallpaper (`dark-solid.png`, copied to `~/.local/share/wallpapers/`) |
 | `org/` | Starter org files |
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
 | `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md` |
@@ -40,11 +40,11 @@ No symlinks, no Stow, no package list files.
 | 0 | Back up `~/docs`, `~/media`, `~/org`. Push the repo to GitHub | Repo opens on GitHub |
 | 1 | archinstall with the choices in `base.md`, Installation (Limine as bootloader) | Boots, asks the LUKS password |
 | 2 | `nmtui`, `git clone https://github.com/adonogtx/dotfiles.git ~/dev/dotfiles`, `./install.sh base system` | No errors |
-| 3 | Snapper setup by hand (`base.md`, Snapshots) | `snapper list` shows a snapshot |
-| 4 | `./install.sh desktop fonts icons japanese terminal`, copy configs, `fc-cache -fr` | `start-hyprland` from the TTY shows the bar |
-| 5 | Test `hyprlock` once, wrong password once; then the login, silent boot and polkit agent (`docs/post-install.md`, step 4) | Lock works; `HOOKS` has `plymouth` before the encrypt hook |
+| 3 | Snapper setup by hand, timeline off, cleanup on (`base.md`, Snapshots) | `snapper list` shows a snapshot |
+| 4 | `./install.sh desktop fonts icons japanese terminal`, copy configs (including `~/.zshrc`, the wallpaper and the gsettings), `fc-cache -fr` | `start-hyprland` from the TTY shows the bar; new terminal shows the robbyrussell prompt |
+| 5 | Network fix (`base.md`, Network). Test `hyprlock` once, wrong password once; then the login, silent boot in `/etc/default/limine` and `sudo limine-mkinitcpio` (`docs/post-install.md`, step 4) | `nmcli device` connected; lock works; `HOOKS` has `plymouth` before the encrypt hook; first `cmdline:` in `/boot/limine.conf` starts with `cryptdevice=` |
 | 6 | Reboot | 一期一会 screen asks the password once, no text before it, desktop opens |
-| 7 | `./install.sh backend editors apps`, copy configs | Apps open from their keys; IntelliJ checks in `dev.md`, IDE |
+| 7 | `./install.sh backend editors apps`, copy configs, `sudo usermod -aG docker "$USER"`, open IntelliJ once then copy `idea64.vmoptions` | Apps open from their keys; `groups` shows docker; IntelliJ checks in `dev.md`, IDE |
 
 The zip exported from Claude keeps the executable bits; only a repo uploaded through the GitHub website needs `chmod +x install.sh install/*.sh config/bin/*`.
 
@@ -61,4 +61,10 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 
 ## Open questions
 
-None.
+| Topic | Note |
+|---|---|
+| Brave Origin | Why line in `apps.md`, Browser, still to write |
+| Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `jq` next to `slurp` and `python-gobject` next to `power-profiles-daemon` in `install/`; commit today's changes |
+| Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |
+| Music | Untagged files show Unknown in rmpc; `~/homelab/music` duplicates the Nujabes folder (dojo mirror or leftover?) |
+| IntelliJ | Open once, copy `idea64.vmoptions`, run the checks in `dev.md`, IDE |

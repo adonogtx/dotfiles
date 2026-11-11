@@ -50,7 +50,9 @@ PanelWindow {
     }
     exclusiveZone: 0
     implicitWidth: panelWidth + shadow + roomRight
-    implicitHeight: body.height + shadow + 4
+    // Fixed height: resizing the window on every frame made the panel shake.
+    // The mask below keeps the empty part click-through.
+    implicitHeight: (screen ? screen.height : 864) - 40
     mask: Region { item: body }
 
     WlrLayershell.layer: WlrLayer.Overlay

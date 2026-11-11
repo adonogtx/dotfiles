@@ -8,7 +8,7 @@ Hyprland, the bar, login, lock, look and input. Topic blocks: **Decision, Why, N
 **Why:** Hyprland 0.57 removed the old `.conf` format. Modules keep each concern small.
 **Not chosen:** i3 (X11, IntelliJ glitches), Niri, Omarchy.
 **Where:** `config/hypr/hyprland.lua`, `config/hypr/modules/`
-**Status:** done. Dispatchers not in the upstream example (fullscreen, move window, resize mode, previous workspace) are isolated; check `hyprctl configerrors` on first start (clean on 2026-11-10).
+**Status:** done. Dispatchers not in the upstream example (fullscreen, move window, resize mode, previous workspace) are isolated; check `hyprctl configerrors` on first start (clean on 2026-11-10). Under SDDM the session does not read `~/.zshrc`: `env.lua` puts `~/.local/bin` first in `PATH` (the `gus-*` binds failed without it), and `autostart.lua` runs `dbus-update-activation-environment --systemd --all` before starting user services (polkit, mpd-mpris, portals need `WAYLAND_DISPLAY`).
 
 ## Windows
 
@@ -61,7 +61,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 **Why:** Low friction: the basics in one place, nothing else. Capture and record stay on their keys.
 **Not chosen:** Separate menus per icon. Tiles grid, settings rows. Mixer faders. Display scale control (would break `base.md`, Hardware). Per-app volume.
 **Where:** `config/quickshell/MenuWindow.qml`, `ControlCenter.qml`, `*Section.qml`, `Calendar.qml`, shared pieces (`Tile`, `CircleButton`, `Slider`, `Segmented`, `Switch`, `ListItem`)
-**Status:** done. Wi-Fi section to confirm with NetworkManager on the iwd backend (`base.md`, Network).
+**Status:** done. `MenuWindow.qml` keeps a fixed height (screen height minus 40) and animates only the panel inside; resizing the window on every frame made it shake (fixed 2026-11-10). The mask keeps the empty part click-through. The energy mode needs `python-gobject` for `powerprofilesctl` (add it next to `power-profiles-daemon` in `install/`). Wi-Fi section to confirm with NetworkManager on the iwd backend (`base.md`, Network).
 
 ## Login
 

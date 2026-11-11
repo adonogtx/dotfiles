@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 # gus-screenshot [region|screen]: saves to ~/media/pictures/screenshots and copies it.
+# region: drag for an area, or click once to take the window under the cursor.
 set -euo pipefail
 dir="$HOME/media/pictures/screenshots"
 mkdir -p "$dir"
 file="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
 
+# Visible windows on the active workspaces, as slurp boxes: "x,y wxh".
+windows() {
+  local ws
+  ws="$(hyprctl -j monitors | jq -c '[.[].activeWorkspace.id]')"
+  hyprctl -j clients | jq -r --argjson ws "$ws" '
+    .[] | select(.mapped and (.hidden | not) and (.workspace.id as $w | $ws | index($w)))
+        | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"'
+}
+
 case "${1:-region}" in
-  region) geometry="$(slurp)" || exit 0; grim -g "$geometry" "$file" ;;
+  region) geometry="$(windows | slurp)" || exit 0; grim -g "$geometry" "$file" ;;
   screen) grim "$file" ;;
   *) echo "usage: gus-screenshot [region|screen]" >&2; exit 2 ;;
 esac

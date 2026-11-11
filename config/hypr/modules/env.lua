@@ -12,3 +12,6 @@ hl.env("_JAVA_AWT_WM_NONREPARENTING", "1")
 -- XWayland apps use XMODIFIERS. Do not set GTK_IM_MODULE.
 hl.env("XMODIFIERS", "@im=fcitx")
 hl.env("QT_IM_MODULES", "wayland;fcitx")
+
+-- Own scripts (config/bin) for binds; SDDM sessions do not read ~/.zshrc.
+hl.env("PATH", os.getenv("HOME") .. "/.local/bin:" .. os.getenv("PATH"))
