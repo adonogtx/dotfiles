@@ -1,4 +1,5 @@
 // Input seal: あ in full ink while Mozc is active, a faint A otherwise. Click toggles.
+// Medium weight at 13 px so the letter carries the same weight as the 1.2 px icon strokes.
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -14,9 +15,11 @@ BarItem {
 
     Text {
         anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 1      // capitals sit above the text box centre
         text: seal.japanese ? "あ" : "A"
         font.family: Theme.jp
-        font.pixelSize: 12
+        font.pixelSize: Theme.body
+        font.weight: Font.Medium
         color: seal.japanese ? Theme.label : seal.ink
     }
 

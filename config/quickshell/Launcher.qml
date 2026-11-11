@@ -1,5 +1,5 @@
-// Spotlight: search the installed apps, arrows to move, Enter to open, Escape to close.
-// Opens from the search icon, Super + Space, or: quickshell ipc call spotlight toggle
+// Launcher: search the installed apps, arrows to move, Enter to open, Escape to close.
+// Opens from Super + Space, or: quickshell ipc call launcher toggle
 // Nothing is listed until you type.
 import Quickshell
 import Quickshell.Io
@@ -10,7 +10,7 @@ import QtQuick
 import QtQuick.Effects
 
 PanelWindow {
-    id: spot
+    id: launcher
     property bool open: false
     property int selected: 0
 
@@ -20,33 +20,39 @@ PanelWindow {
         if (open) { closing.stop(); shown = true; field.text = ""; field.forceActiveFocus() }
         else closing.restart()
     }
-    Timer { id: closing; interval: 160; onTriggered: spot.shown = false }
+    Timer { id: closing; interval: 160; onTriggered: launcher.shown = false }
+
+    readonly property int rowHeight: 42
+    readonly property int maxResults: 7
+    readonly property int fieldHeight: 34
 
     visible: shown
     color: "transparent"
     anchors { top: true }
-    // A quarter of the way down the screen.
-    margins { top: -4 + Math.round((spot.screen ? spot.screen.height : (Quickshell.screens[0] ? Quickshell.screens[0].height : 864)) * 0.25) }
+    // A third of the way down the screen.
+    margins { top: -4 + Math.round((launcher.screen ? launcher.screen.height : (Quickshell.screens[0] ? Quickshell.screens[0].height : 864)) / 3) }
     exclusiveZone: 0
     implicitWidth: 560 + Theme.shadowPad * 2
-    implicitHeight: body.height + Theme.shadowPad + 4
+    // Fixed at the tallest the list can be, so the window never resizes while it animates.
+    // The mask keeps the empty part click-through.
+    implicitHeight: 12 + fieldHeight + 13 + maxResults * rowHeight + 12 + Theme.shadowPad + 4
     mask: Region { item: body }
 
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "spotlight"
+    WlrLayershell.namespace: "launcher"
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     IpcHandler {
-        target: "spotlight"
-        function toggle(): void { spot.open = !spot.open }
-        function show(): void { spot.open = true }
-        function hide(): void { spot.open = false }
+        target: "launcher"
+        function toggle(): void { launcher.open = !launcher.open }
+        function show(): void { launcher.open = true }
+        function hide(): void { launcher.open = false }
     }
 
     HyprlandFocusGrab {
-        active: spot.open
-        windows: [spot]
-        onCleared: spot.open = false
+        active: launcher.open
+        windows: [launcher]
+        onCleared: launcher.open = false
     }
 
     // Ranking: name starts with the query, then a word in the name does,
@@ -67,17 +73,15 @@ PanelWindow {
             if (score > 0) scored.push({ app: app, score: score })
         }
         scored.sort((a, b) => (b.score - a.score) || a.app.name.localeCompare(b.app.name))
-        return scored.slice(0, 7).map(s => s.app)
+        return scored.slice(0, launcher.maxResults).map(s => s.app)
     }
     onResultsChanged: selected = 0
 
     function launch(app) {
         if (!app) return
         app.execute()
-        spot.open = false
+        launcher.open = false
     }
-
-    readonly property int rowHeight: 36
 
     Rectangle {
         id: body
@@ -103,8 +107,8 @@ PanelWindow {
             shadowVerticalOffset: 10
         }
 
-        opacity: spot.open ? 1 : 0
-        scale: spot.open ? 1 : 0.97
+        opacity: launcher.open ? 1 : 0
+        scale: launcher.open ? 1 : 0.97
         Behavior on opacity { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
         Behavior on scale {
             NumberAnimation { duration: Theme.glide; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.settle }
@@ -130,7 +134,7 @@ PanelWindow {
 
             Item {
                 width: parent.width
-                height: 34
+                height: launcher.fieldHeight
 
                 Glyph {
                     id: lens
@@ -154,35 +158,35 @@ PanelWindow {
                     selectionColor: Theme.accent
                     clip: true
 
-                    Keys.onEscapePressed: spot.open = false
-                    Keys.onDownPressed: spot.selected = Math.min(spot.selected + 1, spot.results.length - 1)
-                    Keys.onUpPressed: spot.selected = Math.max(spot.selected - 1, 0)
-                    Keys.onTabPressed: spot.selected = (spot.selected + 1) % Math.max(1, spot.results.length)
-                    onAccepted: spot.launch(spot.results[spot.selected])
+                    Keys.onEscapePressed: launcher.open = false
+                    Keys.onDownPressed: launcher.selected = Math.min(launcher.selected + 1, launcher.results.length - 1)
+                    Keys.onUpPressed: launcher.selected = Math.max(launcher.selected - 1, 0)
+                    Keys.onTabPressed: launcher.selected = (launcher.selected + 1) % Math.max(1, launcher.results.length)
+                    onAccepted: launcher.launch(launcher.results[launcher.selected])
 
                     Text {
                         visible: field.text.length === 0
-                        text: "Spotlight Search"
+                        text: "Search"
                         font: field.font
                         color: Theme.tertiary
                     }
                 }
             }
 
-            Hairline { visible: spot.results.length > 0 }
+            Hairline { visible: launcher.results.length > 0 }
 
             Item {
-                visible: spot.results.length > 0
+                visible: launcher.results.length > 0
                 width: parent.width
-                height: spot.results.length * spot.rowHeight
+                height: launcher.results.length * launcher.rowHeight
 
                 // One highlight that glides between results instead of jumping.
                 Rectangle {
                     width: parent.width
-                    height: spot.rowHeight
+                    height: launcher.rowHeight
                     radius: 8
                     color: Theme.accent
-                    y: spot.selected * spot.rowHeight
+                    y: launcher.selected * launcher.rowHeight
                     Behavior on y { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
                 }
 
@@ -190,21 +194,21 @@ PanelWindow {
                     width: parent.width
 
                     Repeater {
-                        model: spot.results
+                        model: launcher.results
 
                         Item {
                             id: hit
                             required property var modelData
                             required property int index
-                            readonly property bool chosen: index === spot.selected
+                            readonly property bool chosen: index === launcher.selected
                             width: parent.width
-                            height: spot.rowHeight
+                            height: launcher.rowHeight
 
                             IconImage {
                                 id: appIcon
                                 x: 10
                                 anchors.verticalCenter: parent.verticalCenter
-                                implicitSize: 22
+                                implicitSize: 28
                                 source: Quickshell.iconPath(hit.modelData.icon, "application-x-executable")
                             }
                             Text {
@@ -234,8 +238,8 @@ PanelWindow {
                                 anchors.fill: parent
                                 hoverEnabled: true
                                 cursorShape: Qt.PointingHandCursor
-                                onEntered: spot.selected = hit.index
-                                onClicked: spot.launch(hit.modelData)
+                                onEntered: launcher.selected = hit.index
+                                onClicked: launcher.launch(hit.modelData)
                             }
                         }
                     }

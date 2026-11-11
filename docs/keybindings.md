@@ -7,7 +7,7 @@ SUPER works like Command on a Mac. Vim keys move focus. Source: `config/hypr/mod
 | Keys | Action |
 |---|---|
 | Super + Return | Ghostty |
-| Super + Space | Spotlight |
+| Super + Space | Launcher |
 | Super + B | Brave |
 | Super + E | Files (Nautilus) |
 | Super + D | Doom Emacs (emacsclient) |

@@ -34,7 +34,7 @@ dotfiles/
 │   └── apps.sh                Brave, zathura, mpv + uosc, mpd + rmpc, imv, Anki, Bitwarden, Discord
 ├── config/                    one folder per program, copy what you want
 │   ├── hypr/                  hyprland.lua + modules/, hyprlock, hypridle
-│   ├── quickshell/            bar, Control Center with its sections, calendar, Spotlight: one file per piece
+│   ├── quickshell/            bar, Control Center with its sections, calendar, Launcher: one file per piece
 │   ├── ghostty/               config + themes/dark-solid
 │   ├── zsh/                   .zshrc
 │   ├── git/                   config, global ignore
@@ -114,7 +114,7 @@ Full list: `docs/risks.md`.
 
 | Version | Contents |
 |---|---|
-| v1 | This repo: the bar, the Control Center (Wi-Fi, Bluetooth, Night Shift, Battery, Display, Sound, Microphone), the calendar, Spotlight, the lock, the login, every app configured |
+| v1 | This repo: the bar, the Control Center (Wi-Fi, Bluetooth, Night Shift, Battery, Display, Sound, Microphone), the calendar, Launcher, the lock, the login, every app configured |
 | v1.1 | `./install.sh all` also copies configs and enables services, stopping for AUR review and a lock test |
 | v2 | Notification Center (replaces mako) |
 | v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode, end of day closing |

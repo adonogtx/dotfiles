@@ -10,13 +10,13 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Where:** `install/terminal.sh`, `config/ghostty/`, `config/zsh/.zshrc` (copied to `~/.zshrc`)
 **Status:** done. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). `.zshrc` was missed on the first install; copied 2026-11-10.
 
-## Launcher: Spotlight
+## Launcher
 
-**Decision:** Spotlight in Quickshell on Super + Space and the bar's search icon: centred a quarter of the way down the screen, nothing listed until you type, ranked app results, a blue highlight that glides between them, Enter opens, Escape closes. fuzzel stays only as the clipboard history picker (Super + C).
-**Why:** Same look and motion as the rest of the bar; one less app styled separately.
+**Decision:** Launcher in Quickshell on Super + Space: centred a third of the way down the screen, placeholder "Search", nothing listed until you type, ranked app results with 28 px icons on 42 px rows, a blue highlight that glides between them, Enter opens, Escape closes. fuzzel stays only as the clipboard history picker (Super + C).
+**Why:** Same look and motion as the rest of the bar; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
-**Where:** `config/quickshell/Spotlight.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
-**Status:** done
+**Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
+**Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
 
 ## Notifications
 

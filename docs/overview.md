@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. macOS structure, Dark Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, 一期一会 on the boot screen, and Musashi's phrase on the lock screen.
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One bar on top, one panel for every control, Dark Solid look (opaque, no translucency), IBM Plex type. Japanese only in the bar's date, 木 in the bar, 一期一会 on the boot screen, and Musashi's phrase on the lock screen.
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -16,7 +16,7 @@ Status values: **done** (in the repo), **to build** (decided, not written yet), 
 
 ## Repository
 
-GitHub: `github.com/adonogtx/dotfiles` (replaces `adonogtx/zenOS` and the older `adonogtx/migration`). Lives at `~/dev/dotfiles`.
+GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 
 | Path | Role |
 |---|---|
@@ -54,7 +54,7 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 
 | Version | Contents |
 |---|---|
-| v1 | Everything marked done in these docs: the bar, the Control Center with its sections, the calendar, Spotlight, the lock, the login |
+| v1 | Everything marked done in these docs: the bar, the Control Center with its sections, the calendar, the launcher, the lock, the login |
 | v1.1 | One command install: `./install.sh all` installs every module, copies configs with a backup of what exists, enables services, and stops twice (AUR review, lock test before autologin). Changes principle 4 when built |
 | v2 | Notification Center (replaces mako) |
 | v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode, end of day closing |

@@ -1,4 +1,5 @@
-// Battery: hairline outline, fill by charge in the bar ink, green charging, red low.
+// Battery: hairline outline, fill by charge in the bar ink, red low.
+// While charging, a green bolt stands beside it and the fill turns green.
 import Quickshell.Services.UPower
 import QtQuick
 
@@ -13,28 +14,41 @@ BarItem {
     readonly property bool charging: dev !== null && dev.state === UPowerDeviceState.Charging
     visible: dev !== null && dev.isPresent
 
-    Item {
-        width: 21; height: 10
+    Row {
         anchors.verticalCenter: parent.verticalCenter
+        spacing: 2
 
-        Rectangle {
-            id: shell
-            width: 19; height: 10; radius: 2.5
-            color: "transparent"
-            border.width: 1
-            border.color: Qt.rgba(bat.ink.r, bat.ink.g, bat.ink.b, 0.55)
-            Rectangle {
-                x: 1.5; y: 1.5
-                height: parent.height - 3
-                width: Math.max(1.5, (parent.width - 3) * bat.level)
-                radius: 1.5
-                color: bat.charging ? Theme.green : (bat.level < 0.2 ? Theme.red : bat.ink)
-            }
+        Glyph {
+            name: "bolt"
+            visible: bat.charging
+            color: Theme.green
+            width: Math.round(Theme.icon * 0.8)
+            height: width
+            anchors.verticalCenter: parent.verticalCenter
         }
-        Rectangle {
-            x: 19.5; y: 3
-            width: 1.5; height: 4; radius: 0.75
-            color: Qt.rgba(bat.ink.r, bat.ink.g, bat.ink.b, 0.55)
+
+        Item {
+            width: 21; height: 10
+            anchors.verticalCenter: parent.verticalCenter
+
+            Rectangle {
+                width: 19; height: 10; radius: 2.5
+                color: "transparent"
+                border.width: 1
+                border.color: bat.ink
+                Rectangle {
+                    x: 1.5; y: 1.5
+                    height: parent.height - 3
+                    width: Math.max(1.5, (parent.width - 3) * bat.level)
+                    radius: 1.5
+                    color: bat.charging ? Theme.green : (bat.level < 0.2 ? Theme.red : bat.ink)
+                }
+            }
+            Rectangle {
+                x: 19.5; y: 3
+                width: 1.5; height: 4; radius: 0.75
+                color: bat.ink
+            }
         }
     }
 }

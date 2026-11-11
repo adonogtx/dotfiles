@@ -31,7 +31,7 @@ Singleton {
 
     // Grid
     readonly property int barHeight: 28
-    readonly property int icon: 14
+    readonly property int icon: 16
     readonly property int itemPad: 5      // horizontal padding inside a bar item
     readonly property int itemGap: 2      // space between bar items
     readonly property int edge: 12        // bar padding at the screen edges

@@ -10,7 +10,7 @@ Item {
     property string name
     property int level: -1
     property color color: Theme.secondary
-    property real stroke: 1.6
+    property real stroke: 1.8
 
     implicitWidth: Theme.icon
     implicitHeight: Theme.icon
@@ -95,6 +95,8 @@ Item {
     }
 
     readonly property var parts: partsFor(name, level)
+    // Optical centring: Wi-Fi carries its ink low (dot at the bottom, faint outer arcs), so it moves up.
+    readonly property var offsets: ({ "wifi": -1.5, "wifi-off": -1.5 })
     readonly property color faint: Qt.rgba(color.r, color.g, color.b, color.a * 0.28)
 
     Repeater {
@@ -104,6 +106,7 @@ Item {
             required property var modelData
             width: 24
             height: 24
+            y: (glyph.offsets[glyph.name] || 0) * glyph.width / 24
             scale: glyph.width / 24
             transformOrigin: Item.TopLeft
             preferredRendererType: Shape.CurveRenderer

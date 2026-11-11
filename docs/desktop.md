@@ -13,7 +13,7 @@ Hyprland, the bar, login, lock, look and input. Topic blocks: **Decision, Why, N
 ## Windows
 
 **Decision:** Solid. No blur, no transparency. Rounding 10, gaps 6 inside and 12 outside, 1 px hairline border, one soft shadow, animations around 150 ms. No title bar buttons.
-**Why:** Legible, light on the Iris Xe, closest to macOS with Reduce Transparency.
+**Why:** Legible, light on the Iris Xe, calm and readable without effects.
 **Not chosen:** Translucent windows or panels. hyprbars (plugins break on every Hyprland update).
 **Where:** `config/hypr/modules/look.lua`
 **Status:** done
@@ -39,15 +39,15 @@ Panels get depth without translucency: each surface falls one shade top to botto
 
 ## Bar
 
-**Decision:** Quickshell, 28 px, solid #161618. Left: 木 (tree) in white, five workspace tabs (grey rounded square behind the active number, numbers with windows grey, empty ones faint). Right: あ input seal, Bluetooth, Wi-Fi, sound, battery, search, Control Center, date `11月9日(月)  14:24` (date white, time grey). Icons are one line family (`Glyph.qml`, Tabler paths, MIT): grey, full ink on hover; Wi-Fi arcs and sound waves show the level. Each status icon opens the Control Center on its section; the date opens the calendar; search opens Spotlight; scroll on sound changes volume.
-**Why:** macOS structure, one panel for every control, no TUIs.
-**Not chosen:** Waybar (less control). Focused app name and dock (removed on purpose). Separate menus per icon, hairline style, pill groups, Dynamic Island (Impasto), typographic bar: all tried on 2026-11-09. TUIs (bluetui, nmtui, wiremix, impala). The kamon in the bar. 八 instead of 木 (2026-11-10: no reason beyond change; 八 is too thin at bar size).
+**Decision:** Quickshell, 28 px, solid #161618. Left: 木 (tree) in white, five workspace tabs (grey rounded square behind the active number, numbers with windows grey, empty ones faint). Right: あ input seal, Bluetooth, Wi-Fi, sound, battery, Control Center, date `11月9日(月)  14:24` (date white, time grey). Icons are one line family (`Glyph.qml`, Tabler paths, MIT): 16 px, stroke 1.8 on the 24 grid (1.2 px on screen), grey, full ink on hover; the battery outline uses the same ink, and a green bolt stands beside it while charging; Wi-Fi arcs and sound waves show the level. Each status icon opens the Control Center on its section; the date opens the calendar; scroll on sound changes volume.
+**Why:** One panel for every control, no TUIs.
+**Not chosen:** Waybar (less control). Focused app name and dock (removed on purpose). Separate menus per icon, hairline style, pill groups, Dynamic Island (Impasto), typographic bar: all tried on 2026-11-09. TUIs (bluetui, nmtui, wiremix, impala). The kamon in the bar. 八 instead of 木 (2026-11-10: no reason beyond change; 八 is too thin at bar size). A search icon (2026-11-10: Super + Space is enough).
 **Where:** `config/quickshell/`, one file per piece (`Bar.qml`, `Tree.qml`, `Workspaces.qml`, `*Item.qml`)
-**Status:** done. Frozen after the 2026-11-09 redesigns. Check whether `Hairline.qml` and `Toggle.qml` are still used; remove them if not.
+**Status:** done. Frozen after the 2026-11-09 redesigns. Wi-Fi sits 1.5 grid units higher (`offsets` in `Glyph.qml`) because its ink is low. Check whether `Hairline.qml` and `Toggle.qml` are still used; remove them if not.
 
 ## Control Center
 
-**Decision:** One panel under the bar, macOS style. Main view: four 38 px circles (Wi-Fi, Bluetooth, Night Shift, Battery) with their names; the circle toggles, the name opens the section. Below, three capsule sliders (Display, Sound, Microphone), each with a small chevron to its section. Sections expand in place with a back chevron:
+**Decision:** One panel under the bar. Main view: four 38 px circles (Wi-Fi, Bluetooth, Night Shift, Battery) with their names; the circle toggles, the name opens the section. Below, three capsule sliders (Display, Sound, Microphone), each with a small chevron to its section. Sections expand in place with a back chevron:
 
 | Section | Contents |
 |---|---|
@@ -69,7 +69,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 **Why:** The disk password already proves who you are; the lock screen protects the running session.
 **Not chosen:** greetd + tuigreet (broke the first install, enabled before the session was tested). SDDM with a second password. Text LUKS prompt. The kamon (dropped). Musashi's phrase, Zen Kurenaido and IBM Plex on the boot screen. A progress bar or spinner after the password (2026-11-10: the still image was NetworkManager-wait-online; disabling it fixed the wait, see `base.md`, Network).
 **Where:** `install/desktop.sh` (installs, never enables), `config/sddm/autologin.conf` (installed with `sed "s/@USER@/$USER/"`), `config/plymouth/ichigo/`, `/etc/default/limine`, `docs/post-install.md` step 4
-**Status:** done. Built and tested on 2026-11-10 (the first install had skipped it). Requires LUKS; without it autologin is unsafe. Theme name `ichigo` (renamed from `zenos` on 2026-11-10). Test from a text console with `plymouth-test.sh` (restores the previous theme). `plymouth` goes right after `systemd` (or `udev`), before `sd-encrypt` (or `encrypt`). After changing `HOOKS` or the kernel line run `sudo limine-mkinitcpio` and check the first `cmdline:` in `/boot/limine.conf`.
+**Status:** done. Built and tested on 2026-11-10 (the first install had skipped it). Requires LUKS; without it autologin is unsafe. Theme name `ichigo`. Test from a text console with `plymouth-test.sh` (restores the previous theme). `plymouth` goes right after `systemd` (or `udev`), before `sd-encrypt` (or `encrypt`). After changing `HOOKS` or the kernel line run `sudo limine-mkinitcpio` and check the first `cmdline:` in `/boot/limine.conf`.
 
 ## Polkit agent
 
@@ -112,7 +112,7 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 
 | Keys | Action |
 |---|---|
-| Super + Return / Space / B / E / D / I | Ghostty / Spotlight / Brave Origin / Nautilus / Doom / IntelliJ |
+| Super + Return / Space / B / E / D / I | Ghostty / Launcher / Brave Origin / Nautilus / Doom / IntelliJ |
 | Super + Q / F / V / T | Close / fullscreen / float / flip split |
 | Super + H J K L, + Shift | Focus, move window |
 | Super + R | Resize mode (H J K L, Escape) |
@@ -126,6 +126,6 @@ Calendar drops from the date: one month, today in blue, arrows, weeks start on S
 | Super + Shift + W / A / B | Control Center on Wi-Fi / Sound / Bluetooth |
 | Super + Shift + E | Log out |
 
-Menus and Spotlight are reached through Quickshell IPC: `quickshell ipc call menus toggle <section>`, `quickshell ipc call spotlight toggle`.
+Menus and the launcher are reached through Quickshell IPC: `quickshell ipc call menus toggle <section>`, `quickshell ipc call launcher toggle`.
 **Where:** `config/hypr/modules/binds.lua`, `config/hypr/modules/programs.lua`
 **Status:** done

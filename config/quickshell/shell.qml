@@ -1,7 +1,7 @@
-// Gus · Quickshell entry point. One bar per screen; one panel and one Spotlight shared.
+// Gus · Quickshell entry point. One bar per screen; one panel and one Launcher shared.
 // Bar icons open the Control Center on their section; keys reach it through IPC:
 //   quickshell ipc call menus toggle wifi | bluetooth | sound | display | battery | control
-//   quickshell ipc call spotlight toggle
+//   quickshell ipc call launcher toggle
 import Quickshell
 import Quickshell.Io
 import QtQuick
@@ -33,7 +33,7 @@ ShellRoot {
             menu: root.menuBar === bar ? root.menu : ""
             section: root.menuBar === bar ? root.section : ""
             onMenuRequested: (name, x) => root.toggle(name, x, bar)
-            onSpotlightRequested: spotlight.open = !spotlight.open
+            onLauncherRequested: launcher.open = !launcher.open
         }
     }
 
@@ -47,7 +47,7 @@ ShellRoot {
         onSwitchTo: (name) => root.section = name
     }
 
-    Spotlight { id: spotlight }
+    Launcher { id: launcher }
 
     // From keys there is no icon to sit under, so the panel opens at the right edge.
     IpcHandler {
