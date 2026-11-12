@@ -28,7 +28,7 @@ Item {
             width: Math.max(track.height, track.width * slider.clamped)
             height: track.height
             radius: 12
-            color: Theme.panel
+            color: Theme.label
             Behavior on width {
                 enabled: !area.pressed
                 NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
@@ -48,7 +48,7 @@ Item {
             visible: slider.icon !== ""
             name: slider.icon
             level: slider.level
-            color: Theme.secondary
+            color: Theme.panel
             width: 13; height: 13
             x: 7
             anchors.verticalCenter: parent.verticalCenter

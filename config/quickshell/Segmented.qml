@@ -25,7 +25,7 @@ Rectangle {
         width: seg.cell
         height: 26
         radius: 6
-        color: Theme.panel
+        color: Theme.line
         Behavior on x { NumberAnimation { duration: 220; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.settle } }
 
         layer.enabled: true

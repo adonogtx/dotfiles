@@ -35,7 +35,7 @@ alias e="emacsclient -c -a ''"
 # Light Solid in terminal tools. bat follows the ANSI palette (Ghostty theme);
 # fzf starts from its light scheme and keeps the terminal background.
 export BAT_THEME="ansi"
-export FZF_DEFAULT_OPTS="--color=light,fg:-1,bg:-1,hl:4,fg+:-1,bg+:#ececf0,hl+:4,gutter:-1,info:8,prompt:4,pointer:4,marker:2,spinner:8,header:8,border:#e0e0e4"
+export FZF_DEFAULT_OPTS="--color=dark,fg:-1,bg:-1,hl:12,fg+:-1,bg+:#3c3836,hl+:12,gutter:-1,info:8,prompt:12,pointer:12,marker:10,spinner:8,header:8,border:#504945"
 
 # Java (sdkman, kept in XDG data). Keep this block last.
 export SDKMAN_DIR="$XDG_DATA_HOME/sdkman"

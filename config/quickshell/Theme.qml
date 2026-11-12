@@ -1,4 +1,4 @@
-// Light Solid tokens. Real pixels; the deck draws them at 2x.
+// Gruvbox system tokens (docs/theme.md, Color: system). Real pixels; the deck draws them at 2x.
 // Same values as hypr/modules/theme.lua, ghostty, mako and fuzzel.
 pragma Singleton
 import Quickshell
@@ -6,23 +6,23 @@ import QtQuick
 
 Singleton {
     // Surfaces
-    readonly property color bar: "#f6f6f8"
-    readonly property color panel: "#ffffff"
-    readonly property color tile: "#ececf0"
-    readonly property color line: "#e0e0e4"
+    readonly property color bar: "#1d2021"
+    readonly property color panel: "#282828"
+    readonly property color tile: "#3c3836"
+    readonly property color line: "#504945"
 
     // Text
-    readonly property color label: "#1d1d1f"
-    readonly property color secondary: "#6e6e73"
-    readonly property color tertiary: "#aeaeb2"
+    readonly property color label: "#ebdbb2"
+    readonly property color secondary: "#a89984"
+    readonly property color tertiary: "#7c6f64"
     // "on accent" in theme.md. Not named onAccent: QML reads on + capital as a signal handler,
     // and the property silently stayed black.
-    readonly property color textOnAccent: panel    // text and glyphs on an accent fill
+    readonly property color textOnAccent: bar      // text and glyphs on an accent fill (#1d2021)
 
     // Meaning
-    readonly property color accent: "#007aff"
-    readonly property color green: "#248a3d"
-    readonly property color red: "#d70015"
+    readonly property color accent: "#83a598"
+    readonly property color green: "#b8bb26"
+    readonly property color red: "#fb4934"
 
     // Type
     readonly property string sans: "IBM Plex Sans"
@@ -50,22 +50,22 @@ Singleton {
     readonly property int openBottom: 19
     readonly property int blockGap: 14        // between blocks of the open panel
     readonly property int rowHeight: 40       // list rows in Wi-Fi and Bluetooth
-    // Small shadows under white parts: slider fill, switch knob, chosen segment (black, 0 1 3).
-    readonly property real fillShadow: 0.18
-    readonly property real knobShadow: 0.25
-    readonly property real segmentShadow: 0.15
+    // Small shadows under raised parts: slider fill, switch knob, chosen segment (black, 0 1 3).
+    readonly property real fillShadow: 0.30
+    readonly property real knobShadow: 0.35
+    readonly property real segmentShadow: 0.30
 
     // Depth without translucency: each surface falls one shade from top to bottom,
     // has a 1 px edge in line, and the panel casts one soft shadow (no blur anywhere).
     readonly property color panelTop: panel
-    readonly property color panelBottom: "#f7f7f9"
+    readonly property color panelBottom: "#262626"
     readonly property color rim: line
     readonly property color edgeSoft: line
-    readonly property color wash: Qt.rgba(0, 0, 0, 0.04)        // hover
-    readonly property color washStrong: Qt.rgba(0, 0, 0, 0.08)  // pressed
+    readonly property color wash: Qt.rgba(1, 1, 1, 0.04)        // hover, light over the dark panel
+    readonly property color washStrong: Qt.rgba(1, 1, 1, 0.08)  // pressed
     readonly property int shadowPad: 28                          // room around a panel for its shadow
-    readonly property real shadowOpacity: 0.12                    // black, under every panel
-    readonly property color lineHover: Qt.darker(line, 1.06)     // a grey control under the pointer
+    readonly property real shadowOpacity: 0.30                    // black, under every panel (theme.md, Shadow)
+    readonly property color lineHover: Qt.lighter(line, 1.15)    // a grey control under the pointer
 
     // Motion: quick for hover, slow settle for anything that changes shape.
     readonly property int glide: 300

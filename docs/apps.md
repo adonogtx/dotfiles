@@ -8,7 +8,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Why:** Native Wayland, one text config, fast.
 **Not chosen:** Kitty, Alacritty, fish. A custom prompt with user and path (2026-11-10: robbyrussell kept). A bat theme with fixed colors (ignores the palette). Light Solid on the terminal (until 2026-11-11).
 **Where:** `install/terminal.sh`, `config/ghostty/` (`themes/gruvbox`; `themes/light-solid` stays in git), `config/zsh/.zshrc` (copied to `~/.zshrc`; also `BAT_THEME` and `FZF_DEFAULT_OPTS`), `config/btop/` (`btop.conf` and `themes/gruvbox.theme`)
-**Status:** to build in Gruvbox (palette in `docs/theme.md`, ANSI palette). Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). A running Ghostty does not pick up a theme change by itself: reload with Ctrl + Shift + , (or open a new window).
+**Status:** done 2026-11-11 in Gruvbox (palette in `docs/theme.md`, ANSI palette): `themes/gruvbox`, fzf with slot 12 for matches and the prompt, tile for the current line, line for the border; btop `gruvbox.theme`. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). A running Ghostty does not pick up a theme change by itself: reload with Ctrl + Shift + , (or open a new window).
 
 ## Launcher
 
@@ -16,14 +16,14 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Why:** Same look and motion as the rest of the pill; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
 **Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
-**Status:** done; Gruvbox colors to build (Launcher through `Theme.qml`; fuzzel by hand: panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border). The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
+**Status:** done; Gruvbox colors done 2026-11-11 (Launcher through `Theme.qml`; fuzzel by hand: panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border). The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
 
 ## Notifications
 
 **Decision:** mako, top right, 12 from the top and right edges, Gruvbox, 5 s, urgent ones stay. Battery warnings at 20% (normal) and 10% (urgent), sent by `BatteryItem.qml` (`desktop.md`, Bar).
 **Why:** Works today; the Notification Center is v2 work, not a reason to change now. The warnings cover the minutes when the pill is closed.
 **Where:** `config/mako/`
-**Status:** to build in Gruvbox: panel background, label text, line border, red border when urgent, progress bar in tile. Battery warnings to build. Replaced by the Quickshell Notification Center in v2
+**Status:** Gruvbox done 2026-11-11: panel background, label text, line border, red border when urgent, progress bar in tile. Battery warnings to build. Replaced by the Quickshell Notification Center in v2
 
 ## Browser
 
@@ -58,7 +58,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 | Images | imv | |
 
 **Where:** `install/apps.sh`, `config/zathura/`, `config/mpd/`, `config/rmpc/`, `config/mpv/`
-**Status:** done; rmpc and uosc to build in Gruvbox. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Whether to keep rmpc is an open question (`overview.md`). zathura keeps its Light Solid `zathurarc` (2026-11-11): background around pages #ececf0, statusbar, inputbar, notifications and completion #ffffff, search #007aff, Ctrl + R night mode #1c1c1e page and #f5f5f7 text; done and tested 2026-11-11. rmpc in Gruvbox: `themes/gruvbox.ron` (light-solid and dark-solid kept), selection accent with on accent text, secondary for most text, tertiary only for icons and modes that are off; modal in panel with a line border. uosc in Gruvbox (`color=` in `script-opts/uosc.conf`): bars and menus in panel with label text, timeline fill and active items in label, search matches in accent; subtitles and the video stay untouched.
+**Status:** done; rmpc and uosc in Gruvbox done 2026-11-11. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Whether to keep rmpc is an open question (`overview.md`). zathura keeps its Light Solid `zathurarc` (2026-11-11): background around pages #ececf0, statusbar, inputbar, notifications and completion #ffffff, search #007aff, Ctrl + R night mode #1c1c1e page and #f5f5f7 text; done and tested 2026-11-11. rmpc in Gruvbox: `themes/gruvbox.ron` (light-solid and dark-solid kept), selection accent with on accent text, secondary for most text, tertiary only for icons and modes that are off; modal in panel with a line border. uosc in Gruvbox (`color=` in `script-opts/uosc.conf`): bars and menus in panel with label text, timeline fill and active items in label, search matches in accent, curtain in bar; subtitles and the video stay untouched.
 
 ## Utilities
 

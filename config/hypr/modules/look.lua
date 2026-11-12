@@ -1,4 +1,4 @@
--- Light Solid: opaque windows, hairline borders, one soft shadow, no blur.
+-- Gruvbox: opaque windows, hairline borders, one soft shadow, no blur.
 local t = require("modules.theme")
 
 hl.config({
