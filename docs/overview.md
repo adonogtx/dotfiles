@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, Gruvbox look: dark for the system, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, and 一歩一歩 on the boot and lock screens.
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, Gruvbox look: dark for the system, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, 一歩一歩 on the boot and lock screens, and the fastfetch screen (the 道 logo, the date, 一歩一歩).
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -66,7 +66,6 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 |---|---|
 | Volume in the pill | Proposed 2026-11-11: on a volume or brightness change the pill morphs for about 1 s to show the icon, a bar and the percentage, like the workspace dots. Not decided |
 | Wallpaper | A simple, quick to change Gruvbox wallpaper (`gus-wallpaper` picker through fuzzel proposed 2026-11-11). `light-solid.png` until then |
-| Fastfetch | `config/fastfetch/` is untracked and undocumented; 道 as the logo needs a line in this file's first paragraph. Document it in `apps.md` or remove it |
 | Music player | Keep rmpc or move to another player (ncmpcpp, termusic, cmus, Amberol, Strawberry); reason for leaving rmpc still to write |
 | Plex | Not documented yet. Its database in `/var/lib/plex` sits in `@`: a snapshot boot rolls watch state back, a reinstall loses it. Turn on Sync My Watch State and Ratings; consider a `@plex` subvolume or a backup to `~/backups` |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |

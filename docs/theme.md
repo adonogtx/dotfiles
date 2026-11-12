@@ -11,17 +11,27 @@ Gruvbox dark hard for the system (pill, launcher, notifications, terminal, edito
 | tile | #3c3836 | Theme.qml (circles that are off, connected rows, switch track off, segmented track), mako progress bar |
 | line | #504945 | Theme.qml, slider track, 1 px edges, segmented selected cell, field edge |
 | terminal | #1d2021 | ghostty/themes/gruvbox, editor background |
-| label | #ebdbb2 | everywhere; slider fill, switch knob, uosc timeline fill |
-| secondary | #a89984 | Theme.qml, loading word, placeholder, time in the pill |
-| tertiary | #7c6f64 | Theme.qml, fuzzel placeholder, focused window border, line numbers |
+| label | #ebdbb2 | everywhere; slider fill, switch knob, uosc timeline fill, fastfetch values and date |
+| secondary | #a89984 | Theme.qml, loading word, placeholder, time in the pill and in fastfetch |
+| tertiary | #7c6f64 | Theme.qml, fuzzel placeholder, focused window border, line numbers, "step by step" in fastfetch |
 | accent | #83a598 | Control Center switches, pill circles that are on, the connected Wi-Fi check, Launcher selection, Ghostty cursor and selection, btop follow |
 | on accent | #1d2021 | text, glyphs and knobs on an accent fill (`textOnAccent` in Theme.qml), Ghostty selection text |
 | green | #b8bb26 | charging, success |
 | red | #fb4934 | low battery, errors, urgent banners |
-| phrase | #fbf1c7 | 一歩一歩 on boot and lock only |
+| phrase | #fbf1c7 | 一歩一歩 on boot, lock and fastfetch only |
 | border | line, tertiary when focused | Hyprland windows (theme.lua), mako, fuzzel |
 
-Blue only selects, green and red only report state.
+Blue only selects, green and red only report state. The one exception is the fastfetch logo bands below.
+
+## Logo bands (fastfetch only)
+
+The 道 logo in `config/fastfetch/do.txt` is drawn in six bands, top to bottom; each key takes the color of the band beside it. Used nowhere else. All are standard Gruvbox dark colors: five are the ANSI brights (10, 11, 9, 13, 14), and orange #fe8019 is Gruvbox's bright orange, outside the 16 slots. Kept during the palette freeze (2026-11-11): no new color invented.
+
+| Band | Value | Band | Value |
+|---|---|---|---|
+| 1 green | #b8bb26 | 4 red | #fb4934 |
+| 2 yellow | #fabd2f | 5 purple | #d3869b |
+| 3 orange | #fe8019 | 6 aqua | #8ec07c |
 
 ## Color: documents (light)
 

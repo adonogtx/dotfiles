@@ -4,7 +4,7 @@ source "$(dirname "$0")/lib.sh"
 
 terminal=(ghostty)
 shell=(zsh)
-cli=(fzf ripgrep fd bat eza zoxide jq yq tree btop)
+cli=(fzf ripgrep fd bat eza zoxide jq yq tree btop fastfetch)
 pac "${terminal[@]}" "${shell[@]}" "${cli[@]}"
 
 # oh my zsh lives in XDG data, cloned directly (its installer rewrites .zshrc).
