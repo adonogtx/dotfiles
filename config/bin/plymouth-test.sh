@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Shows the installed Plymouth theme without rebooting: the crest fades in, the
+# Shows the installed Plymouth theme without rebooting: the column fades in, the
 # password field appears; after Enter the field fades, "loading" breathes for 6 s
 # under a wrong password message, then the splash quits.
 # Run it from a text console (Ctrl + Alt + F3); it does not change the theme or

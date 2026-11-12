@@ -1,6 +1,6 @@
 [Plymouth Theme]
 Name=ichigo
-Description=Light Solid boot screen: the Mori crest and one field for the LUKS password
+Description=Gruvbox boot screen: the ippo column and one field for the LUKS password
 ModuleName=script
 
 [script]

@@ -1,14 +1,16 @@
-# Boot screen, Light Solid (docs/desktop.md, Login; colors from docs/theme.md).
-# The Mori crest (ichimonji ni mitsuboshi) and one password field with its dots. After the
-# password the field fades and the word "loading" takes its place, breathing until the
-# desktop opens. No other text unless systemd sends a message. Crest and word are pictures
-# (kamon.png, loading.png): the boot screen runs before the system fonts are available.
+# Boot screen, Gruvbox (docs/desktop.md, Login; colors from docs/theme.md).
+# 一歩一歩 written vertically and one password field with its dots: the same screen as
+# the lock. After the password the field fades and the word "loading" takes its place,
+# breathing until the desktop opens. No other text unless systemd sends a message.
+# Phrase and word are pictures (ippo.png, loading.png): the boot screen runs before the
+# system fonts are available.
 # Sizes are physical pixels for the 1080p panel (the desktop's 1.25 scale is applied by
-# hand: the lock's 290 x 42 field becomes 362 x 52).
-# Crest centre at 39% of the height, field centre 250 px below it.
+# hand: the lock's 290 x 42 field becomes 362 x 52, its offsets 83 and 278 become 104
+# and 348). Column centre 104 px above the screen centre (top at 70 on 1080p), field
+# top 60 px below the column.
 
-Window.SetBackgroundTopColor(0.965, 0.965, 0.973);      # bar #f6f6f8
-Window.SetBackgroundBottomColor(0.965, 0.965, 0.973);
+Window.SetBackgroundTopColor(0.114, 0.125, 0.129);      # bar #1d2021
+Window.SetBackgroundBottomColor(0.114, 0.125, 0.129);
 
 screen_x = Window.GetX();
 screen_y = Window.GetY();
@@ -16,18 +18,18 @@ screen_w = Window.GetWidth();
 screen_h = Window.GetHeight();
 center_x = screen_x + screen_w / 2;
 
-# The crest, its centre at 39% of the height. It fades in (see refresh_callback).
-crest_image = Image("kamon.png");
-crest = Sprite(crest_image);
-crest_center_y = screen_y + screen_h * 0.39;
-crest.SetPosition(center_x - crest_image.GetWidth() / 2, crest_center_y - crest_image.GetHeight() / 2, 10);
-crest.SetOpacity(0);
+# The column, centred horizontally. It fades in (see refresh_callback).
+phrase_image = Image("ippo.png");
+phrase = Sprite(phrase_image);
+phrase_y = screen_y + screen_h / 2 - 104 - phrase_image.GetHeight() / 2;
+phrase.SetPosition(center_x - phrase_image.GetWidth() / 2, phrase_y, 10);
+phrase.SetOpacity(0);
 
-# Password field, hidden until cryptsetup asks; its centre 250 px below the crest's.
-field_center_y = crest_center_y + 250;
+# Password field, hidden until cryptsetup asks; its top 60 px below the column.
 field_image = Image("entry.png");
 field = Sprite(field_image);
-field_y = field_center_y - field_image.GetHeight() / 2;
+field_y = phrase_y + phrase_image.GetHeight() + 60;
+field_center_y = field_y + field_image.GetHeight() / 2;
 field.SetPosition(center_x - field_image.GetWidth() / 2, field_y, 20);
 field.SetOpacity(0);
 
@@ -68,7 +70,7 @@ fun show_dots(count, opacity) {
 }
 
 # Fades: 300 ms on cubic-bezier(0.16, 1, 0.3, 1). The refresh callback runs 50 times
-# a second, so 15 frames. The field appears just after the crest has settled.
+# a second, so 15 frames. The field appears just after the column has settled.
 # Breathing: 2 s per cycle (100 frames), opacity between 0.4 and 1.
 fade_frames = 15;
 breath_frames = 100;
@@ -125,7 +127,7 @@ fun show_loading() {
 fun refresh_callback() {
   if (global.frame < global.fade_frames) {
     global.frame++;
-    global.crest.SetOpacity(settle(global.frame / global.fade_frames));
+    global.phrase.SetOpacity(settle(global.frame / global.fade_frames));
     if (global.frame == global.fade_frames) {
       show_field();
     }
@@ -153,7 +155,7 @@ fun normal_callback() {
 }
 
 fun message_callback(text) {
-  image = Image.Text(text, 0.431, 0.431, 0.451, 1);     # secondary #6e6e73
+  image = Image.Text(text, 0.659, 0.600, 0.518, 1);     # secondary #a89984
   global.message.SetImage(image);
   global.message.SetX(global.center_x - image.GetWidth() / 2);
 }
