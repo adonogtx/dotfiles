@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Download a YouTube playlist into ~/media/courses, or only the videos added
+# since the last run. Extra yt-dlp options may come first, e.g. --playlist-items 1:2
+# Watch with: mpv --save-position-on-quit ~/media/courses/<playlist>
+set -euo pipefail
+
+[[ $# -ge 1 ]] || { echo "usage: gus-course [yt-dlp options] <playlist-url>" >&2; exit 1; }
+dest="$HOME/media/courses"
+
+yt-dlp \
+  --yes-playlist \
+  --cookies-from-browser "brave+gnomekeyring:$HOME/.config/BraveSoftware/Brave-Origin/Default" \
+  --sleep-requests 1 \
+  --sleep-interval 5 \
+  --max-sleep-interval 15 \
+  --format 'bv*[height<=1080]+ba/b[height<=1080]' \
+  --merge-output-format mkv \
+  --download-archive "$dest/.archive" \
+  --output "$dest/%(playlist_title)s/%(playlist_index)03d %(title)s.%(ext)s" \
+  "$@"

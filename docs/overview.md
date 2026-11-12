@@ -31,7 +31,7 @@ GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
 | `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md`, `pill-spec.md` (exact sizes and colors of the pill) |
 
-No symlinks, no Stow, no package list files.
+No symlinks, no Stow, no package list files. One exception (2026-11-12): uosc's package files in `/usr/share/mpv` are linked into `~/.config/mpv/`, so package updates apply (`apps.md`, Media and documents).
 
 ## Install steps
 
@@ -44,7 +44,7 @@ No symlinks, no Stow, no package list files.
 | 4 | `./install.sh desktop fonts icons japanese terminal`, copy configs (including `~/.zshrc`, the wallpaper and the gsettings), `fc-cache -fr` | `start-hyprland` from the TTY shows the pill; new terminal shows the robbyrussell prompt |
 | 5 | Network fix (`base.md`, Network). Test `hyprlock` once, wrong password once; then the login, silent boot in `/etc/default/limine` and `sudo limine-mkinitcpio` (`docs/post-install.md`, step 4) | `nmcli device` connected; lock works; `HOOKS` has `plymouth` before the encrypt hook; first `cmdline:` in `/boot/limine.conf` starts with `cryptdevice=` |
 | 6 | Reboot | Boot screen asks the password once, no text before it, desktop opens |
-| 7 | `./install.sh backend editors apps`, copy configs, `sudo usermod -aG docker "$USER"`, open IntelliJ once then copy `idea64.vmoptions` | Apps open from their keys; `groups` shows docker; IntelliJ checks in `dev.md`, IDE |
+| 7 | `./install.sh backend editors apps`, copy configs, link uosc into `~/.config/mpv/` (`apps.md`, Media and documents), `sudo usermod -aG docker "$USER"`, open IntelliJ once then copy `idea64.vmoptions` | Apps open from their keys; mpv shows the uosc timeline; `groups` shows docker; IntelliJ checks in `dev.md`, IDE |
 
 The zip exported from Claude keeps the executable bits; only a repo uploaded through the GitHub website needs `chmod +x install.sh install/*.sh config/bin/*`.
 
@@ -55,10 +55,11 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 | Version | Contents |
 |---|---|
 | v1 | Everything marked done in these docs: the pill, the Control Center with its sections, the calendar, the launcher, the lock, the login |
+| Focus | Features that keep study on track, one at a time, each used for a week before the next: course videos offline (`apps.md`, Course videos), then `focus`, a site blocking tool in Python in its own repo (hosts sections on a schedule, Brave secure DNS off by policy, optional password held by someone else, LinkedIn always allowed). Moved here from v3 on 2026-11-12: distraction, not time, is the main obstacle now. `focus` gets its own decision block before any code |
 | v1.1 | One command install: `./install.sh all` installs every module, copies configs with a backup of what exists, enables services, and stops twice (AUR review, lock test before autologin). Changes principle 4 when built |
 | v1.2 | Install from a USB stick: an archiso image with the repo and an archinstall configuration that calls `./install.sh all` (proposed 2026-11-11, after v1.1) |
 | v2 | Notification Center (replaces mako) |
-| v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode (site blocking, proposed 2026-11-11), end of day closing |
+| v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode (site blocking moved to Focus on 2026-11-12), end of day closing |
 
 ## Open questions
 
