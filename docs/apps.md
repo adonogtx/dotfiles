@@ -23,7 +23,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Decision:** mako, top right, 12 from the top and right edges, Gruvbox, 5 s, urgent ones stay. Battery warnings at 20% (normal) and 10% (urgent), sent by `BatteryItem.qml` (`desktop.md`, Bar).
 **Why:** Works today; the Notification Center is v2 work, not a reason to change now. The warnings cover the minutes when the pill is closed.
 **Where:** `config/mako/`
-**Status:** Gruvbox done 2026-11-11: panel background, label text, line border, red border when urgent, progress bar in tile. Battery warnings to build. Replaced by the Quickshell Notification Center in v2
+**Status:** Gruvbox done 2026-11-11: panel background, label text, line border, red border when urgent, progress bar in tile. Battery warnings done 2026-11-11 (each once per discharge, reset by plugging in). Replaced by the Quickshell Notification Center in v2
 
 ## Browser
 
