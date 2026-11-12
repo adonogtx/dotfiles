@@ -45,14 +45,14 @@ hl.config({
 })
 
 -- Short, eased fades and a small scale on open (about 150 ms).
-hl.curve("mac", { type = "bezier", points = { {0.25, 1}, {0.5, 1} } })
+hl.curve("ease", { type = "bezier", points = { {0.25, 1}, {0.5, 1} } })
 hl.curve("linear", { type = "bezier", points = { {0, 0}, {1, 1} } })
 
-hl.animation({ leaf = "global",     enabled = true, speed = 3,   bezier = "mac" })
-hl.animation({ leaf = "windowsIn",  enabled = true, speed = 2.5, bezier = "mac",    style = "popin 94%" })
+hl.animation({ leaf = "global",     enabled = true, speed = 3,   bezier = "ease" })
+hl.animation({ leaf = "windowsIn",  enabled = true, speed = 2.5, bezier = "ease",    style = "popin 94%" })
 hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.5, bezier = "linear", style = "popin 94%" })
-hl.animation({ leaf = "windowsMove",enabled = true, speed = 2.5, bezier = "mac" })
-hl.animation({ leaf = "fade",       enabled = true, speed = 2,   bezier = "mac" })
-hl.animation({ leaf = "border",     enabled = true, speed = 2,   bezier = "mac" })
-hl.animation({ leaf = "layers",     enabled = true, speed = 2,   bezier = "mac",    style = "fade" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 2.5, bezier = "mac",    style = "fade" })
+hl.animation({ leaf = "windowsMove",enabled = true, speed = 2.5, bezier = "ease" })
+hl.animation({ leaf = "fade",       enabled = true, speed = 2,   bezier = "ease" })
+hl.animation({ leaf = "border",     enabled = true, speed = 2,   bezier = "ease" })
+hl.animation({ leaf = "layers",     enabled = true, speed = 2,   bezier = "ease",    style = "fade" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 2.5, bezier = "ease",    style = "fade" })
