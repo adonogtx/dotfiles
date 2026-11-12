@@ -93,7 +93,7 @@ Calendar opens in the pill from the footer's Calendar link: one month, header in
 **Why:** Maintained upstream; a custom lock is security code we would own. One screen for boot and lock.
 **Not chosen:** Quickshell lock (v3, after it is tested). The 2026-11-09 layout (100 px clock in the middle, field 240 px from the bottom). 常に兵法の道を離れず and its caption (until 2026-11-11). The date on the lock (2026-11-11: the boot cannot show it, and the screens are the same).
 **Where:** `config/hypr/hyprlock.conf`, `config/hypr/ippo.png`, `config/hypr/hypridle.conf`
-**Status:** done and tested 2026-11-11 (Gruvbox, the same screen as the boot): tested with `hyprlock -c` on the repo file, wrong password then right password, then installed to `~/.config/hypr/` with `ippo.png`; the Light Solid file is kept as `~/.config/hypr/hyprlock.conf.bak` and in git. Offsets are logical pixels for the laptop panel (1536 x 864 at 1.25); another monitor size moves them. Test with `hyprlock` from a terminal before replacing the old file; the old one and `musashi.png` stay in git.
+**Status:** done and tested 2026-11-11 (Gruvbox, the same screen as the boot): tested with `hyprlock -c` on the repo file, wrong password then right password, then installed to `~/.config/hypr/` with `ippo.png`; the Light Solid file is kept as `~/.config/hypr/hyprlock.conf.bak` and in git. Offsets are logical pixels for the laptop panel (1536 x 864 at 1.25); another monitor size moves them. Test changes with `hyprlock -c <file>` before installing; the old file and `musashi.png` stay in git.
 
 ## Fonts
 

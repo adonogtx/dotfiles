@@ -1,6 +1,6 @@
 # Keybindings
 
-SUPER works like Command on a Mac. Vim keys move focus. Source: `config/hypr/modules/binds.lua`.
+Vim keys move focus. Source: `config/hypr/modules/binds.lua`.
 
 ## Apps
 
@@ -52,7 +52,7 @@ SUPER works like Command on a Mac. Vim keys move focus. Source: `config/hypr/mod
 
 | Keys | Action |
 |---|---|
-| Super + Ctrl + Q | Lock (like Ctrl + Cmd + Q) |
+| Super + Ctrl + Q | Lock |
 | Super + N | Night Shift |
 | Super + W | Wallpaper picker |
 | Super + Shift + W | Control Center, Wi-Fi |
