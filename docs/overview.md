@@ -26,7 +26,7 @@ GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 | `config/<program>/` | Copied to `~/.config/<program>/` by hand |
 | `config/plymouth/ichigo/`, `config/sddm/`, `config/networkmanager/` | System files, copied with sudo (`docs/post-install.md`, step 4) |
 | `config/bin/` | Small scripts (`gus-*`), copied to `~/.local/bin/` |
-| `assets/wallpapers/` | Wallpaper (`light-solid.png` until the Gruvbox wallpaper is chosen; copied to `~/.local/share/wallpapers/`) |
+| `assets/wallpapers/` | Fallback wallpaper (`light-solid.png`, copied to `~/.local/share/wallpapers/`) when `gus-wallpaper` has not chosen one |
 | `org/` | Starter org files |
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
 | `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md`, `pill-spec.md` (exact sizes and colors of the pill) |
@@ -65,7 +65,6 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 | Topic | Note |
 |---|---|
 | Volume in the pill | Proposed 2026-11-11: on a volume or brightness change the pill morphs for about 1 s to show the icon, a bar and the percentage, like the workspace dots. Not decided |
-| Wallpaper | A simple, quick to change Gruvbox wallpaper (`gus-wallpaper` picker through fuzzel proposed 2026-11-11). `light-solid.png` until then |
 | Music player | Keep rmpc or move to another player (ncmpcpp, termusic, cmus, Amberol, Strawberry); reason for leaving rmpc still to write |
 | Plex | Not documented yet. Its database in `/var/lib/plex` sits in `@`: a snapshot boot rolls watch state back, a reinstall loses it. Turn on Sync My Watch State and Ratings; consider a `@plex` subvolume or a backup to `~/backups` |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |

@@ -75,6 +75,7 @@ bind("SHIFT + R",            exec("gus-record"))
 -- System
 bind("CTRL + Q",             exec("loginctl lock-session"))
 bind("N",                    exec("gus-nightlight"))
+bind("W",                    exec("gus-wallpaper"))
 bind("SHIFT + W",            exec(app.menu .. " wifi"))
 bind("SHIFT + A",            exec(app.menu .. " sound"))
 bind("SHIFT + B",            exec(app.menu .. " bluetooth"))

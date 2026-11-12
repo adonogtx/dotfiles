@@ -35,8 +35,8 @@ Blue only selects, green and red only report state. The one exception is the fas
 **Frozen:** no palette change before 2026-11-18 (one week of real use).
 **Why:** The white desktop did not suit the black ThinkPad; dark for the system and light for what is read like paper keeps both comfortable. Gruvbox has ready themes for almost every app in the list and was the favourite in the comparison deck (2026-11-11). The depth and motion rules come from studying Ricelin (MIT).
 **Not chosen:** Light Solid as the system theme (2026-11-11: did not suit the black ThinkPad; its values stay for the documents side). Dark Solid (the theme until 2026-11-11: felt heavy). Gruvbox Material (softer, less contrast). Kanagawa Dragon, adjusted (2026-11-11: chosen and dropped the same night for Gruvbox). Glass (blur and translucency reverse Windows). Midnight Shibuya, Tokyo. Palettes taken from the wallpaper (Impasto, Ricelin). A brown wood background for boot and lock (2026-11-11: the palette's own background instead). Three palettes at once (Dark Solid pill, Gruvbox terminal, brown boot).
-**Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`. Wallpaper: to decide (open question in `overview.md`); `light-solid.png` stays until then. GTK through gsettings (`docs/post-install.md`, step 3), unchanged.
-**Status:** to build. Done 2026-11-11: `docs/theme.md`, `Theme.qml`, `theme.lua`, the terminal, fuzzel, mako, rmpc, uosc. Boot and lock done and tested 2026-11-11. Left: Doom; IntelliJ (by hand) and the wallpaper stay outside this work. Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then the terminal (Ghostty, bat, fzf, btop), then fuzzel, mako, rmpc, uosc, Doom, IntelliJ, then boot and lock (Login, Lock), then the wallpaper.
+**Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`. Wallpaper: through `gus-wallpaper` (`config/bin/`, Super + W): images in `~/media/pictures/wallpapers`, the choice kept as the link `~/.local/share/wallpapers/current`, drawn by swaybg; `theme.lua` reads the link at login and falls back to `light-solid.png` when it does not exist. GTK through gsettings (`docs/post-install.md`, step 3), unchanged.
+**Status:** to build. Done 2026-11-11: `docs/theme.md`, `Theme.qml`, `theme.lua`, the terminal, fuzzel, mako, rmpc, uosc. Boot and lock done and tested 2026-11-11. Wallpaper picker done 2026-11-11 (`gus-wallpaper <file>` tested; the Super + W picker still to test). Left: Doom (`config.el` still sets `doom-one-light`); IntelliJ (by hand) stays outside this work. Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then the terminal (Ghostty, bat, fzf, btop), then fuzzel, mako, rmpc, uosc, Doom, IntelliJ, then boot and lock (Login, Lock), then the wallpaper.
 
 ## Bar
 
@@ -132,6 +132,7 @@ Calendar opens in the pill from the footer's Calendar link: one month, header in
 | Super + Shift + R | Record region on and off |
 | Super + Ctrl + Q | Lock |
 | Super + N | Night Shift |
+| Super + W | Wallpaper picker (`gus-wallpaper`) |
 | Super + Shift + W / A / B | Open the pill on Wi-Fi / Sound / Bluetooth |
 | Super + Shift + E | Log out |
 

@@ -36,6 +36,6 @@ Decided 2026-11-11 (`docs/desktop.md`, Theme: Gruvbox; dark for the system, ligh
 6. Boot screen (`docs/desktop.md`, Login): needs `sudo`, the current state shown first and a backup to `~/backups/plymouth-ichigo-2026-11-11-crest`; test with `plymouth-test.sh` before any `limine-mkinitcpio`.
 7. Lock (`docs/desktop.md`, Lock): `hyprlock.conf`, tested from a terminal with a wrong password once before replacing the old file.
 
-Not in this work: the IntelliJ theme (Gus sets it by hand, `docs/dev.md`, IDE), the wallpaper and the volume indicator (open questions in `docs/overview.md`). When the rest is built, the Theme status becomes "done except the IntelliJ theme (manual, dev.md, IDE) and the wallpaper (open question in overview.md)", with the date.
+Not in this work: the IntelliJ theme (Gus sets it by hand, `docs/dev.md`, IDE) and the volume indicator (open question in `docs/overview.md`). The wallpaper picker (`gus-wallpaper`, Super + W) was added 2026-11-11. When the rest is built, the Theme status becomes "done except the IntelliJ theme (manual, dev.md, IDE)", with the date.
 
 After each step, set that item's Status in the docs.

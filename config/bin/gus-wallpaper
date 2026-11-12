@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Set the wallpaper. With a file: copy it to the wallpapers folder and use it.
+# Without arguments: pick one of the folder's images in fuzzel.
+# The choice is kept as ~/.local/share/wallpapers/current, which theme.lua reads at login.
+set -euo pipefail
+
+dir="$HOME/media/pictures/wallpapers"
+current="$HOME/.local/share/wallpapers/current"
+mkdir -p "$dir" "$(dirname "$current")"
+
+if [[ $# -gt 0 ]]; then
+  src=$1
+  [[ -f $src ]] || { notify-send "Wallpaper" "Not a file: $src"; exit 1; }
+  cp -n -- "$src" "$dir/"
+  pick=$(basename -- "$src")
+else
+  pick=$(find "$dir" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+    -printf '%f\n' | sort | fuzzel --dmenu --prompt "Wallpaper  ") || exit 0
+  [[ -n $pick ]] || exit 0
+fi
+
+ln -sfn -- "$dir/$pick" "$current"
+pkill -x swaybg || true
+setsid -f swaybg -i "$current" -m fill >/dev/null 2>&1

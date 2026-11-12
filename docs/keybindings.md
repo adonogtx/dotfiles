@@ -54,6 +54,7 @@ SUPER works like Command on a Mac. Vim keys move focus. Source: `config/hypr/mod
 |---|---|
 | Super + Ctrl + Q | Lock (like Ctrl + Cmd + Q) |
 | Super + N | Night Shift |
+| Super + W | Wallpaper picker |
 | Super + Shift + W | Control Center, Wi-Fi |
 | Super + Shift + A | Control Center, Sound |
 | Super + Shift + B | Control Center, Bluetooth |
