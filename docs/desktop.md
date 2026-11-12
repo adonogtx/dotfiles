@@ -105,10 +105,10 @@ Calendar opens in the pill from the footer's Calendar link: one month, header in
 
 ## Icons and cursor
 
-**Decision:** WhiteSur light icons (`WhiteSur-light`), Apple cursor (`apple_cursor`), Adwaita (light) for GTK 3, prefer light for GTK 4. GTK belongs to the documents side and stays light under Gruvbox; the dark side (Quickshell, terminal, editors) does not use GTK.
-**Not chosen:** WhiteSur dark, Adwaita dark (until 2026-11-11, with Dark Solid).
-**Where:** `install/icons.sh`, `config/gtk-3.0/`, `config/gtk-4.0/`, gsettings in `docs/post-install.md`, step 3
-**Status:** done and tested 2026-11-11. Brave Origin follows `color-scheme` through `xdg-desktop-portal-gtk`. fuzzel's icon theme stays WhiteSur light; check it reads on the dark panel when fuzzel moves to Gruvbox.
+**Decision:** WhiteSur light icons (`WhiteSur-light`), Apple cursor (`apple_cursor`), white variant, size 24, Adwaita (light) for GTK 3, prefer light for GTK 4. GTK belongs to the documents side and stays light under Gruvbox; the dark side (Quickshell, terminal, editors) does not use GTK.
+**Not chosen:** WhiteSur dark, Adwaita dark (until 2026-11-11, with Dark Solid). The black variant of the Apple cursor (until 2026-11-11: hard to see on the dark side).
+**Where:** `install/icons.sh`, `config/gtk-3.0/`, `config/gtk-4.0/`, `config/hypr/modules/env.lua` (`XCURSOR_THEME`, `XCURSOR_SIZE`, `HYPRCURSOR_SIZE`), gsettings in `docs/post-install.md`, step 3
+**Status:** done and tested 2026-11-11; white cursor applied 2026-11-11 (apps started before the change keep the old cursor until they restart; everything follows after the next login). Brave Origin follows `color-scheme` through `xdg-desktop-portal-gtk`. fuzzel's icon theme stays WhiteSur light; check it reads on the dark panel when fuzzel moves to Gruvbox.
 
 ## Input
 

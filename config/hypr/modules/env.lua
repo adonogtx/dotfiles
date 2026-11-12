@@ -1,5 +1,5 @@
 -- Environment for every app started by Hyprland.
-hl.env("XCURSOR_THEME", "macOS")
+hl.env("XCURSOR_THEME", "macOS-White")
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 

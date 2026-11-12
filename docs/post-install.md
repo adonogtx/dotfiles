@@ -58,7 +58,7 @@ cp assets/wallpapers/dark-solid.png ~/.local/share/wallpapers/
 gsettings set org.gnome.desktop.interface color-scheme prefer-light
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita
 gsettings set org.gnome.desktop.interface icon-theme WhiteSur-light
-gsettings set org.gnome.desktop.interface cursor-theme macOS
+gsettings set org.gnome.desktop.interface cursor-theme macOS-White
 gsettings set org.gnome.desktop.interface font-name 'IBM Plex Sans 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'PlemolJP Console NF 11'
 ```
