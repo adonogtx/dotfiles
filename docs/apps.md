@@ -4,30 +4,30 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Terminal and shell
 
-**Decision:** Ghostty (PlemolJP 13, Light Solid theme, no decorations) with zsh, oh my zsh (robbyrussell, autosuggestions, syntax highlighting), XDG folders, eza, zoxide, fzf, ripgrep, fd, bat, btop. On the light terminal: bat uses its `ansi` theme (follows the Ghostty palette), fzf uses `--color=light` with Light Solid overrides in `FZF_DEFAULT_OPTS`, btop uses its own `light-solid` theme on the terminal background.
+**Decision:** Ghostty (PlemolJP 13, Gruvbox theme, no decorations) with zsh, oh my zsh (robbyrussell, autosuggestions, syntax highlighting), XDG folders, eza, zoxide, fzf, ripgrep, fd, bat, btop. On the Gruvbox terminal: bat uses its `ansi` theme (follows the Ghostty palette), fzf uses `--color=dark` with Gruvbox overrides in `FZF_DEFAULT_OPTS`, btop uses its own `gruvbox` theme on the terminal background.
 **Why:** Native Wayland, one text config, fast.
-**Not chosen:** Kitty, Alacritty, fish. A custom prompt with user and path (2026-11-10: robbyrussell kept). A bat light theme such as GitHub (fixed colors, ignores the palette). btop's TTY theme or a stock light theme (flexoki-light, paper: their own palettes).
-**Where:** `install/terminal.sh`, `config/ghostty/`, `config/zsh/.zshrc` (copied to `~/.zshrc`; also `BAT_THEME` and `FZF_DEFAULT_OPTS`), `config/btop/` (`btop.conf` and `themes/light-solid.theme`)
-**Status:** done. Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). `.zshrc` was missed on the first install; copied 2026-11-10. Light Solid (2026-11-11): `themes/light-solid` written, ANSI palette in `docs/theme.md` (green #1f7a36 so the prompt arrow reads at 5:1), selection in accent; bat, fzf and btop set; done and tested 2026-11-11. A running Ghostty does not pick up a theme change by itself: reload with Ctrl + Shift + , (or open a new window).
+**Not chosen:** Kitty, Alacritty, fish. A custom prompt with user and path (2026-11-10: robbyrussell kept). A bat theme with fixed colors (ignores the palette). Light Solid on the terminal (until 2026-11-11).
+**Where:** `install/terminal.sh`, `config/ghostty/` (`themes/gruvbox`; `themes/light-solid` stays in git), `config/zsh/.zshrc` (copied to `~/.zshrc`; also `BAT_THEME` and `FZF_DEFAULT_OPTS`), `config/btop/` (`btop.conf` and `themes/gruvbox.theme`)
+**Status:** to build in Gruvbox (palette in `docs/theme.md`, ANSI palette). Font and colors tested on Omarchy on 2026-11-10 (needs the fontconfig rule in `desktop.md`, Fonts). A running Ghostty does not pick up a theme change by itself: reload with Ctrl + Shift + , (or open a new window).
 
 ## Launcher
 
-**Decision:** Launcher in Quickshell on Super + Space: centred a third of the way down the screen, placeholder "Search", nothing listed until you type, ranked app results with 28 px icons on 42 px rows, a blue highlight that glides between them, Enter opens, Escape closes. fuzzel stays only as the clipboard history picker (Super + C).
+**Decision:** Launcher in Quickshell on Super + Space: centred a third of the way down the screen, placeholder "Search", nothing listed until you type, ranked app results with 28 px icons on 42 px rows, an accent highlight that glides between them with on accent text, Enter opens, Escape closes. fuzzel stays only as the clipboard history picker (Super + C).
 **Why:** Same look and motion as the rest of the pill; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
 **Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
-**Status:** done. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center. fuzzel colors to Light Solid (2026-11-11): panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border; done and tested 2026-11-11.
+**Status:** done; Gruvbox colors to build (Launcher through `Theme.qml`; fuzzel by hand: panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with on accent text, line border). The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
 
 ## Notifications
 
-**Decision:** mako, top right, 12 from the top and right edges, Light Solid, 5 s, urgent ones stay.
-**Why:** Works today; the Notification Center is v2 work, not a reason to change now.
+**Decision:** mako, top right, 12 from the top and right edges, Gruvbox, 5 s, urgent ones stay. Battery warnings at 20% (normal) and 10% (urgent), sent by `BatteryItem.qml` (`desktop.md`, Bar).
+**Why:** Works today; the Notification Center is v2 work, not a reason to change now. The warnings cover the minutes when the pill is closed.
 **Where:** `config/mako/`
-**Status:** done. Light Solid colors (2026-11-11): panel background, label text, line border, red border when urgent, progress bar in tile (not accent: progress is not a selection, and label text stays readable over both halves); done and tested 2026-11-11. Replaced by the Quickshell Notification Center in v2
+**Status:** to build in Gruvbox: panel background, label text, line border, red border when urgent, progress bar in tile. Battery warnings to build. Replaced by the Quickshell Notification Center in v2
 
 ## Browser
 
-**Decision:** Brave Origin (`brave-origin`), main browser and web apps.
+**Decision:** Brave Origin (`brave-origin`), main browser and web apps. Stays light (documents side, `desktop.md`, Theme).
 **Why:** TODO (Gus): one line on why Origin over regular Brave.
 **Not chosen:** Firefox, Zen. Brave (`brave-bin`), replaced by Origin on 2026-11-10; two Braves would break principle 2.
 **Where:** `install/apps.sh` (brave-origin-bin, AUR), `config/xdg/mimeapps.list` (`brave-origin.desktop`), `config/hypr/modules/programs.lua` (`browser = "brave-origin"`)
@@ -35,30 +35,30 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Files
 
-**Decision:** Nautilus, icon grid, with gvfs for phones and archives (file-roller).
+**Decision:** Nautilus, icon grid, with gvfs for phones and archives (file-roller). Stays light.
 **Where:** `install/desktop.sh`
 **Status:** done
 
 ## Notes: Doom Emacs
 
-**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: doom-one-light (Light Solid, 2026-11-11). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off.
+**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: doom-gruvbox. The org module with `+pretty` (bullets, checkboxes and priorities drawn as symbols). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off. Doom is the writing editor; code is IntelliJ (`dev.md`, IDE).
 **Why:** Agenda and capture already built; one text format for life.
-**Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency). doom-xcode (the theme until 2026-11-11: dark, matched Dark Solid).
+**Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency). Neovim for writing or code (2026-11-11: a third editor breaks principle 2). doom-one-light (until 2026-11-11, with Light Solid). doom-xcode (until 2026-11-11: dark, matched Dark Solid).
 **Rule:** if configuring takes more than a day, go back to these four files.
-**Where:** `install/editors.sh`, `config/doom/`, `org/` (starter files with the capture headings: inbox, refile, applications)
-**Status:** done. Starter files copied to `~/org` on 2026-11-10 with `cp -n`. doom-one-light set, done and tested 2026-11-11.
+**Where:** `install/editors.sh`, `config/doom/` (`init.el`: `(org +pretty)`; `config.el`: `doom-theme`), `org/` (starter files with the capture headings: inbox, refile, applications)
+**Status:** to build: doom-gruvbox and `+pretty`. Starter files copied to `~/org` on 2026-11-10 with `cp -n`.
 
 ## Media and documents
 
 | Job | App | Notes |
 |---|---|---|
-| PDF | zathura + mupdf | light chrome, page untouched, Ctrl + R night mode |
+| PDF | zathura + mupdf | documents side: light chrome, page untouched, Ctrl + R night mode |
 | Video | mpv + uosc | Japanese subtitles first, IBM Plex Sans JP; audio only files keep the uosc timeline and controls on screen |
 | Music | mpd + rmpc | `~/library/music`, 127.0.0.1 only, media keys through mpd-mpris (official repos) |
 | Images | imv | |
 
 **Where:** `install/apps.sh`, `config/zathura/`, `config/mpd/`, `config/rmpc/`, `config/mpv/`
-**Status:** done. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). `zathurarc` in Light Solid (2026-11-11): background around pages in tile (#ececf0) so pages stand out; statusbar, inputbar, notifications and completion in panel (#ffffff); search in accent; Ctrl + R is a night mode in the old Dark Solid values (#1c1c1e page, #f5f5f7 text); done and tested 2026-11-11. rmpc in Light Solid (2026-11-11): `themes/light-solid.ron` (dark-solid kept), selection accent with on accent text, text that was tertiary moved to secondary (tertiary reads 2.1:1 on terminal), tertiary only for icons and modes that are off; modal in panel, set apart by its line border and the backdrop; done and tested 2026-11-11. uosc in Light Solid (2026-11-11, `color=` in `script-opts/uosc.conf`): bars and menus in panel with label text, timeline fill and active items in label (progress is not a selection), search matches in accent, curtain in label; subtitles and the video stay untouched; menu selection dark by choice (one foreground color for both); done and tested 2026-11-11.
+**Status:** done; rmpc and uosc to build in Gruvbox. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Whether to keep rmpc is an open question (`overview.md`). zathura keeps its Light Solid `zathurarc` (2026-11-11): background around pages #ececf0, statusbar, inputbar, notifications and completion #ffffff, search #007aff, Ctrl + R night mode #1c1c1e page and #f5f5f7 text; done and tested 2026-11-11. rmpc in Gruvbox: `themes/gruvbox.ron` (light-solid and dark-solid kept), selection accent with on accent text, secondary for most text, tertiary only for icons and modes that are off; modal in panel with a line border. uosc in Gruvbox (`color=` in `script-opts/uosc.conf`): bars and menus in panel with label text, timeline fill and active items in label, search matches in accent; subtitles and the video stay untouched.
 
 ## Utilities
 

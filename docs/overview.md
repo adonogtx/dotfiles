@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, Light Solid look (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, and Musashi's phrase on the lock screen.
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, Gruvbox look: dark for the system, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, and 一歩一歩 on the boot and lock screens.
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -9,8 +9,8 @@ Status values: **done** (in the repo), **to build** (decided, not written yet), 
 ## Principles
 
 1. **Ma (間).** Only what is used. Icons appear when relevant, nothing decorative.
-2. **One way to do each thing.** One terminal, one editor, one player, one launcher.
-3. **Frozen by default.** Changing a decision means editing its block here first, with a reason.
+2. **One way to do each thing.** One terminal, one code editor, one writing editor, one player, one launcher.
+3. **Frozen by default.** Changing a decision means editing its block here first, with a reason. The palette is frozen until 2026-11-18 (`desktop.md`, Theme).
 4. **Modular install.** Scripts only install packages; configs are copied by hand, one folder per program.
 5. **Safe without effort.** LUKS, snapshots, firewall and a working lock from day one.
 
@@ -26,7 +26,7 @@ GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 | `config/<program>/` | Copied to `~/.config/<program>/` by hand |
 | `config/plymouth/ichigo/`, `config/sddm/`, `config/networkmanager/` | System files, copied with sudo (`docs/post-install.md`, step 4) |
 | `config/bin/` | Small scripts (`gus-*`), copied to `~/.local/bin/` |
-| `assets/wallpapers/` | Wallpaper (`light-solid.png`, copied to `~/.local/share/wallpapers/`) |
+| `assets/wallpapers/` | Wallpaper (`light-solid.png` until the Gruvbox wallpaper is chosen; copied to `~/.local/share/wallpapers/`) |
 | `org/` | Starter org files |
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
 | `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md`, `pill-spec.md` (exact sizes and colors of the pill) |
@@ -56,16 +56,21 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 |---|---|
 | v1 | Everything marked done in these docs: the pill, the Control Center with its sections, the calendar, the launcher, the lock, the login |
 | v1.1 | One command install: `./install.sh all` installs every module, copies configs with a backup of what exists, enables services, and stops twice (AUR review, lock test before autologin). Changes principle 4 when built |
+| v1.2 | Install from a USB stick: an archiso image with the repo and an archinstall configuration that calls `./install.sh all` (proposed 2026-11-11, after v1.1) |
 | v2 | Notification Center (replaces mako) |
-| v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode, end of day closing |
+| v3 | Quickshell lock screen, rituals: opening on the lock screen, Keiko focus mode (site blocking, proposed 2026-11-11), end of day closing |
 
 ## Open questions
 
 | Topic | Note |
 |---|---|
-| Fastfetch | `config/fastfetch/` is untracked and undocumented; document it in `apps.md` or remove it |
+| Volume in the pill | Proposed 2026-11-11: on a volume or brightness change the pill morphs for about 1 s to show the icon, a bar and the percentage, like the workspace dots. Not decided |
+| Wallpaper | A simple, quick to change Gruvbox wallpaper (`gus-wallpaper` picker through fuzzel proposed 2026-11-11). `light-solid.png` until then |
+| Fastfetch | `config/fastfetch/` is untracked and undocumented; 道 as the logo needs a line in this file's first paragraph. Document it in `apps.md` or remove it |
+| Music player | Keep rmpc or move to another player (ncmpcpp, termusic, cmus, Amberol, Strawberry); reason for leaving rmpc still to write |
+| Plex | Not documented yet. Its database in `/var/lib/plex` sits in `@`: a snapshot boot rolls watch state back, a reinstall loses it. Turn on Sync My Watch State and Ratings; consider a `@plex` subvolume or a backup to `~/backups` |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |
 | Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `jq` next to `slurp` and `python-gobject` next to `power-profiles-daemon` in `install/` |
 | Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |
 | Music | Untagged files show Unknown in rmpc; `~/homelab/music` duplicates the Nujabes folder (dojo mirror or leftover?) |
-| IntelliJ | Open once, copy `idea64.vmoptions`, run the checks in `dev.md`, IDE |
+| IntelliJ | Open once, copy `idea64.vmoptions`, run the checks in `dev.md`, IDE; pick the Gruvbox theme plugin |

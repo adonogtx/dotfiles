@@ -1,6 +1,6 @@
 # Pill spec
 
-Exact values for the pill and its open panel, taken from the approved slides. Sizes are logical px (screen px divided by 1.25). Colors are Light Solid tokens from `docs/theme.md`. When this file and the code disagree, this file wins; when this file and `desktop.md` disagree, `desktop.md` wins.
+Exact values for the pill and its open panel, taken from the approved slides. Sizes are logical px (screen px divided by 1.25). Colors are Gruvbox system tokens from `docs/theme.md`. When this file and the code disagree, this file wins; when this file and `desktop.md` disagree, `desktop.md` wins.
 
 ## Rest
 
@@ -9,14 +9,14 @@ Exact values for the pill and its open panel, taken from the approved slides. Si
 | Position | centred, 12 from the top edge |
 | Size | height 34, width hugs the content |
 | Padding | 0 13; gap between items 10 |
-| Surface | panel gradient (#ffffff to #f7f7f9), 1 px edge in line, the panel shadow, rounding full |
+| Surface | panel gradient (#282828 to #262626), 1 px edge in line, the panel shadow, rounding full |
 | Date | IBM Plex Sans JP 15, label: `11月11日(水)` |
 | Time | same size, secondary, two spaces after the date |
 | Click | anywhere on the pill opens the Control Center |
 
 Workspace switch: for about 1 s the date fades out and the five footer dots (sizes under Footer) fade in, the pill morphing to hug them (300 ms, the shape curve); then it morphs back. Only at rest.
 
-Live items sit left of the date, 16 px icons, separated from the date by a 1 px line, 14 tall. In order, gap 10, each only while true: recording (red dot 8, elapsed time 13 label with tabular figures; a click stops it), microphone in use (icon, label), Awake on (cup, label), disk above 90% (database icon and the use of `/`, 13, red). A click on any other item opens the Control Center like the rest of the pill.
+Live items sit left of the date, 16 px icons, separated from the date by a 1 px line, 14 tall. In order, gap 10, each only while true: recording (red dot 8, elapsed time 13 label with tabular figures; a click stops it), microphone in use (icon, label), Awake on (cup, label), battery below 20% (battery icon and the percentage, 13, red; not shown while charging), disk above 90% (database icon and the use of `/`, 13, red). A click on any other item opens the Control Center like the rest of the pill.
 
 ## Open panel
 
@@ -39,7 +39,7 @@ Order in the main view: date (stays where it was), circles row, three sliders, l
 |---|---|
 | Layout | five equal columns |
 | Circle | 38 diameter |
-| On | background accent, icon on accent (#ffffff) |
+| On | background accent, icon on accent (#1d2021) |
 | Off | background tile, icon label |
 | Icon | 18, stroke 1.8 |
 | Name | 11, label, centred, 6 below the circle, fixed text |
@@ -56,13 +56,13 @@ Never show network or device names, or percentages, under the circles. State liv
 |---|---|
 | Label | above each slider, 10, uppercase, tracking 1.2, secondary: DISPLAY, SOUND, MICROPHONE |
 | Label to track | 6 |
-| Track | height 24, rounding 12, background line (#e0e0e4) |
-| Fill | #ffffff, rounding 12, shadow 0 1 3 rgba(0,0,0,0.18) |
-| Icon | 13, secondary, inside the fill, 7 from its left edge |
+| Track | height 24, rounding 12, background line (#504945) |
+| Fill | label (#ebdbb2), rounding 12, shadow 0 1 3 rgba(0,0,0,0.30) |
+| Icon | 13, panel (#282828), inside the fill, 7 from its left edge |
 | Chevron | 12, tertiary, right of the track, opens the section |
 | Between sliders | 12 |
 
-The fill is never dark.
+The fill is always the light label color, never accent.
 
 ## Footer
 
@@ -106,7 +106,7 @@ Bluetooth Nearby lists only devices with a name; a name that looks like an addre
 |---|---|
 | Size | 35 × 21, rounding full |
 | Track | off tile, on accent |
-| Knob | 16, #ffffff, shadow 0 1 3 rgba(0,0,0,0.25), 2.5 from the edge |
+| Knob | 16, label (#ebdbb2), shadow 0 1 3 rgba(0,0,0,0.35), 2.5 from the edge |
 
 ## Segmented control
 
@@ -114,7 +114,7 @@ Bluetooth Nearby lists only devices with a name; a name that looks like an addre
 |---|---|
 | Track | background tile, rounding 8, padding 2, gap 2 |
 | Cell | height 26, text 12 |
-| Selected | #ffffff, rounding 6, shadow 0 1 3 rgba(0,0,0,0.15), text label |
+| Selected | line (#504945), rounding 6, shadow 0 1 3 rgba(0,0,0,0.30), text label |
 | Other | no background, text secondary |
 
 ## Battery section
