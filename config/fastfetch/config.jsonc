@@ -17,7 +17,7 @@
   "display": {
     "separator": "  ",
     "color": { "output": "38;2;235;219;178" },
-    "key": { "width": 6 }
+    "key": { "width": 8 }
   },
   "modules": [
     { "type": "title", "color": { "user": "38;2;235;219;178", "at": "38;2;250;189;47", "host": "38;2;211;134;155" } },
@@ -26,12 +26,13 @@
     { "type": "os", "key": "os", "keyColor": "38;2;184;187;38", "format": "{name} {arch}" },
     { "type": "kernel", "key": "kernel", "keyColor": "38;2;250;189;47", "format": "{release}" },
     { "type": "wm", "key": "wm", "keyColor": "38;2;250;189;47", "format": "{pretty-name} {version}" },
-    { "type": "shell", "key": "shell", "keyColor": "38;2;254;128;25", "format": "{pretty-name} {version}" },
+    { "type": "shell", "key": "shell", "keyColor": "38;2;250;189;47", "format": "{pretty-name} {version}" },
     { "type": "terminal", "key": "term", "keyColor": "38;2;254;128;25", "format": "{pretty-name} {version}" },
     "break",
-    { "type": "command", "key": "cpu", "keyColor": "38;2;251;73;52", "text": "~/.config/fastfetch/fetch.sh cpu" },
+    { "type": "command", "key": "cpu", "keyColor": "38;2;254;128;25", "text": "~/.config/fastfetch/fetch.sh cpu" },
     { "type": "memory", "key": "mem", "keyColor": "38;2;251;73;52", "format": "{used} / {total}" },
-    { "type": "battery", "key": "bat", "keyColor": "38;2;211;134;155", "format": "{capacity}" },
+    { "type": "disk", "key": "disk", "keyColor": "38;2;251;73;52", "folders": "/", "format": "{size-used} / {size-total} ({size-percentage})" },
+    { "type": "battery", "key": "bat", "keyColor": "38;2;251;73;52", "format": "{capacity}" },
     { "type": "uptime", "key": "up", "keyColor": "38;2;211;134;155", "format": "{?days}{days}d {?}{hours}h {minutes}m" },
     "break",
     { "type": "command", "key": " ", "text": "~/.config/fastfetch/fetch.sh phrase" },
