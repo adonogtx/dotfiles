@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 # Download a YouTube playlist into ~/media/courses, or only the videos added
 # since the last run. Extra yt-dlp options may come first, e.g. --playlist-items 1:2
+# Members only playlists use the YouTube login from Brave Origin, which must be
+# closed while this runs: an open browser rotates the session cookies.
 # Watch with: mpv --save-position-on-quit ~/media/courses/<playlist>
 set -euo pipefail
 
 [[ $# -ge 1 ]] || { echo "usage: gus-course [yt-dlp options] <playlist-url>" >&2; exit 1; }
-dest="$HOME/media/courses"
 
-yt-dlp \
+dest="$HOME/media/courses"
+mkdir -p "$dest"
+
+if pgrep -x brave >/dev/null; then
+  echo "gus-course: close Brave Origin first (it rotates the YouTube cookies)" >&2
+  exit 1
+fi
+
+exec 9>"$dest/.lock"
+flock -n 9 || { echo "gus-course: already running" >&2; exit 1; }
+
+if yt-dlp \
   --yes-playlist \
+  --abort-on-error \
   --cookies-from-browser "brave+gnomekeyring:$HOME/.config/BraveSoftware/Brave-Origin/Default" \
   --sleep-requests 1 \
   --sleep-interval 5 \
@@ -17,4 +30,10 @@ yt-dlp \
   --merge-output-format mkv \
   --download-archive "$dest/.archive" \
   --output "$dest/%(playlist_title)s/%(playlist_index)03d %(title)s.%(ext)s" \
-  "$@"
+  "$@"; then
+  notify-send "gus-course" "Done: $(find "$dest" -name '*.mkv' | wc -l) videos in ~/media/courses"
+else
+  status=$?
+  notify-send -u critical "gus-course" "Stopped on an error. If it says members only: log in to YouTube in Brave Origin, close it, run again."
+  exit "$status"
+fi
