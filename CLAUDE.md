@@ -24,14 +24,18 @@ The five docs in `docs/` decide everything: `overview.md`, `base.md`, `desktop.m
 - Theme colors come only from `config/quickshell/Theme.qml` and `docs/theme.md`; never hardcode a hex that is not a token.
 - Commit only when Gus asks. Author is the GitHub noreply address already in the git config.
 
-## Current work: Light Solid
+## Current work: Gruvbox
 
-Decided 2026-11-11 (`docs/desktop.md`, Theme: Light Solid). Build in this order, one step at a time, waiting for Gus to test each:
+Decided 2026-11-11 (`docs/desktop.md`, Theme: Gruvbox; dark for the system, light for documents). Build in this order, one step per commit, waiting for Gus to test each:
 
-1. `docs/theme.md`: replace the Dark Solid tokens with the Light Solid table.
+1. `config/hypr/ippo.png` and `config/plymouth/ichigo/ippo.png` (一歩一歩, vertical, Yuji Boku, phrase color).
 2. `config/quickshell/Theme.qml` and `config/hypr/modules/theme.lua`.
-3. Apps: Ghostty, mako, fuzzel, zathura, rmpc, mpv/uosc, Doom theme (Gus picks a light one).
-4. GTK and icons: WhiteSur light, Adwaita light, gsettings in `docs/post-install.md` step 3.
-5. Wallpaper `assets/wallpapers/light-solid.png`, then `musashi.png` and `phrase.png` in label ink. The boot screen step needs `sudo` and the checks in `docs/desktop.md`, Login.
+3. Terminal: `config/ghostty/themes/gruvbox`, bat `ansi`, `FZF_DEFAULT_OPTS`, `config/btop/themes/gruvbox.theme`.
+4. fuzzel, mako, rmpc (`themes/gruvbox.ron`), uosc, Doom (`doom-gruvbox`, `(org +pretty)`). Light Solid files stay in git. zathura, GTK and Brave Origin stay light.
+5. `BatteryItem.qml`: live item and the 20% and 10% notifications (`docs/pill-spec.md`, Rest).
+6. Boot screen (`docs/desktop.md`, Login): needs `sudo`, the current state shown first and a backup to `~/backups/plymouth-ichigo-2026-11-11-crest`; test with `plymouth-test.sh` before any `limine-mkinitcpio`.
+7. Lock (`docs/desktop.md`, Lock): `hyprlock.conf`, tested from a terminal with a wrong password once before replacing the old file.
+
+Not in this work: the IntelliJ theme (Gus sets it by hand, `docs/dev.md`, IDE), the wallpaper and the volume indicator (open questions in `docs/overview.md`). When the rest is built, the Theme status becomes "done except the IntelliJ theme (manual, dev.md, IDE) and the wallpaper (open question in overview.md)", with the date.
 
 After each step, set that item's Status in the docs.
