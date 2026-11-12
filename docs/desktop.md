@@ -36,7 +36,7 @@ Blue only selects, green and red only report state. Text, glyphs and knobs on a 
 **Why:** The white desktop did not suit the black ThinkPad; dark for the system and light for what is read like paper keeps both comfortable. Gruvbox has ready themes for almost every app in the list and was the favourite in the comparison deck (2026-11-11). The depth and motion rules come from studying Ricelin (MIT).
 **Not chosen:** Light Solid as the system theme (2026-11-11: did not suit the black ThinkPad; its values stay for the documents side). Dark Solid (the theme until 2026-11-11: felt heavy). Gruvbox Material (softer, less contrast). Kanagawa Dragon, adjusted (2026-11-11: chosen and dropped the same night for Gruvbox). Glass (blur and translucency reverse Windows). Midnight Shibuya, Tokyo. Palettes taken from the wallpaper (Impasto, Ricelin). A brown wood background for boot and lock (2026-11-11: the palette's own background instead). Three palettes at once (Dark Solid pill, Gruvbox terminal, brown boot).
 **Where:** `config/quickshell/Theme.qml`, `config/hypr/modules/theme.lua`, each app config; every token listed in `docs/theme.md`. Wallpaper: to decide (open question in `overview.md`); `light-solid.png` stays until then. GTK through gsettings (`docs/post-install.md`, step 3), unchanged.
-**Status:** to build. Done 2026-11-11: `docs/theme.md`, `Theme.qml`, `theme.lua`, the terminal, fuzzel, mako, rmpc, uosc. Left: Doom, boot and lock; IntelliJ (by hand) and the wallpaper stay outside this work. Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then the terminal (Ghostty, bat, fzf, btop), then fuzzel, mako, rmpc, uosc, Doom, IntelliJ, then boot and lock (Login, Lock), then the wallpaper.
+**Status:** to build. Done 2026-11-11: `docs/theme.md`, `Theme.qml`, `theme.lua`, the terminal, fuzzel, mako, rmpc, uosc. Boot and lock done and tested 2026-11-11. Left: Doom; IntelliJ (by hand) and the wallpaper stay outside this work. Order: `docs/theme.md`, then `Theme.qml` and `theme.lua`, then the terminal (Ghostty, bat, fzf, btop), then fuzzel, mako, rmpc, uosc, Doom, IntelliJ, then boot and lock (Login, Lock), then the wallpaper.
 
 ## Bar
 
@@ -93,7 +93,7 @@ Calendar opens in the pill from the footer's Calendar link: one month, header in
 **Why:** Maintained upstream; a custom lock is security code we would own. One screen for boot and lock.
 **Not chosen:** Quickshell lock (v3, after it is tested). The 2026-11-09 layout (100 px clock in the middle, field 240 px from the bottom). 常に兵法の道を離れず and its caption (until 2026-11-11). The date on the lock (2026-11-11: the boot cannot show it, and the screens are the same).
 **Where:** `config/hypr/hyprlock.conf`, `config/hypr/ippo.png`, `config/hypr/hypridle.conf`
-**Status:** to build. Offsets are logical pixels for the laptop panel (1536 x 864 at 1.25); another monitor size moves them. Test with `hyprlock` from a terminal before replacing the old file; the old one and `musashi.png` stay in git.
+**Status:** done and tested 2026-11-11 (Gruvbox, the same screen as the boot): tested with `hyprlock -c` on the repo file, wrong password then right password, then installed to `~/.config/hypr/` with `ippo.png`; the Light Solid file is kept as `~/.config/hypr/hyprlock.conf.bak` and in git. Offsets are logical pixels for the laptop panel (1536 x 864 at 1.25); another monitor size moves them. Test with `hyprlock` from a terminal before replacing the old file; the old one and `musashi.png` stay in git.
 
 ## Fonts
 
