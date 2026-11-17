@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# about: Java via sdkman, Maven, Gradle, Docker, PostgreSQL, DBeaver, IntelliJ, API tools
+# about: Java via sdkman, Maven, Gradle, Docker, PostgreSQL, DBeaver, API tools (IntelliJ comes from Toolbox, by hand)
 source "$(dirname "$0")/lib.sh"
 
-ide=(intellij-idea-oss)                  # IntelliJ IDEA, open source build from the Arch repos
 containers=(docker docker-compose docker-buildx)
 database=(postgresql dbeaver)
-pac "${ide[@]}" "${containers[@]}" "${database[@]}"
+pac "${containers[@]}" "${database[@]}"
 
 aur bruno-bin               # Bruno API client
 aur postman-bin             # Postman, only for the DevDojo course

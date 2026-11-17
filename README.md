@@ -29,7 +29,7 @@ dotfiles/
 │   ├── icons.sh               WhiteSur icons, cursor, Adwaita dark
 │   ├── japanese.sh            fcitx5 + Mozc
 │   ├── terminal.sh            Ghostty, zsh + oh my zsh, CLI tools
-│   ├── backend.sh             sdkman (Java, Maven, Gradle), Docker, PostgreSQL, DBeaver, IntelliJ, Bruno
+│   ├── backend.sh             sdkman (Java, Maven, Gradle), Docker, PostgreSQL, DBeaver, Bruno
 │   ├── editors.sh             Emacs (Wayland) and Doom
 │   └── apps.sh                Brave, zathura, mpv + uosc, mpd + rmpc, imv, Anki, Bitwarden, Discord
 ├── config/                    one folder per program, copy what you want
@@ -89,7 +89,7 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 | `config/plymouth/ichigo/` | `/usr/share/plymouth/themes/ichigo/` (sudo) |
 | `config/sddm/autologin.conf` | `/etc/sddm.conf.d/autologin.conf` (sudo, user name filled in) |
 | `templates/compose.yaml` | root of each Spring project |
-| `config/intellij/idea64.vmoptions` | `~/.config/JetBrains/<IdeaVersion>/` |
+| `config/intellij/idea64.vmoptions` | append to `~/.config/JetBrains/<IdeaVersion>/idea64.vmoptions` |
 
 ## Security choices
 

@@ -135,7 +135,7 @@ If it loops or stays black: `Ctrl + Alt + F2`, log in, `sudo systemctl disable s
 cp -r config/doom ~/.config/
 cp -r org ~/                       # starter org files, only on a new machine
 ~/.config/emacs/bin/doom install
-cp config/intellij/idea64.vmoptions ~/.config/JetBrains/<IdeaVersion>/
+cat config/intellij/idea64.vmoptions >> ~/.config/JetBrains/<IdeaVersion>/idea64.vmoptions   # after Toolbox installs IntelliJ
 ```
 
 Log out and back in once so the docker group applies.

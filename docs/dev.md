@@ -12,11 +12,11 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 
 ## IDE
 
-**Decision:** IntelliJ IDEA (`intellij-idea-oss` from the Arch repos), a Gruvbox dark hard theme (plugin from the JetBrains Marketplace, to pick), New UI, PlemolJP Console NF 13, native Wayland with `-Dawt.toolkit.name=WLToolkit`. Project SDK: the sdkman JDK. IntelliJ is the code editor; Doom Emacs is the writing editor (`apps.md`, Notes).
-**Why:** The system side is Gruvbox (`desktop.md`, Theme). Sharp text at 1.25, no XWayland glitches. Updates come with `pacman -Syu`, covered by snapshots. The package now ships the JetBrains Runtime, which fixed the old font and Markdown issues. Spring, debugging and refactoring are what the DevDojo course and the job search need.
-**Not chosen:** VS Code, Doom for Java. Neovim with jdtls (2026-11-11: weaker Spring and debug support, and a third editor breaks principle 2). IntelliJ Light (until 2026-11-11, with Light Solid). JetBrains Toolbox (a second package manager, only worth it for a paid Ultimate license).
-**Where:** `install/backend.sh`, `config/intellij/`
-**Status:** to build: Gruvbox theme (set by hand in Settings, Appearance, after installing the plugin; record the plugin name here). First run checks: Help, About shows `sun.awt.wl.WLToolkit`; a `README.md` preview renders; New Project offers Spring Boot (if not, use start.spring.io). If the Markdown preview fails, reconsider Toolbox.
+**Decision:** IntelliJ IDEA through JetBrains Toolbox (free mode of the unified IDE), Gruvbox Islands Dark Hard (plugin Gruvbox Islands - Theme, lonre, MIT) with its editor scheme, New UI, UI font IBM Plex Sans 13, editor PlemolJP Console NF 13 with line height 1.2, native Wayland with `-Dawt.toolkit.name=WLToolkit`. Launched from `~/.local/share/JetBrains/Toolbox/scripts/idea`. Project SDK: the sdkman JDK. IntelliJ is the code editor; Doom Emacs is the writing editor (`apps.md`, Notes).
+**Why:** Lombok did not work with `intellij-idea-oss` (2026-11-11). Spring, debugging and refactoring are what the DevDojo course and the job search need.
+**Not chosen:** `intellij-idea-oss` (until 2026-11-11: Lombok). VS Code, Doom for Java. Neovim with jdtls (2026-11-11: weaker Spring and debug support, and a third editor breaks principle 2). IntelliJ Light (until 2026-11-11, with Light Solid). Forking the theme to recolor the frame and checkboxes (2026-11-11: not worth the upkeep yet).
+**Where:** Toolbox installed by hand (outside `install/`), `config/intellij/` (`idea64.vmoptions`), `config/hypr/modules/programs.lua`
+**Status:** done 2026-11-11: theme and fonts set. The "Start Free Trial" widget cannot be hidden in the unified IDE; accepted. IntelliJ updates through Toolbox, outside `pacman -Syu` and the snapshots. First run checks: Help, About shows `sun.awt.wl.WLToolkit`; a `README.md` preview renders.
 
 ## Containers
 
