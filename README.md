@@ -29,7 +29,7 @@ dotfiles/
 │   ├── icons.sh               WhiteSur icons, cursor, Adwaita dark
 │   ├── japanese.sh            fcitx5 + Mozc
 │   ├── terminal.sh            Ghostty, zsh + oh my zsh, CLI tools
-│   ├── backend.sh             sdkman (Java, Maven, Gradle), Docker, PostgreSQL, DBeaver, Bruno
+│   ├── backend.sh             sdkman (Java, Maven, Gradle), Docker, PostgreSQL, DBeaver, JetBrains Toolbox, Bruno
 │   ├── editors.sh             Emacs (Wayland) and Doom
 │   └── apps.sh                Brave, zathura, mpv + uosc, mpd + rmpc, imv, Anki, Bitwarden, Discord
 ├── config/                    one folder per program, copy what you want

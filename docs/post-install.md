@@ -135,6 +135,7 @@ If it loops or stays black: `Ctrl + Alt + F2`, log in, `sudo systemctl disable s
 cp -r config/doom ~/.config/
 cp -r org ~/                       # starter org files, only on a new machine
 ~/.config/emacs/bin/doom install
+# open jetbrains-toolbox once and install IntelliJ IDEA from it, then:
 cat config/intellij/idea64.vmoptions >> ~/.config/JetBrains/<IdeaVersion>/idea64.vmoptions   # after Toolbox installs IntelliJ
 ```
 

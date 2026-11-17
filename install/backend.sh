@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# about: Java via sdkman, Maven, Gradle, Docker, PostgreSQL, DBeaver, API tools (IntelliJ comes from Toolbox, by hand)
+# about: Java via sdkman, Maven, Gradle, Docker, PostgreSQL, DBeaver, JetBrains Toolbox, API tools
 source "$(dirname "$0")/lib.sh"
 
 containers=(docker docker-compose docker-buildx)
@@ -8,6 +8,7 @@ pac "${containers[@]}" "${database[@]}"
 
 aur bruno-bin               # Bruno API client
 aur postman-bin             # Postman, only for the DevDojo course
+aur jetbrains-toolbox       # IntelliJ itself is installed from Toolbox (dev.md, IDE)
 
 # Java toolchain through sdkman, kept in XDG data.
 export SDKMAN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/sdkman"

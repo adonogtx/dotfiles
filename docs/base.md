@@ -48,11 +48,11 @@ Never disable iwd: NetworkManager loses the card (`wlan0 unavailable`). If Wi-Fi
 
 ## Packages
 
-**Decision:** `base.sh` runs a full upgrade before installing anything. Official repos with `--needed --noconfirm`; AUR through yay, interactive, PKGBUILD shown. AUR kept small: the original packages minus `anki-bin` and `mpd-mpris` (both moved to the official repos as `anki` and `mpd-mpris`), with `brave-origin-bin` in place of `brave-bin`, plus `limine-mkinitcpio-hook`, `limine-snapper-sync` and `postman-bin` (DevDojo course), minus `exercism` if it came from the AUR.
+**Decision:** `base.sh` runs a full upgrade before installing anything. Official repos with `--needed --noconfirm`; AUR through yay, interactive, PKGBUILD shown. AUR kept small, 10 packages: `limine-mkinitcpio-hook` and `limine-snapper-sync` (`system.sh`), `whitesur-icon-theme` and `apple_cursor` (`icons.sh`), `bruno-bin`, `postman-bin` (DevDojo course) and `jetbrains-toolbox` (`backend.sh`), `brave-origin-bin` and `mpv-uosc` (`apps.sh`), `ttf-plemoljp-bin` (`fonts.sh`). A package that reaches the official repos leaves this list.
 **Why:** Arch does not support partial upgrades. AUR code runs as you, so it is reviewed. A package that reaches the official repos leaves the AUR list.
-**Not chosen:** paru (same thing, yay already known).
-**Where:** `install/lib.sh`, `install/base.sh`, `install/apps.sh`, `install/backend.sh`
-**Status:** done. Recount the AUR list after editing `install/backend.sh` and `install/system.sh`. Optional tidy: move `mpd-mpris` and `anki` from their own `pac` line in `install/apps.sh` into the `music` and `everyday` arrays.
+**Not chosen:** paru (same thing, yay already known). `anki-bin` and `mpd-mpris` from the AUR (moved to the official repos as `anki` and `mpd-mpris`). `brave-bin` (replaced by `brave-origin-bin`).
+**Where:** `install/lib.sh`, `install/base.sh`; AUR packages in `install/system.sh`, `install/icons.sh`, `install/backend.sh`, `install/apps.sh`, `install/fonts.sh`
+**Status:** done. AUR list made explicit 2026-11-17 (`jetbrains-toolbox` added). Optional tidy: move `mpd-mpris` and `anki` from their own `pac` line in `install/apps.sh` into the `music` and `everyday` arrays.
 
 ## Snapshots
 
