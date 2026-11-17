@@ -65,7 +65,6 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 
 | Topic | Note |
 |---|---|
-| Volume in the pill | Proposed 2026-11-11: on a volume or brightness change the pill morphs for about 1 s to show the icon, a bar and the percentage, like the workspace dots. Not decided |
 | Music player | Keep rmpc or move to another player (ncmpcpp, termusic, cmus, Amberol, Strawberry); reason for leaving rmpc still to write |
 | Plex | Not documented yet. Its database in `/var/lib/plex` sits in `@`: a snapshot boot rolls watch state back, a reinstall loses it. Turn on Sync My Watch State and Ratings; consider a `@plex` subvolume or a backup to `~/backups` |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |

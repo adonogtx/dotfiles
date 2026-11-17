@@ -2,6 +2,7 @@
 // A click on the pill opens the Control Center; keys reach it through IPC:
 //   quickshell ipc call menus toggle wifi | bluetooth | sound | display | battery | control | calendar
 //   quickshell ipc call launcher toggle
+//   quickshell ipc call level brightness    (from the brightness keys, after brightnessctl)
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
@@ -55,5 +56,14 @@ ShellRoot {
         target: "menus"
         function toggle(name: string): void { root.toggle(name, root.focusedPill()) }
         function close(): void { root.menu = "" }
+    }
+
+    // The brightness keys (hypr/modules/binds.lua) ask the focused pill to show the new level.
+    IpcHandler {
+        target: "level"
+        function brightness(): void {
+            const p = root.focusedPill()
+            if (p) p.readBrightness()
+        }
     }
 }

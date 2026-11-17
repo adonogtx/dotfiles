@@ -16,6 +16,16 @@ Exact values for the pill and its open panel, taken from the approved slides. Si
 
 Workspace switch: for about 1 s the date fades out and the five footer dots (sizes under Footer) fade in, the pill morphing to hug them (300 ms, the shape curve); then it morphs back. Only at rest.
 
+Level indicator (volume and brightness): on a change, for about 1 s the date fades out and the level fades in, with the same motion as the dots; a new change while it shows only resets the timer. Only at rest; nothing extra while the pill is open. Silent for 2 s after Quickshell starts and for 2 s after the default sink changes. The last of dots or level replaces the other.
+
+| Part | Value |
+|---|---|
+| Icon | 16, label, `Glyph.qml`: `volume` (waves follow the level, as in the sound slider), `volume-muted`, `sun` |
+| Bar | 120 × 6, rounding 3; track line, fill label |
+| Number | IBM Plex Sans 13, secondary, tabular figures, right aligned in the fixed width of "100%" |
+| Gap | 10 between icon, bar and number |
+| Muted | speaker off icon; bar fill and number in tertiary, the volume kept |
+
 Live items sit left of the date, 16 px icons, separated from the date by a 1 px line, 14 tall. In order, gap 10, each only while true: recording (red dot 8, elapsed time 13 label with tabular figures; a click stops it), microphone in use (icon, label), Awake on (cup, label), battery below 20% (battery icon and the percentage, 13, red; not shown while charging), disk above 90% (database icon and the use of `/`, 13, red). A click on any other item opens the Control Center like the rest of the pill.
 
 ## Open panel
