@@ -97,11 +97,11 @@ Calendar opens in the pill from the footer's Calendar link: one month, header in
 
 ## Fonts
 
-**Decision:** IBM Plex Sans and Sans JP for the interface, PlemolJP Console NF for terminal and code, IBM Plex Serif for org headings. Yuji Boku only for 一歩一歩 on boot and lock, drawn into an image (not installed).
+**Decision:** IBM Plex Sans and Sans JP for the interface, PlemolJP Console NF for terminal and code, IBM Plex Serif for org headings. Yuji Boku only for 一歩一歩 on boot and lock, drawn into an image (not installed). Noto Color Emoji as fallback only, for emoji in browsers and messages.
 **Why:** Takuya Matsuyama's family: one family, three voices. Yuji Boku is the closest to brush calligraphy among the free fonts compared (2026-11-11).
-**Not chosen:** `gus.ttf` (dropped 2026-11-09). PlemolJP35 (3:5 width, not used). Yuji Syuku (the lock phrase until 2026-11-11).
+**Not chosen:** `gus.ttf` (dropped 2026-11-09). PlemolJP35 (3:5 width, not used). Yuji Syuku (the lock phrase until 2026-11-11). No emoji font (until 2026-11-17: flags and emoji showed as empty boxes).
 **Where:** `install/fonts.sh`, `config/fontconfig/`
-**Status:** done. PlemolJP Console NF reports dual spacing (90) on most weights and none on Bold, so Ghostty picked Bold for everything. `config/fontconfig/conf.d/99-plemoljp-mono.conf` marks the family monospace; run `fc-cache -fr` after copying. Tested on 2026-11-10.
+**Status:** done. PlemolJP Console NF reports dual spacing (90) on most weights and none on Bold, so Ghostty picked Bold for everything. `config/fontconfig/conf.d/99-plemoljp-mono.conf` marks the family monospace; run `fc-cache -fr` after copying. Tested on 2026-11-10. noto-fonts-emoji installed 2026-11-17 (snapper 81/82); fc-match emoji answers Noto Color Emoji.
 
 ## Icons and cursor
 
