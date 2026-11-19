@@ -24,15 +24,6 @@ The five docs in `docs/` decide everything: `overview.md`, `base.md`, `desktop.m
 - Theme colors come only from `config/quickshell/Theme.qml` and `docs/theme.md`; never hardcode a hex that is not a token.
 - Commit only when Gus asks. Author is the GitHub noreply address already in the git config.
 
-## Current work: black system
+## Current work
 
-Decided 2026-11-18 (`docs/desktop.md`, Theme: black system, Gruvbox code). The system goes black; Gruvbox stays only for Ghostty and what runs in it, IntelliJ and Doom; documents stay light. Replaces the Gruvbox system built 2026-11-11. Build in this order, one step per commit, showing the diff and waiting for Gus's OK before each commit; no push until Gus says so:
-
-1. Docs: `desktop.md`, `theme.md`, `pill-spec.md`, `apps.md`, `overview.md`, this file.
-2. Quickshell: new values in `config/quickshell/Theme.qml`, same token names (`textOnAccent` stays). List any Gruvbox hex hardcoded elsewhere in `config/quickshell` for Gus, then move it to a token. Back up `~/.config/quickshell/Theme.qml`, copy, test every part of the pill.
-3. Borders (`config/hypr/modules/theme.lua`), fuzzel, mako, uosc (`config/mpv/script-opts/uosc.conf`). Check the WhiteSur light icons read on black in fuzzel and tell Gus.
-4. Boot and lock (`docs/desktop.md`, Login and Lock; `docs/theme.md`, Color: boot and lock), last: mitsuuroko boot and matcha lock, decided 2026-11-19. Follow `~/dump/step4-boot-lock.md` (steps 4a to 4d, one commit each); design files in `~/dump/mitsuuroko-design/`. No more 一歩一歩, `ippo.png` or `loading.png`. Plymouth theme name stays `ichigo`. Needs `sudo`; back up the installed Plymouth theme and `~/.config/hypr/hyprlock.conf` first, test with `plymouth-test.sh` and `hyprlock -c`, and give the restore commands before the reboot.
-
-Not in this work: the code side (Ghostty, bat, fzf, btop, rmpc, fastfetch, IntelliJ, Doom stay Gruvbox) and the documents side. `config/doom/config.el` has local changes that stay out of every commit of this work.
-
-After each step, set the Theme Status in the docs. Only after a good reboot in step 4 does the Theme Status become done, with the date.
+Black system with matcha boot and lock, done 2026-11-19. Next: decide org-modern in apps.md, Notes.
