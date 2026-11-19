@@ -1,27 +1,44 @@
 # Theme · black system, Gruvbox code
 
-Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders, boot and lock. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
+Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Matcha for boot and lock only (decided 2026-11-19). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
 
 ## Color: system (black)
 
 | Token | Value | Used in |
 |---|---|---|
-| bar | #000000 | Plymouth and hyprlock background, uosc curtain |
-| panel | #0c0c0d to #000000 | Theme.qml, mako, fuzzel, Launcher, uosc bars and menus, hyprlock and Plymouth field |
+| bar | #000000 | uosc curtain |
+| panel | #0c0c0d to #000000 | Theme.qml, mako, fuzzel, Launcher, uosc bars and menus |
 | tile | #1f1f21 | Theme.qml (circles that are off, connected rows, switch track off, segmented track), mako progress bar |
-| line | #2a2a2c | Theme.qml, slider track, 1 px edges, segmented selected cell, field edge, window border |
+| line | #2a2a2c | Theme.qml, slider track, 1 px edges, segmented selected cell, window border |
 | label | #d8d8d8 | everywhere on the system; slider fill, switch knob off, uosc timeline fill |
-| secondary | #8c8c8c | Theme.qml, loading word, placeholder, time in the pill |
+| secondary | #8c8c8c | Theme.qml, placeholder, time in the pill |
 | tertiary | #636366 | Theme.qml, fuzzel placeholder, focused window border |
 | accent | #d8d8d8 | pill circles that are on, Control Center switches on, today in the calendar, the connected Wi-Fi check, Launcher and fuzzel selection, uosc search matches |
 | text on accent | #000000 | text, glyphs and knobs on an accent fill (`textOnAccent` in Theme.qml) |
 | green | #46a758 | charging, success |
 | red | #e5484d | low battery, errors, urgent banners |
-| phrase | #d8d8d8 | 一歩一歩 on boot and lock |
 | shadow | 30% to 45% black | under panels and raised parts |
 | border | line, tertiary when focused | Hyprland windows (theme.lua), mako, fuzzel |
 
 White means on or selected; green and red only report state.
+
+## Color: boot and lock (matcha)
+
+Only Plymouth (`config/plymouth/ichigo/`) and hyprlock (`config/hypr/`). Physical px on the 1920 x 1080 panel.
+
+| Token | Value | Used in |
+|---|---|---|
+| background | #161a15 | Plymouth background, base of `lock-background.png` |
+| field fill | #1f241d | Plymouth field, hyprlock field |
+| field border | #2f362b | 2 px field edge on both |
+| logo | #c9cbbd | the mitsuuroko (`boot-logo.png`) |
+| bar track | #252b22 | Plymouth bar segments not yet filled |
+| bar fill | #c9cbbd | Plymouth bar segments filled |
+| dots and clock | #d9dccd | password dots on both, the lock clock |
+| date | #a3a895 | the lock date |
+| placeholder | #8c917f | パスワードを入力 on the lock |
+| error border | #8a4a3c | wrong password on both, 1.2 s |
+| seigaiha lines | #1d221b | `lock-background.png` (lock only) |
 
 ## Color: code (Gruvbox)
 
@@ -91,8 +108,9 @@ Kept from Light Solid for what is read like paper: GTK 3 and 4 (Adwaita light, W
 | Detail | IBM Plex Sans | 12 |
 | Terminal, Emacs code | PlemolJP Console NF | 13 pt, 17 px in Emacs |
 | Emacs prose, headings | IBM Plex Sans, IBM Plex Serif | 17 |
-| Boot and lock phrase | Yuji Boku, drawn into an image (`ippo.png`, vertical) | 180 px glyphs, image 200 x 732 physical |
-| Boot loading word | IBM Plex Sans, drawn into an image (`loading.png`), secondary | image |
+| Lock clock | IBM Plex Sans, SemiBold, letter spacing -7 | 228 physical |
+| Lock date | IBM Plex Sans JP, Bold | 41 physical |
+| Lock placeholder | IBM Plex Sans JP, Regular | 24 physical |
 
 ## Shape and space
 

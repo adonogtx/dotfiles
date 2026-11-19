@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, a black system, Gruvbox for the terminal and code, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, 一歩一歩 on the boot and lock screens, and the fastfetch screen (the 道 logo, the date, 一歩一歩).
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, a black system, Gruvbox for the terminal and code, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, the lock's date and placeholder (パスワードを入力), and the fastfetch screen (the 道 logo, the date, 一歩一歩).
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
