@@ -1,6 +1,6 @@
 # Pill spec
 
-Exact values for the pill and its open panel, taken from the approved slides. Sizes are logical px (screen px divided by 1.25). Colors are Gruvbox system tokens from `docs/theme.md`. When this file and the code disagree, this file wins; when this file and `desktop.md` disagree, `desktop.md` wins.
+Exact values for the pill and its open panel, taken from the approved slides. Sizes are logical px (screen px divided by 1.25). Colors are the black system tokens from `docs/theme.md` (Color: system). When this file and the code disagree, this file wins; when this file and `desktop.md` disagree, `desktop.md` wins.
 
 ## Rest
 
@@ -9,7 +9,7 @@ Exact values for the pill and its open panel, taken from the approved slides. Si
 | Position | centred, 12 from the top edge |
 | Size | height 34, width hugs the content |
 | Padding | 0 13; gap between items 10 |
-| Surface | panel gradient (#282828 to #262626), 1 px edge in line, the panel shadow, rounding full |
+| Surface | panel gradient (#0c0c0d to #000000), 1 px edge in line, the panel shadow, rounding full |
 | Date | IBM Plex Sans JP 15, label: `11月11日(水)` |
 | Time | same size, secondary, two spaces after the date |
 | Click | anywhere on the pill opens the Control Center |
@@ -49,7 +49,7 @@ Order in the main view: date (stays where it was), circles row, three sliders, l
 |---|---|
 | Layout | five equal columns |
 | Circle | 38 diameter |
-| On | background accent, icon on accent (#1d2021) |
+| On | background accent (white, #f2f2f2), icon text on accent (black, #000000) |
 | Off | background tile, icon label |
 | Icon | 18, stroke 1.8 |
 | Name | 11, label, centred, 6 below the circle, fixed text |
@@ -66,13 +66,13 @@ Never show network or device names, or percentages, under the circles. State liv
 |---|---|
 | Label | above each slider, 10, uppercase, tracking 1.2, secondary: DISPLAY, SOUND, MICROPHONE |
 | Label to track | 6 |
-| Track | height 24, rounding 12, background line (#504945) |
-| Fill | label (#ebdbb2), rounding 12, shadow 0 1 3 rgba(0,0,0,0.30) |
-| Icon | 13, panel (#282828), inside the fill, 7 from its left edge |
+| Track | height 24, rounding 12, background line (#2a2a2c) |
+| Fill | label (#f2f2f2), rounding 12, shadow 0 1 3 rgba(0,0,0,0.30) |
+| Icon | 13, panel (#0c0c0d), inside the fill, 7 from its left edge |
 | Chevron | 12, tertiary, right of the track, opens the section |
 | Between sliders | 12 |
 
-The fill is always the light label color, never accent.
+The fill is always the label color. It reports a level, not a state.
 
 ## Footer
 
@@ -102,11 +102,11 @@ Back chevron 16 secondary, then the title 14, weight 600, label, left aligned, o
 
 Wi-Fi: a lock (16, secondary, right side) on every secured network that is not connected, and no second line; the connected one says "Secured" and its band on its second line (NetworkManager on iwd reports the band only for the connected network).
 
-Blue appears in rows only as the check (16, accent) on the connected Wi-Fi network. Elsewhere blue means on: circles, switches.
+White appears in rows only as the check (16, accent) on the connected Wi-Fi network. Elsewhere a white fill means on: circles, switches, today in the calendar.
 
 Section labels between groups (CONNECTED, KNOWN, OTHER NETWORKS, MY DEVICES, NEARBY): 10, uppercase, tracking 1.2, secondary, 10 above the first row.
 
-The power row at the top of Wi-Fi and Bluetooth is a plain row: icon, name, and a switch on the right. No blue circle, no "On" subtitle.
+The power row at the top of Wi-Fi and Bluetooth is a plain row: icon, name, and a switch on the right. No accent circle, no "On" subtitle.
 
 Bluetooth Nearby lists only devices with a name; a name that looks like an address (hex pairs joined by : or -) counts as none.
 
@@ -115,8 +115,8 @@ Bluetooth Nearby lists only devices with a name; a name that looks like an addre
 | Part | Value |
 |---|---|
 | Size | 35 × 21, rounding full |
-| Track | off tile, on accent |
-| Knob | 16, label (#ebdbb2), shadow 0 1 3 rgba(0,0,0,0.35), 2.5 from the edge |
+| Track | off tile, on accent (white, #f2f2f2) |
+| Knob | 16; off label (#f2f2f2), on text on accent (black, #000000); shadow 0 1 3 rgba(0,0,0,0.35), 2.5 from the edge |
 
 ## Segmented control
 
@@ -124,7 +124,7 @@ Bluetooth Nearby lists only devices with a name; a name that looks like an addre
 |---|---|
 | Track | background tile, rounding 8, padding 2, gap 2 |
 | Cell | height 26, text 12 |
-| Selected | line (#504945), rounding 6, shadow 0 1 3 rgba(0,0,0,0.30), text label |
+| Selected | line (#2a2a2c), rounding 6, shadow 0 1 3 rgba(0,0,0,0.30), text label |
 | Other | no background, text secondary |
 
 ## Battery section
@@ -152,7 +152,7 @@ BRIGHTNESS label and slider, TEXT SIZE label and segmented control, line, Night 
 | Header | `2026年11月`, IBM Plex Sans JP 18, weight 500, label; chevrons 14 secondary on the right |
 | Weekdays | 日 月 火 水 木 金 土, 11, secondary, weeks start on Sunday |
 | Days | 13, label, cell height 27 |
-| Today | accent circle 27, number in on accent, weight 600 |
+| Today | accent circle 27 (white), number in text on accent (black), weight 600 |
 | Grid gap | 5 |
 
 ## Motion

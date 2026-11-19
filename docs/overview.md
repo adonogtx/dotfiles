@@ -1,6 +1,6 @@
 # dotfiles
 
-Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, Gruvbox look: dark for the system, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, 一歩一歩 on the boot and lock screens, and the fastfetch screen (the 道 logo, the date, 一歩一歩).
+Gus's personal Arch Linux + Hyprland setup for a ThinkPad T14 Gen 2i. One pill on top, one panel for every control, a black system, Gruvbox for the terminal and code, light for documents (opaque, no translucency), IBM Plex type. Japanese only in the pill's date, あ in the open pill, the calendar, 一歩一歩 on the boot and lock screens, and the fastfetch screen (the 道 logo, the date, 一歩一歩).
 
 This file and four others are the source of truth: `base.md`, `desktop.md`, `apps.md`, `dev.md`, all in `docs/`. Every topic in them uses the same block: **Decision, Why, Not chosen, Where, Status.**
 
@@ -10,7 +10,7 @@ Status values: **done** (in the repo), **to build** (decided, not written yet), 
 
 1. **Ma (間).** Only what is used. Icons appear when relevant, nothing decorative.
 2. **One way to do each thing.** One terminal, one code editor, one writing editor, one player, one launcher.
-3. **Frozen by default.** Changing a decision means editing its block here first, with a reason. The palette is frozen until 2026-11-18 (`desktop.md`, Theme).
+3. **Frozen by default.** Changing a decision means editing its block here first, with a reason.
 4. **Modular install.** Scripts only install packages; configs are copied by hand, one folder per program.
 5. **Safe without effort.** LUKS, snapshots, firewall and a working lock from day one.
 
@@ -71,4 +71,3 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 | Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `jq` next to `slurp` and `python-gobject` next to `power-profiles-daemon` in `install/` |
 | Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |
 | Music | Untagged files show Unknown in rmpc; `~/homelab/music` duplicates the Nujabes folder (dojo mirror or leftover?) |
-| IntelliJ | Open once, copy `idea64.vmoptions`, run the checks in `dev.md`, IDE; pick the Gruvbox theme plugin |
