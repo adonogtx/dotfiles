@@ -1,4 +1,4 @@
-# ~/.config/mako/config · Gruvbox banners, top right, 5 s
+# ~/.config/mako/config · black system banners, top right, 5 s
 font=IBM Plex Sans 11
 width=360
 padding=12,16
@@ -11,11 +11,11 @@ max-icon-size=32
 default-timeout=5000
 anchor=top-right
 
-background-color=#282828
-text-color=#ebdbb2
-border-color=#504945
-progress-color=over #3c3836
+background-color=#0c0c0d
+text-color=#f2f2f2
+border-color=#2a2a2c
+progress-color=over #1f1f21
 
 [urgency=high]
-border-color=#fb4934
+border-color=#e5484d
 default-timeout=0

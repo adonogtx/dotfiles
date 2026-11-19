@@ -1,4 +1,4 @@
--- Gruvbox system tokens shared by every module. Same values as quickshell/Theme.qml.
+-- Black system tokens shared by every module. Same values as quickshell/Theme.qml.
 
 -- The wallpaper chosen with gus-wallpaper (a link), or light-solid.png when there is none
 -- or it points to a missing file.
@@ -10,8 +10,8 @@ local function wallpaper()
 end
 
 return {
-  border          = "rgba(504945ff)",   -- inactive window hairline (line)
-  border_active   = "rgba(7c6f64ff)",   -- focused window hairline (tertiary)
+  border          = "rgba(2a2a2cff)",   -- inactive window hairline (line)
+  border_active   = "rgba(636366ff)",   -- focused window hairline (tertiary)
   shadow          = 0x4d000000,         -- 30% black
   wallpaper       = wallpaper(),        -- gus-wallpaper's choice, light-solid.png as fallback
 }
