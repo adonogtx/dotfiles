@@ -73,7 +73,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Decision:** Bitwarden, Anki (`anki`, official repos), Discord. Screenshots, recording, Night Shift and the wallpaper through `gus-screenshot`, `gus-record`, `gus-nightlight`, `gus-wallpaper`; files go to `~/media/pictures/screenshots` and `~/media/videos/recordings`. Region screenshots: drag for an area, or click once to take the window under the cursor (window boxes from `hyprctl`, needs `jq`). Each screenshot is copied to the clipboard and announced by mako with a preview. `gus-wallpaper` (Super + W) picks an image from `~/media/pictures/wallpapers` in fuzzel; `gus-wallpaper <file>` copies the file there first (`cp -n`: an existing file with the same name is kept) and uses it.
 **Not chosen:** `gus-float` and floating TUIs (removed with the Control Center). `anki-bin` (no longer in the AUR). bluetui (removed 2026-11-10, see `desktop.md`, Bar).
 **Where:** `install/apps.sh`, `config/bin/`
-**Status:** done. Open: `config/bin/gus-jdate` is in the repo but not documented; record its use here or remove it.
+**Status:** done. `gus-jdate` prints the Japanese date from an array of weekday kanji, no `ja_JP` locale needed: `11月19日(木)`, or `11月19日 木曜日` with `long` (the lock date, `desktop.md`, Lock; kept 2026-11-19).
 
 ## Folders
 
