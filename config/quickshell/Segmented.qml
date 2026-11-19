@@ -31,7 +31,7 @@ Rectangle {
         layer.enabled: true
         layer.effect: MultiEffect {
             shadowEnabled: true
-            shadowColor: "black"
+            shadowColor: Theme.shadow
             shadowOpacity: Theme.segmentShadow
             shadowBlur: 0.5
             blurMax: 6

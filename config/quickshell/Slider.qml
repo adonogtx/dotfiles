@@ -37,7 +37,7 @@ Item {
             layer.enabled: true
             layer.effect: MultiEffect {
                 shadowEnabled: true
-                shadowColor: "black"
+                shadowColor: Theme.shadow
                 shadowOpacity: Theme.fillShadow
                 shadowBlur: 0.5
                 blurMax: 6

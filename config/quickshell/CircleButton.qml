@@ -20,7 +20,7 @@ Item {
         id: circle
         width: 38; height: 38; radius: 19
         anchors.horizontalCenter: parent.horizontalCenter
-        color: btn.on ? (mouse.containsMouse ? Qt.lighter(Theme.accent, 1.08) : Theme.accent)
+        color: btn.on ? (mouse.containsMouse ? Theme.accentHover : Theme.accent)
                       : (mouse.containsMouse ? Theme.line : Theme.tile)
         scale: mouse.pressed ? 0.92 : 1
         Behavior on color { ColorAnimation { duration: 200; easing.type: Easing.OutCubic } }

@@ -1,4 +1,4 @@
-// A switch (pill-spec.md, Switch): 35 x 21, tile off, accent on, a white knob of 16
+// A switch (pill-spec.md, Switch): 35 x 21, tile off, accent on; a knob of 16 in label off, text on accent on,
 // with a small shadow, 2.5 from the edge. The knob stretches a little while pressed.
 // Adapted from Ricelin's LinkToggle (MIT, github.com/Gakuseei/Ricelin).
 import QtQuick
@@ -15,7 +15,7 @@ Rectangle {
     implicitWidth: 35
     implicitHeight: 21
     radius: height / 2
-    color: on ? (area.containsMouse ? Qt.lighter(Theme.accent, 1.08) : Theme.accent)
+    color: on ? (area.containsMouse ? Theme.accentHover : Theme.accent)
               : (area.containsMouse ? Theme.line : Theme.tile)
     Behavior on color { ColorAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
@@ -24,7 +24,8 @@ Rectangle {
         height: sw.knob
         width: area.pressed ? sw.knob + 4 : sw.knob
         radius: height / 2
-        color: Theme.label
+        color: sw.on ? Theme.textOnAccent : Theme.label
+        Behavior on color { ColorAnimation { duration: 180; easing.type: Easing.OutCubic } }
         x: sw.on ? sw.width - width - sw.inset : sw.inset
         Behavior on x { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
         Behavior on width { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
@@ -32,7 +33,7 @@ Rectangle {
         layer.enabled: true
         layer.effect: MultiEffect {
             shadowEnabled: true
-            shadowColor: "black"
+            shadowColor: Theme.shadow
             shadowOpacity: Theme.knobShadow
             shadowBlur: 0.5
             blurMax: 6

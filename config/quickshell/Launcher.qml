@@ -100,7 +100,7 @@ PanelWindow {
         layer.enabled: true
         layer.effect: MultiEffect {
             shadowEnabled: true
-            shadowColor: "black"
+            shadowColor: Theme.shadow
             shadowOpacity: Theme.shadowOpacity
             shadowBlur: 1.0
             blurMax: 32
@@ -149,6 +149,7 @@ PanelWindow {
                     font.letterSpacing: 0.3
                     color: Theme.label
                     selectionColor: Theme.accent
+                    selectedTextColor: Theme.textOnAccent
                     clip: true
 
                     Keys.onEscapePressed: launcher.open = false

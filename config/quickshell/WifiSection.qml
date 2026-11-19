@@ -231,6 +231,7 @@ Column {
                                 font.pixelSize: Theme.body
                                 color: Theme.label
                                 selectionColor: Theme.accent
+                                selectedTextColor: Theme.textOnAccent
                                 clip: true
                                 onVisibleChanged: if (visible) forceActiveFocus(); else text = ""
                                 onAccepted: section.sendPassword(entry.modelData.ssid, text)

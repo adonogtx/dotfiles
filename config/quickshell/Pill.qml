@@ -164,7 +164,7 @@ PanelWindow {
         layer.enabled: true
         layer.effect: MultiEffect {
             shadowEnabled: true
-            shadowColor: "black"
+            shadowColor: Theme.shadow
             shadowOpacity: Theme.shadowOpacity
             shadowBlur: 1.0
             blurMax: 24

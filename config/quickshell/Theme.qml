@@ -1,28 +1,30 @@
-// Gruvbox system tokens (docs/theme.md, Color: system). Real pixels; the deck draws them at 2x.
-// Same values as hypr/modules/theme.lua, ghostty, mako and fuzzel.
+// Black system tokens (docs/theme.md, Color: system). Real pixels; the deck draws them at 2x.
+// Same values as hypr/modules/theme.lua, mako, fuzzel and uosc. The terminal stays Gruvbox (Color: code).
 pragma Singleton
 import Quickshell
 import QtQuick
 
 Singleton {
     // Surfaces
-    readonly property color bar: "#1d2021"
-    readonly property color panel: "#282828"
-    readonly property color tile: "#3c3836"
-    readonly property color line: "#504945"
+    readonly property color bar: "#000000"
+    readonly property color panel: "#0c0c0d"
+    readonly property color tile: "#1f1f21"
+    readonly property color line: "#2a2a2c"
 
     // Text
-    readonly property color label: "#ebdbb2"
-    readonly property color secondary: "#a89984"
-    readonly property color tertiary: "#7c6f64"
+    readonly property color label: "#f2f2f2"
+    readonly property color secondary: "#8e8e93"
+    readonly property color tertiary: "#636366"
     // "on accent" in theme.md. Not named onAccent: QML reads on + capital as a signal handler,
     // and the property silently stayed black.
-    readonly property color textOnAccent: bar      // text and glyphs on an accent fill (#1d2021)
+    readonly property color textOnAccent: bar      // text, glyphs and knobs on an accent fill (#000000)
 
     // Meaning
-    readonly property color accent: "#83a598"
-    readonly property color green: "#b8bb26"
-    readonly property color red: "#fb4934"
+    readonly property color accent: "#f2f2f2"
+    readonly property color green: "#46a758"
+    readonly property color red: "#e5484d"
+    // Hover on an accent fill: a step darker, since lighter than #f2f2f2 is almost white.
+    readonly property color accentHover: Qt.darker(accent, 1.08)
 
     // Type
     readonly property string sans: "IBM Plex Sans"
@@ -54,11 +56,12 @@ Singleton {
     readonly property real fillShadow: 0.30
     readonly property real knobShadow: 0.35
     readonly property real segmentShadow: 0.30
+    readonly property color shadow: "#000000"                     // every shadow (theme.md, shadow)
 
     // Depth without translucency: each surface falls one shade from top to bottom,
     // has a 1 px edge in line, and the panel casts one soft shadow (no blur anywhere).
     readonly property color panelTop: panel
-    readonly property color panelBottom: "#262626"
+    readonly property color panelBottom: "#000000"
     readonly property color rim: line
     readonly property color edgeSoft: line
     readonly property color wash: Qt.rgba(1, 1, 1, 0.04)        // hover, light over the dark panel

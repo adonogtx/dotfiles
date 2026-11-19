@@ -16,7 +16,7 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Why:** Same look and motion as the rest of the pill; a plain name, no borrowed product names; one less app styled separately.
 **Not chosen:** Walker (more parts), rofi, fuzzel as the launcher.
 **Where:** `config/quickshell/Launcher.qml`, `config/hypr/modules/programs.lua`, `config/fuzzel/`
-**Status:** done; Gruvbox colors done 2026-11-11. Black system palette to build (`desktop.md`, Theme): the Launcher through `Theme.qml` (white highlight, black text); fuzzel by hand: panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with text on accent, line border; WhiteSur light icons checked on black. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
+**Status:** done; Gruvbox colors done 2026-11-11. Black system palette (`desktop.md`, Theme): the Launcher through `Theme.qml` (white highlight, black text) done and tested 2026-11-18; fuzzel by hand, to build: panel background, label text and input, secondary prompt, tertiary placeholder, accent match and selection with text on accent, line border; WhiteSur light icons checked on black. The window keeps a fixed height (room for 7 results) and animates only the panel inside, like the Control Center.
 
 ## Notifications
 
