@@ -12,18 +12,18 @@ Singleton {
     readonly property color line: "#2a2a2c"
 
     // Text
-    readonly property color label: "#f2f2f2"
-    readonly property color secondary: "#8e8e93"
+    readonly property color label: "#d8d8d8"
+    readonly property color secondary: "#8c8c8c"
     readonly property color tertiary: "#636366"
     // "on accent" in theme.md. Not named onAccent: QML reads on + capital as a signal handler,
     // and the property silently stayed black.
     readonly property color textOnAccent: bar      // text, glyphs and knobs on an accent fill (#000000)
 
     // Meaning
-    readonly property color accent: "#f2f2f2"
+    readonly property color accent: "#d8d8d8"
     readonly property color green: "#46a758"
     readonly property color red: "#e5484d"
-    // Hover on an accent fill: a step darker, since lighter than #f2f2f2 is almost white.
+    // Hover on an accent fill: a step darker.
     readonly property color accentHover: Qt.darker(accent, 1.08)
 
     // Type

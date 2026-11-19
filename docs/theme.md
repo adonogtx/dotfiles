@@ -10,14 +10,14 @@ Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the
 | panel | #0c0c0d to #000000 | Theme.qml, mako, fuzzel, Launcher, uosc bars and menus, hyprlock and Plymouth field |
 | tile | #1f1f21 | Theme.qml (circles that are off, connected rows, switch track off, segmented track), mako progress bar |
 | line | #2a2a2c | Theme.qml, slider track, 1 px edges, segmented selected cell, field edge, window border |
-| label | #f2f2f2 | everywhere on the system; slider fill, switch knob off, uosc timeline fill |
-| secondary | #8e8e93 | Theme.qml, loading word, placeholder, time in the pill |
+| label | #d8d8d8 | everywhere on the system; slider fill, switch knob off, uosc timeline fill |
+| secondary | #8c8c8c | Theme.qml, loading word, placeholder, time in the pill |
 | tertiary | #636366 | Theme.qml, fuzzel placeholder, focused window border |
-| accent | #f2f2f2 | pill circles that are on, Control Center switches on, today in the calendar, the connected Wi-Fi check, Launcher and fuzzel selection, uosc search matches |
+| accent | #d8d8d8 | pill circles that are on, Control Center switches on, today in the calendar, the connected Wi-Fi check, Launcher and fuzzel selection, uosc search matches |
 | text on accent | #000000 | text, glyphs and knobs on an accent fill (`textOnAccent` in Theme.qml) |
 | green | #46a758 | charging, success |
 | red | #e5484d | low battery, errors, urgent banners |
-| phrase | #f2f2f2 | 一歩一歩 on boot and lock |
+| phrase | #d8d8d8 | 一歩一歩 on boot and lock |
 | shadow | 30% to 45% black | under panels and raised parts |
 | border | line, tertiary when focused | Hyprland windows (theme.lua), mako, fuzzel |
 

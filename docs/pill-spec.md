@@ -49,7 +49,7 @@ Order in the main view: date (stays where it was), circles row, three sliders, l
 |---|---|
 | Layout | five equal columns |
 | Circle | 38 diameter |
-| On | background accent (white, #f2f2f2), icon text on accent (black, #000000) |
+| On | background accent (white, #d8d8d8), icon text on accent (black, #000000) |
 | Off | background tile, icon label |
 | Icon | 18, stroke 1.8 |
 | Name | 11, label, centred, 6 below the circle, fixed text |
@@ -67,7 +67,7 @@ Never show network or device names, or percentages, under the circles. State liv
 | Label | above each slider, 10, uppercase, tracking 1.2, secondary: DISPLAY, SOUND, MICROPHONE |
 | Label to track | 6 |
 | Track | height 24, rounding 12, background line (#2a2a2c) |
-| Fill | label (#f2f2f2), rounding 12, shadow 0 1 3 rgba(0,0,0,0.30) |
+| Fill | label (#d8d8d8), rounding 12, shadow 0 1 3 rgba(0,0,0,0.30) |
 | Icon | 13, panel (#0c0c0d), inside the fill, 7 from its left edge |
 | Chevron | 12, tertiary, right of the track, opens the section |
 | Between sliders | 12 |
@@ -115,8 +115,8 @@ Bluetooth Nearby lists only devices with a name; a name that looks like an addre
 | Part | Value |
 |---|---|
 | Size | 35 × 21, rounding full |
-| Track | off tile, on accent (white, #f2f2f2) |
-| Knob | 16; off label (#f2f2f2), on text on accent (black, #000000); shadow 0 1 3 rgba(0,0,0,0.35), 2.5 from the edge |
+| Track | off tile, on accent (white, #d8d8d8) |
+| Knob | 16; off label (#d8d8d8), on text on accent (black, #000000); shadow 0 1 3 rgba(0,0,0,0.35), 2.5 from the edge |
 
 ## Segmented control
 
