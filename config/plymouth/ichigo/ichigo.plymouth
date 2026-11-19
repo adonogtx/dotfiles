@@ -1,6 +1,6 @@
 [Plymouth Theme]
 Name=ichigo
-Description=Gruvbox boot screen: the ippo column and one field for the LUKS password
+Description=Matcha boot screen: the mitsuuroko, one field for the LUKS password, a three segment bar
 ModuleName=script
 
 [script]
