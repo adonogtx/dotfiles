@@ -91,4 +91,4 @@ Names: lowercase, words joined by hyphens, no spaces, ISO date first when there 
 **Why:** (2026-11-23) The old layout had two homes for the same media (`~/library` and `~/homelab`), notes in three places and a `~/dump` that became an attic. One test per drawer decides where each file goes.
 **Not chosen:** The 2026-11-09 layout (`~/org`, `~/library`, `~/backups` at the top). `~/vault` (one file, merged into `~/docs/notes`). PARA, Johnny.Decimal, folders by life area, by lifecycle or by backup tier, XDG default names (all compared 2026-11-23).
 **Where:** `install/base.sh`, `config/xdg/`
-**Status:** to build. Decided 2026-11-23.
+**Status:** done 2026-11-23. Folders moved, XDG and mpd configs copied; leftovers set aside in `~/archive/2026/to-delete/` for review.

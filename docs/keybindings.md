@@ -8,7 +8,7 @@ Vim keys move focus. Source: `config/hypr/modules/binds.lua`.
 |---|---|
 | Super + Return | Ghostty |
 | Super + Space | Launcher |
-| Super + B | Brave |
+| Super + B | Brave Origin |
 | Super + E | Files (Nautilus) |
 | Super + D | Doom Emacs (emacsclient) |
 | Super + I | IntelliJ IDEA |
