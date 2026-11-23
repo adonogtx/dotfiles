@@ -3,7 +3,7 @@
 source "$(dirname "$0")/lib.sh"
 
 pdf=(zathura zathura-pdf-mupdf)
-video=(mpv yt-dlp deno python-secretstorage)
+video=(mpv yt-dlp deno python-secretstorage qbittorrent)
 music=(mpd rmpc)
 images=(imv)
 everyday=(bitwarden discord)

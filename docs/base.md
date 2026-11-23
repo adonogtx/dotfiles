@@ -84,19 +84,19 @@ Snapshots appear in the Limine menu through `limine-snapper-sync` (AUR); `limine
 | Area | Choice |
 |---|---|
 | Disk | LUKS, required (autologin depends on it) |
-| Firewall | ufw: deny incoming, allow outgoing |
+| Firewall | ufw: deny incoming, allow outgoing. One exception: 32400/tcp from the home subnet `192.168.15.0/24` for Plex (`apps.md`, Media server) |
 | Lock | hyprlock at 5 min idle and before suspend |
 | Pill commands | argument lists only, never shell strings with outside text |
 | Wi-Fi passwords | typed in the Control Center, sent to nmcli through stdin, never on a command line |
 | Clipboard | history capped at 50, Super + Shift + C wipes it |
-| Docker | ports always published on 127.0.0.1 (Docker bypasses ufw) |
+| Docker | ports always published on 127.0.0.1 (Docker bypasses ufw); Plex uses the host network instead, so ufw applies (`dev.md`, Containers) |
 | PostgreSQL | peer for local sockets, scram passwords for TCP |
 | SSH | client used (GitHub, dojo); server installed with openssh, never enabled; ssh-agent as a user service; its socket is exported to the session in env.lua |
 | Admin prompts | hyprpolkitagent (`desktop.md`, Polkit agent) |
 
-**Why:** One stolen laptop or one open port is the realistic threat.
+**Why:** One stolen laptop or one open port is the realistic threat. The Plex rule (2026-11-23) opens one port to one subnet; a foreign network with the same range would also reach it, and Plex still asks for the account login.
 **Where:** `install/system.sh`, `install/backend.sh`, `config/hypr/` (`modules/env.lua` sets `SSH_AUTH_SOCK`), `config/quickshell/WifiSection.qml`
-**Status:** done. ufw active (checked 2026-11-10). ssh-agent checked 2026-11-11: `ssh-agent.socket` enabled and active for the user, so `ssh-agent.service` is socket activated (`systemctl --user is-enabled` says indirect); the socket is `$XDG_RUNTIME_DIR/ssh-agent.socket`. `install/system.sh` enables the socket (`enable_user ssh-agent.socket`, 2026-11-11). PostgreSQL auth (`pg_hba.conf`) not yet checked.
+**Status:** done. ufw active (checked 2026-11-10). ssh-agent checked 2026-11-11: `ssh-agent.socket` enabled and active for the user, so `ssh-agent.service` is socket activated (`systemctl --user is-enabled` says indirect); the socket is `$XDG_RUNTIME_DIR/ssh-agent.socket`. `install/system.sh` enables the socket (`enable_user ssh-agent.socket`, 2026-11-11). PostgreSQL auth (`pg_hba.conf`) not yet checked. Plex rule added by hand on 2026-11-23: `sudo ufw allow from 192.168.15.0/24 to any port 32400 proto tcp comment 'plex lan'`; undo with `sudo ufw delete allow from 192.168.15.0/24 to any port 32400 proto tcp`. If the router changes the subnet, the rule follows.
 
 ## Updates
 

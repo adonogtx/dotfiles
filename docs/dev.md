@@ -20,11 +20,12 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 
 ## Containers
 
-**Decision:** Docker with compose and buildx, started by socket. Published ports always on 127.0.0.1.
-**Why:** Docker writes firewall rules around ufw; `-p 5432:5432` would be open to the whole Wi-Fi.
+**Decision:** Docker with compose and buildx, started by socket. Published ports always on 127.0.0.1. One exception: Plex runs with `network_mode: host` and is reached from the home subnet through a ufw rule (`apps.md`, Media server; `base.md`, Security).
+**Why:** Docker writes firewall rules around ufw; `-p 5432:5432` would be open to the whole Wi-Fi. Plex exception (2026-11-23): the TV and the phone must reach it; with the host network Docker writes no rules, so ufw decides.
+**Not chosen:** For Plex, published ports on all interfaces (open on every Wi-Fi the laptop joins) and a port bound to the laptop's LAN IP (changes with DHCP).
 **Risk:** the docker group equals root; accepted for a single user laptop.
 **Where:** `install/backend.sh`
-**Status:** done
+**Status:** done. Plex exception to build (2026-11-23).
 
 ## PostgreSQL
 
