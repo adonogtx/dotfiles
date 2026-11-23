@@ -37,7 +37,6 @@ Vim keys move focus. Source: `config/hypr/modules/binds.lua`.
 | Super + Shift + 1 to 5 | Send window to workspace |
 | Super + Tab | Previous workspace |
 | Super + scroll | Next or previous workspace |
-| Super + S | Scratch workspace |
 | Three fingers sideways | Next or previous workspace |
 
 ## Capture

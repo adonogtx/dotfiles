@@ -6,7 +6,7 @@ Hyprland, the pill, login, lock, look and input. Topic blocks: **Decision, Why, 
 
 **Decision:** Hyprland with the Lua config, split in modules: monitors, env, look, input, rules, binds, autostart, programs, theme. Each module loads in protected mode; a broken one is reported as a notification and the rest still loads.
 **Why:** Hyprland 0.57 removed the old `.conf` format. Modules keep each concern small.
-**Not chosen:** i3 (X11, IntelliJ glitches), Niri, Omarchy.
+**Not chosen:** i3 (X11, IntelliJ glitches), Niri, Omarchy. Scratchpad (2026-11-23: never used, no key to send a window to it).
 **Where:** `config/hypr/hyprland.lua`, `config/hypr/modules/`
 **Status:** done. Dispatchers not in the upstream example (fullscreen, move window, resize mode, previous workspace) are isolated; check `hyprctl configerrors` on first start (clean on 2026-11-10). Under SDDM the session does not read `~/.zshrc`: `env.lua` puts `~/.local/bin` first in `PATH` (the `gus-*` binds failed without it), and `autostart.lua` runs `dbus-update-activation-environment --systemd --all` before starting user services (polkit, mpd-mpris, portals need `WAYLAND_DISPLAY`).
 
@@ -126,7 +126,7 @@ Calendar opens in the pill from the footer's Calendar link: one month, header in
 | Super + H J K L, + Shift | Focus, move window |
 | Super + R | Resize mode (H J K L, Escape) |
 | Super + 1 to 5, + Shift | Workspace, send window |
-| Super + Tab / S | Previous workspace / scratch |
+| Super + Tab | Previous workspace |
 | Super + C, + Shift | Clipboard history / wipe it |
 | Super + Shift + S, Print | Screenshot region (MX Keys F8), full screen |
 | Super + Shift + R | Record region on and off |

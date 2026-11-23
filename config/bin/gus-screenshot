@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # gus-screenshot [region|screen]: saves to ~/media/pictures/screenshots and copies it.
 # region: drag for an area, or click once to take the window under the cursor.
+# region freezes the screen with hyprpicker first, so popups and menus that close
+# when slurp takes focus still show up in the capture.
 set -euo pipefail
 dir="$HOME/media/pictures/screenshots"
 mkdir -p "$dir"
@@ -16,7 +18,14 @@ windows() {
 }
 
 case "${1:-region}" in
-  region) geometry="$(windows | slurp)" || exit 0; grim -g "$geometry" "$file" ;;
+  region)
+    hyprpicker -r -z & freeze=$!
+    trap 'kill "$freeze" 2>/dev/null || true' EXIT
+    sleep 0.2
+    geometry="$(windows | slurp)" || exit 0
+    grim -g "$geometry" "$file"
+    kill "$freeze" 2>/dev/null || true
+    ;;
   screen) grim "$file" ;;
   *) echo "usage: gus-screenshot [region|screen]" >&2; exit 2 ;;
 esac

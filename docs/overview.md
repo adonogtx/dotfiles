@@ -68,6 +68,6 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 | Music player | Keep rmpc or move to another player (ncmpcpp, termusic, cmus, Amberol, Strawberry); reason for leaving rmpc still to write |
 | Plex | Not documented yet. Its database in `/var/lib/plex` sits in `@`: a snapshot boot rolls watch state back, a reinstall loses it. Turn on Sync My Watch State and Ratings; consider a `@plex` subvolume or a backup to `~/backups` |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |
-| Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `jq` next to `slurp` and `python-gobject` next to `power-profiles-daemon` in `install/` |
+| Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `python-gobject` next to `power-profiles-daemon` in `install/` |
 | Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |
 | Music | Untagged files show Unknown in rmpc; `~/homelab/music` duplicates the Nujabes folder (dojo mirror or leftover?) |

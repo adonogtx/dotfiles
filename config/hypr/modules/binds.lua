@@ -41,7 +41,6 @@ for i = 1, 5 do
 end
 bind("mouse_down",   hl.dsp.focus({ workspace = "e+1" }))
 bind("mouse_up",     hl.dsp.focus({ workspace = "e-1" }))
-bind("S",            hl.dsp.workspace.toggle_special("scratch"))
 bind("SHIFT + S",    exec("gus-screenshot region"))   -- MX Keys Mini F8 sends this
 
 -- Names not in the upstream example: isolated so a rename cannot break the rest.
