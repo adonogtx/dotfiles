@@ -37,7 +37,7 @@ No symlinks, no Stow, no package list files. One exception (2026-11-12): uosc's 
 
 | Step | Command or action | Check before moving on |
 |---|---|---|
-| 0 | Back up `~/docs`, `~/media`, `~/org`. Push the repo to GitHub | Repo opens on GitHub |
+| 0 | Back up `~/docs`, `~/media`. Push the repo to GitHub | Repo opens on GitHub |
 | 1 | archinstall with the choices in `base.md`, Installation (Limine as bootloader) | Boots, asks the LUKS password |
 | 2 | `nmtui`, `git clone https://github.com/adonogtx/dotfiles.git ~/dev/dotfiles`, `./install.sh base system` | No errors |
 | 3 | Snapper setup by hand, timeline off, cleanup on (`base.md`, Snapshots) | `snapper list` shows a snapshot |
@@ -66,8 +66,7 @@ Escape hatch at any time: **Ctrl + Alt + F2** gives a text login.
 | Topic | Note |
 |---|---|
 | Music player | Keep rmpc or move to another player (ncmpcpp, termusic, cmus, Amberol, Strawberry); reason for leaving rmpc still to write |
-| Plex | Not documented yet. Its database in `/var/lib/plex` sits in `@`: a snapshot boot rolls watch state back, a reinstall loses it. Turn on Sync My Watch State and Ratings; consider a `@plex` subvolume or a backup to `~/backups` |
 | Brave Origin | Why line in `apps.md`, Browser, still to write |
 | Repo leftovers | Stray `config/~` folder (find the `"~/` path that creates it); `post-install.md` wallpaper path should be `assets/wallpapers/`; add `python-gobject` next to `power-profiles-daemon` in `install/` |
 | Layer animations | `look.lua` `layers` was turned off while fixing the shaking panels; test with it back on. If panels stay smooth keep it on, else record "layer animations off" in `desktop.md`, Windows |
-| Music | Untagged files show Unknown in rmpc; `~/homelab/music` duplicates the Nujabes folder (dojo mirror or leftover?) |
+| Music | Untagged files show Unknown in rmpc. Answered 2026-11-23: `~/homelab/music/nujabes` was a leftover, identical to `~/library/music/nujabes` (`diff -rq` clean); set aside in `~/archive/2026/to-delete/` by the folder move (`apps.md`, Folders) |

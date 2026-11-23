@@ -54,11 +54,11 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 |---|---|---|
 | PDF | zathura + mupdf | documents side: light chrome, page untouched, Ctrl + R night mode |
 | Video | mpv + uosc | Japanese subtitles first, IBM Plex Sans JP; audio only files keep the uosc timeline and controls on screen |
-| Music | mpd + rmpc | `~/library/music`, 127.0.0.1 only, media keys through mpd-mpris (official repos) |
+| Music | mpd + rmpc | `~/media/library/music`, 127.0.0.1 only, media keys through mpd-mpris (official repos) |
 | Images | imv | |
 
 **Where:** `install/apps.sh`, `config/zathura/`, `config/mpd/`, `config/rmpc/`, `config/mpv/`
-**Status:** done; rmpc and uosc in Gruvbox done 2026-11-11. rmpc stays Gruvbox (it lives in Ghostty); uosc in the black system palette done and tested 2026-11-18 (`desktop.md`, Theme), same token roles as below, text on the white fill in text on accent. uosc (`mpv-uosc`, AUR) installs to `/usr/share/mpv` and is not loaded until linked: `~/.config/mpv/scripts/uosc` links to `/usr/share/mpv/scripts/uosc`, and `~/.config/mpv/fonts/` holds links to `uosc_icons.otf` and `uosc_textures.ttf` in `/usr/share/mpv/fonts/` (2026-11-12: without them uosc never loaded, and with the built in OSC off mpv showed no interface at all; linked and tested the same day). Links, not copies, so package updates apply; the one exception to "no symlinks" (`overview.md`, Repository). `script-opts/uosc.conf` stays a copied file from `config/mpv/`. Undo: `rm -r ~/.config/mpv/scripts ~/.config/mpv/fonts`. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/library/music` (moved there from `~/media/music` on 2026-11-10); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Whether to keep rmpc is an open question (`overview.md`). zathura keeps its Light Solid `zathurarc` (2026-11-11): background around pages #ececf0, statusbar, inputbar, notifications and completion #ffffff, search #007aff, Ctrl + R night mode #1c1c1e page and #f5f5f7 text; done and tested 2026-11-11. rmpc in Gruvbox: `themes/gruvbox.ron` (light-solid and dark-solid kept), selection accent with on accent text, secondary for most text, tertiary only for icons and modes that are off; modal in panel with a line border. uosc in Gruvbox (`color=` in `script-opts/uosc.conf`): bars and menus in panel with label text, timeline fill and active items in label, search matches in accent, curtain in bar; subtitles and the video stay untouched.
+**Status:** done; rmpc and uosc in Gruvbox done 2026-11-11. rmpc stays Gruvbox (it lives in Ghostty); uosc in the black system palette done and tested 2026-11-18 (`desktop.md`, Theme), same token roles as below, text on the white fill in text on accent. uosc (`mpv-uosc`, AUR) installs to `/usr/share/mpv` and is not loaded until linked: `~/.config/mpv/scripts/uosc` links to `/usr/share/mpv/scripts/uosc`, and `~/.config/mpv/fonts/` holds links to `uosc_icons.otf` and `uosc_textures.ttf` in `/usr/share/mpv/fonts/` (2026-11-12: without them uosc never loaded, and with the built in OSC off mpv showed no interface at all; linked and tested the same day). Links, not copies, so package updates apply; the one exception to "no symlinks" (`overview.md`, Repository). `script-opts/uosc.conf` stays a copied file from `config/mpv/`. Undo: `rm -r ~/.config/mpv/scripts ~/.config/mpv/fonts`. mpd and mpd-mpris are user services; enabled after login, they start on the next one. rmpc is only a client: closing it leaves mpd playing (`p` pauses, `rmpc stop`, or the media key). Music lives only in `~/media/library/music` (moved to `~/library/music` on 2026-11-10, to `~/media/library/music` on 2026-11-23); after adding files press `u` in rmpc. Files without tags show as Unknown (to decide: rmpc falls back to the file name, `yt-dlp --embed-metadata --embed-thumbnail` for new downloads). Whether to keep rmpc is an open question (`overview.md`). zathura keeps its Light Solid `zathurarc` (2026-11-11): background around pages #ececf0, statusbar, inputbar, notifications and completion #ffffff, search #007aff, Ctrl + R night mode #1c1c1e page and #f5f5f7 text; done and tested 2026-11-11. rmpc in Gruvbox: `themes/gruvbox.ron` (light-solid and dark-solid kept), selection accent with on accent text, secondary for most text, tertiary only for icons and modes that are off; modal in panel with a line border. uosc in Gruvbox (`color=` in `script-opts/uosc.conf`): bars and menus in panel with label text, timeline fill and active items in label, search matches in accent, curtain in bar; subtitles and the video stay untouched.
 
 ## Course videos
 
@@ -77,6 +77,18 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 
 ## Folders
 
-**Decision:** `~/dev`, `~/docs`, `~/dump` (downloads), `~/org`, `~/media/{pictures,videos,courses}`, `~/library/{music,books,movies,series,animes,torrents}`, `~/backups`. XDG user dirs pinned to these; no Desktop, Downloads, Templates. `~/media/courses` holds course videos (Course videos above; added 2026-11-12).
+**Decision:** Five drawers in `$HOME`, each with one test:
+
+| Drawer | Holds | Test |
+|---|---|---|
+| `~/dev` | code (`backend/`, `dotfiles/`, `website/`) | has git |
+| `~/docs` | `career/`, `health/`, `japanese/`, `notes/`, `personal/` | mine, lost if the disk dies |
+| `~/media` | `courses/`, `library/`, `pictures/`, `videos/` | looked at, watched or listened to |
+| `~/archive` | `backups/` by device, the rest by year (`2026/`) | finished, kept, never edited again |
+| `~/dump` | downloads and anything temporary | temporary; emptied every Sunday |
+
+Names: lowercase, words joined by hyphens, no spaces, ISO date first when there is one. Files from outside (torrents, episodes) keep their names. XDG user dirs pinned: download `~/dump`, documents `~/docs`, pictures `~/media/pictures`, videos `~/media/videos`, music `~/media/library/music`; desktop, templates and public share set to `$HOME`.
+**Why:** (2026-11-23) The old layout had two homes for the same media (`~/library` and `~/homelab`), notes in three places and a `~/dump` that became an attic. One test per drawer decides where each file goes.
+**Not chosen:** The 2026-11-09 layout (`~/org`, `~/library`, `~/backups` at the top). `~/vault` (one file, merged into `~/docs/notes`). PARA, Johnny.Decimal, folders by life area, by lifecycle or by backup tier, XDG default names (all compared 2026-11-23).
 **Where:** `install/base.sh`, `config/xdg/`
-**Status:** done. `xdg-user-dir DESKTOP` answers `~/Desktop` because the file sets it to `$HOME`; harmless while the folder does not exist.
+**Status:** to build. Decided 2026-11-23.

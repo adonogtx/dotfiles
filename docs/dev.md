@@ -6,9 +6,9 @@ Backend Java study and work tools. Topic blocks: **Decision, Why, Not chosen, Wh
 
 **Decision:** sdkman in `~/.local/share/sdkman` for Java (default Temurin), Maven and Gradle.
 **Why:** Switch JDK versions per project without touching pacman.
-**Not chosen:** mise, pacman JDKs.
+**Not chosen:** mise, pacman JDKs. A per project `.sdkmanrc` (2026-11-23: nothing reads it while `sdkman_auto_env` is off).
 **Where:** `install/backend.sh`, `config/zsh/.zshrc`
-**Status:** done. Default stays Java 25. Java 21 (`21.0.13.0+9-tem`) installed 2026-11-11 for the DevDojo course, pinned in `~/dev/devdojo/.sdkmanrc`. On JDK 23 and later, Lombok needs `annotationProcessorPaths` in the project's `maven-compiler-plugin` (start.spring.io projects already have it).
+**Status:** done. Default is Java 21 (`21.0.13.0+9-tem`) since 2026-11-11, installed for the DevDojo course in `~/dev/backend/learning/java/dev-dojo/` (its `pom.xml` targets Java 17, which 21 runs). IntelliJ takes the JDK from the project SDK, not from sdkman. Java 25 stays installed, not default. On JDK 23 and later, Lombok needs `annotationProcessorPaths` in the project's `maven-compiler-plugin` (start.spring.io projects already have it).
 
 ## IDE
 

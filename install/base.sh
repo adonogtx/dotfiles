@@ -23,9 +23,15 @@ if ! have yay; then
   rm -rf "$tmp"
 fi
 
-info "creating home folders"
+info "creating home folders (docs/apps.md, Folders)"
 mkdir -p \
-  ~/dev ~/docs/certificates ~/dump ~/org/daily ~/backups \
+  ~/dev/{backend,website} \
+  ~/docs/{career,health,japanese,notes,personal} \
+  ~/media/{courses,library,pictures,videos} \
+  ~/media/library/{music,books,movies,series,animes,torrents/{complete,incomplete}} \
   ~/media/pictures/screenshots ~/media/videos/recordings \
-  ~/library/{music,books,movies,series,animes,torrents/{complete,incomplete}} \
+  ~/archive/{backups,"$(date +%Y)"} \
+  ~/dump \
   ~/.local/bin ~/.local/share/wallpapers
+# Doom capture target; leaves with the Doom and org decision.
+mkdir -p ~/org/daily
