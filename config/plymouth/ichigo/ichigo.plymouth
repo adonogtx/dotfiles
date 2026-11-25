@@ -1,6 +1,6 @@
 [Plymouth Theme]
 Name=ichigo
-Description=Matcha boot screen: the mitsuuroko, one field for the LUKS password, a three segment bar
+Description=Boot screen: a fixed photo and one field for the LUKS password, with a loading bar that fills inside it after the password
 ModuleName=script
 
 [script]

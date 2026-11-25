@@ -1,6 +1,6 @@
 # Theme · black system, Gruvbox code
 
-Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Matcha for boot and lock only (decided 2026-11-19). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
+Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Boot and lock use the system tokens over a fixed photo (decided 2026-11-25). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
 
 ## Color: system (black)
 
@@ -22,23 +22,20 @@ Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the
 
 White means on or selected; green and red only report state.
 
-## Color: boot and lock (matcha)
+## Color: boot and lock
 
-Only Plymouth (`config/plymouth/ichigo/`) and hyprlock (`config/hypr/`). Physical px on the 1920 x 1080 panel.
+Plymouth (`config/plymouth/ichigo/`) and hyprlock (`config/hypr/`) use the system tokens (Color: system) over one fixed photo (`background.png` / `lock-background.png`), decided 2026-11-25. No palette of their own (matcha 2026-11-19 to 2026-11-25).
 
-| Token | Value | Used in |
+| Part | Token | Value |
 |---|---|---|
-| background | #161a15 | Plymouth background, base of `lock-background.png` |
-| field fill | #1f241d | Plymouth field, hyprlock field |
-| field border | #2f362b | 2 px field edge on both |
-| logo | #c9cbbd | the mitsuuroko (`boot-logo.png`) |
-| bar track | #252b22 | Plymouth bar segments not yet filled |
-| bar fill | #c9cbbd | Plymouth bar segments filled |
-| dots and clock | #d9dccd | password dots on both, the lock clock |
-| date | #a3a895 | the lock date |
-| placeholder | #8c917f | パスワードを入力 on the lock |
-| error border | #8a4a3c | wrong password on both, 1.2 s |
-| seigaiha lines | #1d221b | `lock-background.png` (lock only) |
+| fallback behind the photo | bar | #000000 |
+| field fill | panel | #0c0c0d |
+| field border, 2 px | line | #2a2a2c |
+| wrong password border, 1.2 s | red | #e5484d |
+| loading bar track inside the field, 296 x 4 | line | #2a2a2c |
+| loading bar fill, grows to 296 x 4 | label | #d8d8d8 |
+| password dots, lock clock | label | #d8d8d8 |
+| lock date, lock placeholder パスワードを入力 | secondary | #8c8c8c |
 
 ## Color: code (Gruvbox)
 

@@ -1,14 +1,19 @@
-# Boot screen, matcha (docs/desktop.md, Login; colors from docs/theme.md, Color: boot and
-# lock). The mitsuuroko, one password field with its dots, and after the password a bar
-# of three segments in the field's place. No text at all: every part is a picture, so
-# nothing depends on fonts. The lock is a different screen (hyprlock).
+# Boot screen (docs/desktop.md, Login; colors are the system tokens from docs/theme.md,
+# Color: system). A fixed photo as background (background.png, the same as the lock's
+# lock-background.png) and one password field with its dots; no logo. After the password
+# the field stays and its dots give way to a loading bar inside it (a fill growing left
+# to right on a track, driven by time) until Plymouth quits. No text at all: every part
+# is a picture, so nothing depends on fonts. The lock is a different screen (hyprlock).
 # Sizes are physical pixels for the 1920 x 1080 panel, placed from the screen centre:
-# logo centre 99 above it (y 441), field and bar centre 300 below it (y 840).
-# Pictures: boot-logo.png, field.png, field-error.png, password-dot.png, bar-track.png,
-# bar-fill.png; the SVG sources sit next to them.
+# field centre 300 below it (y 840); the bar is centred in the field.
+# Pictures: background.png (1920 x 1080, scaled to the screen), field.png,
+# field-error.png, password-dot.png, bar-track.png, bar-fill-left.png,
+# bar-fill-middle.png, bar-fill-right.png; the SVG sources sit next to all but the
+# photo.
 
-Window.SetBackgroundTopColor(0.086, 0.102, 0.082);      # background #161a15
-Window.SetBackgroundBottomColor(0.086, 0.102, 0.082);
+# Black, shown only if background.png is missing.
+Window.SetBackgroundTopColor(0, 0, 0);                  # bar #000000
+Window.SetBackgroundBottomColor(0, 0, 0);
 
 screen_x = Window.GetX();
 screen_y = Window.GetY();
@@ -17,11 +22,10 @@ screen_h = Window.GetHeight();
 center_x = screen_x + screen_w / 2;
 center_y = screen_y + screen_h / 2;
 
-# The mitsuuroko. It fades in (see refresh_callback).
-logo_image = Image("boot-logo.png");
-logo = Sprite(logo_image);
-logo.SetPosition(center_x - logo_image.GetWidth() / 2, center_y - 99 - logo_image.GetHeight() / 2, 10);
-logo.SetOpacity(0);
+# The photo, behind everything.
+bg_image = Image("background.png").Scale(screen_w, screen_h);
+bg = Sprite(bg_image);
+bg.SetPosition(screen_x, screen_y, -100);
 
 # Password field, hidden until cryptsetup asks. field_error sits on top of it while a
 # wrong password is shown.
@@ -43,45 +47,57 @@ dot_max = Math.Int((field_image.GetWidth() - 56 - dot_image.GetWidth()) / dot_st
 dot_y = field_center_y - dot_image.GetHeight() / 2;
 dots_made = 0;
 
-# The bar: three segments 164 x 12, 18 apart (528 wide), centred where the field was.
+# Loading bar, centred in the field: track 296 x 4 (line) and a fill (label) that grows
+# from the track's left end. Above the field, below the dots; hidden until the password
+# is given. The fill is a left cap (2 x 4), a middle scaled to the needed width and a
+# right cap (2 x 4), so the rounded ends never stretch. The middle runs 1 px under each
+# cap, which hides the soft edge that scaling leaves on its last column.
 track_image = Image("bar-track.png");
-fill_image = Image("bar-fill.png");
-segment_w = track_image.GetWidth();
-segment_gap = 18;
-bar_left = center_x - (3 * segment_w + 2 * segment_gap) / 2;
+fill_left_image = Image("bar-fill-left.png");
+fill_right_image = Image("bar-fill-right.png");
+fill_middle_image = Image("bar-fill-middle.png");
+track_w = track_image.GetWidth();
+cap_w = fill_left_image.GetWidth();
+track_x = center_x - track_w / 2;
 bar_y = field_center_y - track_image.GetHeight() / 2;
-for (i = 0; i < 3; i++) {
-  track[i] = Sprite(track_image);
-  track[i].SetPosition(bar_left + i * (segment_w + segment_gap), bar_y, 20);
-  track[i].SetOpacity(0);
-  fill[i] = Sprite(fill_image);
-  fill[i].SetPosition(bar_left + i * (segment_w + segment_gap), bar_y, 21);
-  fill[i].SetOpacity(0);
-}
+track = Sprite(track_image);
+track.SetPosition(track_x, bar_y, 24);
+track.SetOpacity(0);
+fill_left = Sprite(fill_left_image);
+fill_left.SetPosition(track_x, bar_y, 26);
+fill_left.SetOpacity(0);
+fill_right = Sprite(fill_right_image);
+fill_right.SetPosition(track_x, bar_y, 26);
+fill_right.SetOpacity(0);
+fill_middle = Sprite();
+fill_middle.SetPosition(track_x + cap_w / 2, bar_y, 25);
+fill_middle.SetOpacity(0);
 
 # Timing: the refresh callback runs 50 times a second (20 ms a frame).
-# Logo: 400 ms (20 frames). Field: 250 ms (13 frames), starting 150 ms (8 frames) after
-# the logo. Field to bar: 200 ms (10 frames). Wrong password: 1.2 s (60 frames).
-# Ease out on cubic-bezier(0.16, 1, 0.3, 1). No breathing.
-# Bar loop, driven by time, not by boot progress (Plymouth gets none while LUKS
-# unlocks): segment n lights at (n - 1) x 400 ms with a 200 ms fade; at 1.2 s all three
-# fade out over 200 ms; the bar stays empty 200 ms; the loop starts again at 1.6 s.
-logo_frames = 20;
+# Field: 250 ms (13 frames), starting 150 ms (8 frames) after the theme starts. Swap
+# after the password: the dots fade out while the bar fades in, 200 ms (10 frames); on a
+# wrong password the bar fades out the same way. Fades ease out on
+# cubic-bezier(0.16, 1, 0.3, 1). The field never fades out. Bar fill, driven by time
+# (no boot progress arrives while LUKS unlocks): fraction = 0.92 * (1 - exp(-t / 1.5)),
+# t in seconds since the password was given; about 45% at 1 s, 80% at 3 s, 87% at
+# 4.5 s, then it holds near 92%. The script has no exp, so fill_rest holds
+# exp(-t / 1.5) and is multiplied by fill_step = exp(-0.02 / 1.5) each frame. Plymouth
+# quitting fills the whole track. Wrong password: 1.2 s (60 frames). No breathing.
 field_start = 8;
 field_frames = 13;
 swap_frames = 10;
 error_frames = 60;
-segment_frames = 20;
-fade_frames = 10;
-loop_frames = 80;
+fill_step = 0.9867551618071957;
+fill_top = 0.92;
 
 frame = 0;           # frames since the theme started
 asking = 0;          # cryptsetup is waiting for the password
 answered = 0;        # a password was given and no new prompt has come yet
 bullets_now = 0;
-swap_frame = 0;      # frames since the password was given
+swap_frame = 0;      # 0 = dots shown, swap_frames = bar shown
+fill_rest = 1;       # exp(-t / 1.5): 1 when the password is given, toward 0 after
+fill_w = 0;          # fill width now drawn, whole px
 error_left = 0;      # frames left of the wrong password border
-loop_frame = 0;      # frames since the bar loop started, 0 to loop_frames - 1
 
 fun bezier(t, a, b) {
   return 3 * (1 - t) * (1 - t) * t * a + 3 * (1 - t) * t * t * b + t * t * t;
@@ -126,56 +142,67 @@ fun show_dots(count, opacity) {
   }
 }
 
-# How lit segment i (0 to 2) is at this point of the loop, 0 to 1.
-fun segment_level(i) {
-  t = global.loop_frame;
-  clear_start = 3 * global.segment_frames;
-  if (t >= clear_start) {
-    return 1 - settle((t - clear_start) / global.fade_frames);
-  }
-  return settle((t - i * global.segment_frames) / global.fade_frames);
-}
-
-fun show_bar(opacity) {
-  for (i = 0; i < 3; i++) {
-    global.track[i].SetOpacity(opacity);
-    global.fill[i].SetOpacity(opacity * segment_level(i));
-  }
-}
-
-# The field's opacity while asking: its own fade, 150 ms after the logo starts.
+# The field's opacity: its own fade, 150 ms after the theme starts.
 fun field_opacity() {
   return settle((global.frame - global.field_start) / global.field_frames);
+}
+
+# Sets the fill to w px from the track's left end. The middle is scaled again only when
+# the width changes by a whole pixel. Below two caps' width (4 px) nothing is shown.
+fun set_fill(w) {
+  w = Math.Int(w + 0.5);
+  if (w > global.track_w) {
+    w = global.track_w;
+  }
+  if (w == global.fill_w) {
+    return;
+  }
+  global.fill_w = w;
+  if (w >= 2 * global.cap_w) {
+    middle_h = global.fill_middle_image.GetHeight();
+    global.fill_middle.SetImage(global.fill_middle_image.Scale(w - global.cap_w, middle_h));
+    global.fill_right.SetX(global.track_x + w - global.cap_w);
+  }
+}
+
+# Back to an empty bar, as before a password.
+fun reset_fill() {
+  global.fill_rest = 1;
+  set_fill(0);
 }
 
 # Draws the field, dots and bar for the current state; called every frame and on each
 # key press.
 fun draw() {
-  if (global.asking) {
+  if (global.asking || global.answered) {
     o = field_opacity();
     global.field.SetOpacity(o);
-    show_dots(global.bullets_now, o);
-    if (global.error_left > 0) {
+    if (global.asking && global.error_left > 0) {
       global.field_error.SetOpacity(o);
     } else {
       global.field_error.SetOpacity(0);
     }
-    show_bar(0);
-  } else if (global.answered) {
-    # After the password: the field and its dots fade out while the bar fades in.
-    e = settle(global.swap_frame / global.swap_frames);
-    global.field.SetOpacity(1 - e);
-    global.field_error.SetOpacity(0);
-    show_dots(global.bullets_now, 1 - e);
-    show_bar(e);
+    # Dots and bar swap places: one fades out while the other fades in.
+    b = settle(global.swap_frame / global.swap_frames);
+    if (global.answered) {
+      show_dots(global.bullets_now, o * (1 - b));
+    } else {
+      show_dots(global.bullets_now, o);
+    }
+    global.track.SetOpacity(b);
+    if (global.fill_w >= 2 * global.cap_w) {
+      f = b;
+    } else {
+      f = 0;
+    }
+    global.fill_left.SetOpacity(f);
+    global.fill_middle.SetOpacity(f);
+    global.fill_right.SetOpacity(f);
   }
 }
 
 fun refresh_callback() {
   global.frame++;
-  if (global.frame <= global.logo_frames) {
-    global.logo.SetOpacity(settle(global.frame / global.logo_frames));
-  }
   if (global.error_left > 0) {
     global.error_left--;
   }
@@ -183,17 +210,21 @@ fun refresh_callback() {
     if (global.swap_frame < global.swap_frames) {
       global.swap_frame++;
     }
-    global.loop_frame++;
-    if (global.loop_frame >= global.loop_frames) {
-      global.loop_frame = 0;
+    global.fill_rest = global.fill_rest * global.fill_step;
+    set_fill(global.track_w * global.fill_top * (1 - global.fill_rest));
+  } else if (global.swap_frame > 0) {
+    global.swap_frame--;
+    if (global.swap_frame == 0) {
+      reset_fill();
     }
   }
   draw();
 }
 
 fun password_callback(prompt, bullets) {
-  # A new prompt after a password was given means the password was wrong: show the
-  # error border for 1.2 s; the dots start again from none.
+  # A new prompt after a password was given means the password was wrong: the bar
+  # fades out and goes back to empty, the error border shows for 1.2 s and the dots
+  # start again from none.
   if (global.answered) {
     global.answered = 0;
     global.error_left = global.error_frames;
@@ -204,16 +235,22 @@ fun password_callback(prompt, bullets) {
 }
 
 # Called when the prompt ends (password given) and also once at the start of boot,
-# before any prompt: the bar only follows a prompt.
+# before any prompt: the bar only follows a prompt, and each time it starts empty.
 fun normal_callback() {
   if (global.asking) {
     global.answered = 1;
-    global.swap_frame = 0;
-    global.loop_frame = 0;
+    reset_fill();
   }
   global.asking = 0;
+}
+
+# Plymouth is quitting: the fill takes the whole track.
+fun quit_callback() {
+  set_fill(global.track_w);
+  draw();
 }
 
 Plymouth.SetRefreshFunction(refresh_callback);
 Plymouth.SetDisplayPasswordFunction(password_callback);
 Plymouth.SetDisplayNormalFunction(normal_callback);
+Plymouth.SetQuitFunction(quit_callback);
