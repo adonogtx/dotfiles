@@ -26,4 +26,10 @@ The five docs in `docs/` decide everything: `overview.md`, `base.md`, `desktop.m
 
 ## Current work
 
-Black system with matcha boot and lock, done 2026-11-19. Next: decide org-modern in apps.md, Notes.
+Black system done. Boot and lock done and tested 2026-11-25: photo background, system tokens, filling bar inside the field (commit dda53eb). Matcha is retired.
+
+Next candidates, not started:
+- Black terminal background.
+- Ctrl + Alt + F2 to F6 shows a frozen frame (to record in `overview.md`, Open questions).
+- Settings window reached from the open pill's footer (roadmap; needs its own decision block first).
+- Decide org-modern in `apps.md`, Notes.
