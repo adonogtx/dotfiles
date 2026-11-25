@@ -131,10 +131,7 @@ If it loops or stays black: `Ctrl + Alt + F2`, log in, `sudo systemctl disable s
 ## 5. Work
 
 ```bash
-./install.sh backend editors
-cp -r config/doom ~/.config/
-cp -r org ~/                       # starter org files, only on a new machine
-~/.config/emacs/bin/doom install
+./install.sh backend editors       # editors: neovim, the terminal editor (apps.md, Terminal editor)
 # open jetbrains-toolbox once and install IntelliJ IDEA from it, then:
 cat config/intellij/idea64.vmoptions >> ~/.config/JetBrains/<IdeaVersion>/idea64.vmoptions   # after Toolbox installs IntelliJ
 ```
@@ -186,4 +183,3 @@ systemctl --user start mpd mpd-mpris
 
 ## Optional
 
-Google Calendar: uncomment `org-gcal` in `config/doom/packages.el`. Off in `apps.md` (Notes).

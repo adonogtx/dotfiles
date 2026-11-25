@@ -33,5 +33,3 @@ mkdir -p \
   ~/archive/{backups,"$(date +%Y)"} \
   ~/dump \
   ~/.local/bin ~/.local/share/wallpapers
-# Doom capture target; leaves with the Doom and org decision.
-mkdir -p ~/org/daily

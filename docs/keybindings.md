@@ -10,7 +10,6 @@ Vim keys move focus. Source: `config/hypr/modules/binds.lua`.
 | Super + Space | Launcher |
 | Super + B | Brave Origin |
 | Super + E | Files (Nautilus) |
-| Super + D | Doom Emacs (emacsclient) |
 | Super + I | IntelliJ IDEA |
 | Super + C | Clipboard history (last 50) |
 | Super + Shift + C | Wipe clipboard history |

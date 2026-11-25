@@ -9,7 +9,7 @@ Status values: **done** (in the repo), **to build** (decided, not written yet), 
 ## Principles
 
 1. **Ma (間).** Only what is used. Icons appear when relevant, nothing decorative.
-2. **One way to do each thing.** One terminal, one code editor, one writing editor, one player, one launcher.
+2. **One way to do each thing.** One terminal, one code editor, one terminal editor, one player, one launcher.
 3. **Frozen by default.** Changing a decision means editing its block here first, with a reason.
 4. **Modular install.** Scripts only install packages; configs are copied by hand, one folder per program.
 5. **Safe without effort.** LUKS, snapshots, firewall and a working lock from day one.
@@ -27,7 +27,6 @@ GitHub: `github.com/adonogtx/dotfiles`. Lives at `~/dev/dotfiles`.
 | `config/plymouth/ichigo/`, `config/sddm/`, `config/networkmanager/` | System files, copied with sudo (`docs/post-install.md`, step 4) |
 | `config/bin/` | Small scripts (`gus-*`), copied to `~/.local/bin/` |
 | `assets/wallpapers/` | Fallback wallpaper (`light-solid.png`, copied to `~/.local/share/wallpapers/`) when `gus-wallpaper` has not chosen one |
-| `org/` | Starter org files |
 | `templates/` | `compose.yaml`: PostgreSQL 17 for Spring projects |
 | `docs/` | The five decision docs, plus `post-install.md` (step by step), `risks.md`, `keybindings.md`, `theme.md`, `pill-spec.md` (exact sizes and colors of the pill) |
 

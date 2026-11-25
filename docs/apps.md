@@ -39,14 +39,13 @@ Everyday software. One app per job. Topic blocks: **Decision, Why, Not chosen, W
 **Where:** `install/desktop.sh`
 **Status:** done
 
-## Notes: Doom Emacs
+## Terminal editor: Neovim
 
-**Decision:** Doom Emacs (pgtk, Wayland) with org mode in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: doom-gruvbox. The org module with `+pretty` (bullets, checkboxes and priorities drawn as symbols). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off. Doom is the writing editor; code is IntelliJ (`dev.md`, IDE).
-**Why:** Agenda and capture already built; one text format for life.
-**Not chosen:** Inkdrop (paid, less control), Obsidian (another dependency). Neovim for writing or code (2026-11-11: a third editor breaks principle 2). doom-one-light (until 2026-11-11, with Light Solid). doom-xcode (until 2026-11-11: dark, matched Dark Solid).
-**Rule:** if configuring takes more than a day, go back to these four files.
-**Where:** `install/editors.sh`, `config/doom/` (`init.el`: `(org +pretty)`; `config.el`: `doom-theme`), `org/` (starter files with the capture headings: inbox, refile, applications)
-**Status:** to build: doom-gruvbox and `+pretty`. Starter files copied to `~/org` on 2026-11-10 with `cp -n`.
+**Decision:** Neovim (`nvim`), no plugins and no config, for the git editor, `$EDITOR` and plain text files (`text/plain`). Code is IntelliJ (`dev.md`, IDE). Decided 2026-11-25, when Doom Emacs and org mode left the setup.
+**Why:** IntelliJ is the only editor in daily use; git and quick edits still need one in the terminal. Neovim was already installed.
+**Not chosen:** Doom Emacs with org mode (set up 2026-11 but never used; removed 2026-11-25): org files in `~/org`: `todo.org`, `lists.org`, `career.org`, `help.org`, and `daily/YYYY-MM-DD.org`. Captures: todo, list item, job application, daily note. Theme: doom-gruvbox. The org module with `+pretty` (bullets, checkboxes and priorities drawn as symbols). Daemon starts on demand (`emacsclient -a ''`). Google Calendar sync (org-gcal) off. Config and starter files stay in git history. org-modern (never decided). Inkdrop (paid, less control), Obsidian (another dependency). nano (2026-11-25: Neovim was already installed). Neovim for writing or code (2026-11-11: a third editor breaks principle 2; it is now the terminal editor only, code stays in IntelliJ).
+**Where:** `install/editors.sh` (`neovim`), `config/git/config` (`core.editor`), `config/zsh/.zshrc` (`EDITOR`), `config/xdg/mimeapps.list` (`text/plain`)
+**Status:** done and tested 2026-11-25: `neovim` installed, git editor and `$EDITOR` open nvim, `text/plain` opens nvim, Super + D removed. `emacs-wayland` removed with `pacman -Rns`; `~/.config/doom` and `~/.config/emacs` removed after the backup in `~/archive/2026/doom-emacs/` (16 `.org` files checked). The `.org` notes in `~/docs/notes` stay as plain text.
 
 ## Media and documents
 

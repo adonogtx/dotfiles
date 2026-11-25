@@ -25,7 +25,6 @@ What can go wrong, how bad it is, and what this repo already does about it. Read
 | Workspace click uses the new dispatch text | Dots do not switch | Fallback line documented in post-install | Swap one line in `WorkspaceDots.qml` |
 | Login manager starts a broken session | Login loop | Plymouth and SDDM installed but not enabled; post-install tests Hyprland and hyprlock from the TTY first; SDDM uses the session file from the hyprland package | Ctrl + Alt + F2, `sudo systemctl disable sddm`, read `journalctl -b -1 -u sddm` |
 | Plymouth hook in the wrong place | LUKS asked in text, or no prompt | Post-install shows the full `HOOKS` line | Put `plymouth` before `sd-encrypt`, run `sudo mkinitcpio -P` |
-| Emacs daemon without Wayland | Frames fail to open | No systemd unit; `emacsclient -a ''` starts it inside Hyprland | Nothing |
 
 ## Over time
 

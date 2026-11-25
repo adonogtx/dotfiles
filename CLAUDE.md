@@ -31,4 +31,3 @@ Black system done. Boot and lock done and tested 2026-11-25: photo background, s
 Next candidates, not started:
 - Ctrl + Alt + F2 to F6 shows a frozen frame (to record in `overview.md`, Open questions).
 - Settings window reached from the open pill's footer (roadmap; needs its own decision block first).
-- Decide org-modern in `apps.md`, Notes.

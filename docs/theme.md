@@ -1,6 +1,6 @@
 # Theme · black system, Gruvbox code
 
-Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch) on the system panel #0c0c0d, IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Boot and lock use the system tokens over a fixed photo (decided 2026-11-25). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
+Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch) on the system panel #0c0c0d, IntelliJ. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Boot and lock use the system tokens over a fixed photo (decided 2026-11-25). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
 
 ## Color: system (black)
 
@@ -39,7 +39,7 @@ Plymouth (`config/plymouth/ichigo/`) and hyprlock (`config/hypr/`) use the syste
 
 ## Color: code (Gruvbox)
 
-Gruvbox dark hard, for Ghostty and everything in it, IntelliJ (Gruvbox Black, `dev.md`, IDE) and Doom Emacs (`doom-gruvbox`, `apps.md`, Notes). The terminal and its programs sit on the system panel (#0c0c0d) with Gruvbox fg2 #d5c4a1 as label in Ghostty, fastfetch, btop and rmpc (decided 2026-11-25: pure black with #ebdbb2 was too much contrast for long sessions); IntelliJ uses Gruvbox Black (`dev.md`, IDE: the Gruvbox colors on panel #0c0c0d), so the editor and the terminal share the same background. Cursor, selection and the 16 ANSI colors stay Gruvbox (slot 15 stays #ebdbb2).
+Gruvbox dark hard, for Ghostty and everything in it, IntelliJ (Gruvbox Black, `dev.md`, IDE). The terminal and its programs sit on the system panel (#0c0c0d) with Gruvbox fg2 #d5c4a1 as label in Ghostty, fastfetch, btop and rmpc (decided 2026-11-25: pure black with #ebdbb2 was too much contrast for long sessions); IntelliJ uses Gruvbox Black (`dev.md`, IDE: the Gruvbox colors on panel #0c0c0d), so the editor and the terminal share the same background. Cursor, selection and the 16 ANSI colors stay Gruvbox (slot 15 stays #ebdbb2).
 
 | Token | Value | Used in |
 |---|---|---|
@@ -104,8 +104,7 @@ Kept from Light Solid for what is read like paper: GTK 3 and 4 (Adwaita light, W
 |---|---|---|
 | Pill date | IBM Plex Sans JP, 500 | 15 |
 | Detail | IBM Plex Sans | 12 |
-| Terminal, Emacs code | PlemolJP Console NF | 13 pt, 17 px in Emacs |
-| Emacs prose, headings | IBM Plex Sans, IBM Plex Serif | 17 |
+| Terminal | PlemolJP Console NF | 13 pt |
 | Lock clock | IBM Plex Sans, SemiBold, letter spacing -7 | 228 physical |
 | Lock date | IBM Plex Sans JP, Bold | 41 physical |
 | Lock placeholder | IBM Plex Sans JP, Regular | 24 physical |

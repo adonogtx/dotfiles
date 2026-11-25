@@ -15,4 +15,4 @@
 [diff]
 	colorMoved = default
 [core]
-	editor = emacsclient -t -a ''
+	editor = nvim

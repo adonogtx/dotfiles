@@ -2,7 +2,7 @@
 
 personal arch linux & hyprland config
 
-Arch Linux + Hyprland on a ThinkPad T14 Gen 2i: a calm, keyboard driven desktop in Dark Solid (no translucency), set in IBM Plex, with Doom Emacs for notes and IntelliJ for Java.
+Arch Linux + Hyprland on a ThinkPad T14 Gen 2i: a calm, keyboard driven desktop in Dark Solid (no translucency), set in IBM Plex, with IntelliJ for Java and Neovim in the terminal.
 
 ## Principles
 
@@ -30,7 +30,7 @@ dotfiles/
 │   ├── japanese.sh            fcitx5 + Mozc
 │   ├── terminal.sh            Ghostty, zsh + oh my zsh, CLI tools
 │   ├── backend.sh             sdkman (Java, Maven, Gradle), Docker, PostgreSQL, DBeaver, JetBrains Toolbox, Bruno
-│   ├── editors.sh             Emacs (Wayland) and Doom
+│   ├── editors.sh             Neovim (terminal editor)
 │   └── apps.sh                Brave, zathura, mpv + uosc, mpd + rmpc, imv, Anki, Bitwarden, Discord
 ├── config/                    one folder per program, copy what you want
 │   ├── hypr/                  hyprland.lua + modules/, hyprlock, hypridle
@@ -38,7 +38,6 @@ dotfiles/
 │   ├── ghostty/               config + themes/dark-solid
 │   ├── zsh/                   .zshrc
 │   ├── git/                   config, global ignore
-│   ├── doom/                  init.el, config.el, packages.el
 │   ├── fcitx5/                Ctrl + Space, Mozc profile
 │   ├── fuzzel/  mako/         clipboard picker, and banners until the Notification Center
 │   ├── mpv/  mpd/  rmpc/  zathura/
@@ -49,7 +48,6 @@ dotfiles/
 │   └── bin/                   gus-screenshot, gus-record, gus-nightlight, gus-jdate
 ├── assets/
 │   └── wallpapers/            dark-solid.png
-├── org/                       starter todo, lists, career, help
 ├── templates/                 compose.yaml: PostgreSQL 17 for Spring projects on 127.0.0.1:5433
 └── docs/
     ├── overview.md            principles, repository, install steps, roadmap
