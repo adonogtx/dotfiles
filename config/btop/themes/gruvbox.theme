@@ -1,11 +1,11 @@
 # Gruvbox for btop. Colors are tokens or ANSI palette slots (docs/theme.md).
 # The background comes from the terminal (theme_background = false).
-theme[main_bg]="#1d2021"
-theme[main_fg]="#ebdbb2"
-theme[title]="#ebdbb2"
+theme[main_bg]="#0c0c0d"
+theme[main_fg]="#d5c4a1"
+theme[title]="#d5c4a1"
 theme[hi_fg]="#83a598"
 theme[selected_bg]="#3c3836"
-theme[selected_fg]="#ebdbb2"
+theme[selected_fg]="#d5c4a1"
 theme[inactive_fg]="#7c6f64"
 theme[graph_text]="#a89984"
 theme[meter_bg]="#504945"

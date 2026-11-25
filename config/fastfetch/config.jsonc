@@ -16,11 +16,11 @@
   },
   "display": {
     "separator": "  ",
-    "color": { "output": "38;2;235;219;178" },
+    "color": { "output": "38;2;213;196;161" },
     "key": { "width": 8 }
   },
   "modules": [
-    { "type": "title", "color": { "user": "38;2;235;219;178", "at": "38;2;250;189;47", "host": "38;2;211;134;155" } },
+    { "type": "title", "color": { "user": "38;2;213;196;161", "at": "38;2;250;189;47", "host": "38;2;211;134;155" } },
     { "type": "command", "key": " ", "text": "~/.config/fastfetch/fetch.sh date" },
     "break",
     { "type": "os", "key": "os", "keyColor": "38;2;184;187;38", "format": "{name} {arch}" },

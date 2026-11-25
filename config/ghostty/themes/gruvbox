@@ -1,9 +1,11 @@
-# Gruvbox dark hard. Background is the terminal token, text is label.
+# Gruvbox dark hard on the system panel. Background is the system panel token
+# (#0c0c0d), text is Gruvbox fg2 (#d5c4a1), decided 2026-11-25: pure black with
+# #ebdbb2 was too much contrast for long sessions.
 # The standard Gruvbox dark palette; text slots are the brights (9 to 14),
 # normals stay for backgrounds and dim text.
 # Every slot is listed in docs/theme.md, ANSI palette (terminal only).
-background = #1d2021
-foreground = #ebdbb2
+background = #0c0c0d
+foreground = #d5c4a1
 cursor-color = #83a598
 selection-background = #83a598
 selection-foreground = #1d2021

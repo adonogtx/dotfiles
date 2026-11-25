@@ -1,6 +1,6 @@
 # Theme · black system, Gruvbox code
 
-Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Boot and lock use the system tokens over a fixed photo (decided 2026-11-25). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
+Three sides (`desktop.md`, Theme, decided 2026-11-18). Black for the system: the pill, Control Center, calendar, Launcher, fuzzel, mako, uosc, window borders. Gruvbox dark hard for code: Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch) on the system panel #0c0c0d, IntelliJ, Doom Emacs. Light for documents: GTK apps, Brave Origin, Anki, the zathura page. Boot and lock use the system tokens over a fixed photo (decided 2026-11-25). One set of tokens per side, repeated in each program's own format. When you change a value, change it everywhere in the table's last column.
 
 ## Color: system (black)
 
@@ -39,20 +39,20 @@ Plymouth (`config/plymouth/ichigo/`) and hyprlock (`config/hypr/`) use the syste
 
 ## Color: code (Gruvbox)
 
-Gruvbox dark hard, for Ghostty and everything in it, IntelliJ (Gruvbox Black, `dev.md`, IDE) and Doom Emacs (`doom-gruvbox`, `apps.md`, Notes). IntelliJ uses Gruvbox Black: the Gruvbox colors on panel #0c0c0d (decided 2026-11-25).
+Gruvbox dark hard, for Ghostty and everything in it, IntelliJ (Gruvbox Black, `dev.md`, IDE) and Doom Emacs (`doom-gruvbox`, `apps.md`, Notes). The terminal and its programs sit on the system panel (#0c0c0d) with Gruvbox fg2 #d5c4a1 as label in Ghostty, fastfetch, btop and rmpc (decided 2026-11-25: pure black with #ebdbb2 was too much contrast for long sessions); IntelliJ uses Gruvbox Black (`dev.md`, IDE: the Gruvbox colors on panel #0c0c0d), so the editor and the terminal share the same background. Cursor, selection and the 16 ANSI colors stay Gruvbox (slot 15 stays #ebdbb2).
 
 | Token | Value | Used in |
 |---|---|---|
-| terminal | #1d2021 | ghostty/themes/gruvbox |
+| terminal | #0c0c0d | ghostty/themes/gruvbox, btop `main_bg` (the system panel token) |
 | editor | #0c0c0d | IntelliJ editor background (Gruvbox Black; #1d2021 until 2026-11-25) |
 | panel | #282828 | rmpc modal |
 | tile | #3c3836 | fzf current line, rmpc |
 | line | #504945 | fzf border, rmpc modal border |
-| label | #ebdbb2 | foreground, fastfetch values and date |
+| label | #d5c4a1 | Gruvbox fg2 (from 2026-11-25; #ebdbb2 before): Ghostty foreground, fastfetch values, title and date, btop `main_fg`, titles and selected text, rmpc text |
 | secondary | #a89984 | rmpc text, time in fastfetch |
 | tertiary | #7c6f64 | line numbers, rmpc icons and modes that are off, "step by step" in fastfetch |
 | accent | #83a598 | Ghostty cursor and selection, fzf matches and prompt, rmpc selection, btop follow |
-| on accent | #1d2021 | text on an accent fill, Ghostty selection text |
+| on accent | #1d2021 | text on an accent fill, Ghostty selection text, rmpc current item, btop banners (unchanged: dark text on blue reads the same on the panel background) |
 | green | #b8bb26 | success |
 | red | #fb4934 | errors |
 | phrase | #fbf1c7 | 一歩一歩 in fastfetch only |
@@ -74,7 +74,7 @@ The standard Gruvbox dark palette, used by `ghostty/themes/gruvbox` and through 
 | 6 cyan | #689d6a | 14 bright cyan | #8ec07c |
 | 7 white | #a89984 | 15 bright white | #ebdbb2 |
 
-Foreground #ebdbb2, background #1d2021, cursor accent, selection accent with on accent text.
+Foreground #d5c4a1 (fg2), background #0c0c0d (terminal), cursor accent, selection accent with on accent text.
 
 ### Logo bands (fastfetch only)
 
