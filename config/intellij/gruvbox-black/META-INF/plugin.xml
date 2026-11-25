@@ -1,0 +1,17 @@
+<idea-plugin>
+  <id>dev.adonogtx.gruvbox-black</id>
+  <name>Gruvbox Black</name>
+  <version>1.0.0</version>
+  <vendor url="https://github.com/adonogtx">adonogtx</vendor>
+  <description><![CDATA[
+    Gruvbox Islands Dark Hard on a black background (#0c0c0d). Every syntax and UI
+    color is the original; only the background shades change.
+    Based on <a href="https://github.com/lonre/gruvbox-intellij-theme">Gruvbox Islands</a>
+    by Lonre Wang and Vincent Parizet, MIT License (META-INF/LICENSE).
+  ]]></description>
+  <idea-version since-build="253"/>
+  <depends>com.intellij.modules.platform</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <themeProvider id="3f0c9a1e-6b2d-4c58-9a7e-2d4b1f8c0a63" path="/gruvbox_black.theme.json" targetUi="islands"/>
+  </extensions>
+</idea-plugin>

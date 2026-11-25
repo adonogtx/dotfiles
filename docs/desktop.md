@@ -20,7 +20,7 @@ Hyprland, the pill, login, lock, look and input. Topic blocks: **Decision, Why, 
 
 ## Theme: black system, Gruvbox code
 
-**Decision:** Three sides. Black (system): the pill, Control Center, calendar and Launcher (all through `Theme.qml`), fuzzel, mako, uosc, Hyprland window borders (`theme.lua`). Gruvbox dark hard (code): Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. Light (documents, unchanged): GTK apps (Nautilus), Brave Origin, Anki, zathura (the page stays white). Boot and lock: the system tokens over one fixed photo, the same on both (`background.png`, made from a photo of Osaka Castle; Login, Lock; `theme.md`, Color: boot and lock). System tokens below; Gruvbox and light values in `theme.md`.
+**Decision:** Three sides. Black (system): the pill, Control Center, calendar and Launcher (all through `Theme.qml`), fuzzel, mako, uosc, Hyprland window borders (`theme.lua`). Gruvbox dark hard (code): Ghostty and everything in it (bat, fzf, btop, rmpc, fastfetch), IntelliJ, Doom Emacs. IntelliJ uses Gruvbox Black on panel #0c0c0d (`dev.md`, IDE). Light (documents, unchanged): GTK apps (Nautilus), Brave Origin, Anki, zathura (the page stays white). Boot and lock: the system tokens over one fixed photo, the same on both (`background.png`, made from a photo of Osaka Castle; Login, Lock; `theme.md`, Color: boot and lock). System tokens below; Gruvbox and light values in `theme.md`.
 
 | Token | Value | Token | Value |
 |---|---|---|---|

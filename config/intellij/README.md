@@ -10,4 +10,10 @@ cat config/intellij/idea64.vmoptions >> ~/.config/JetBrains/<IdeaVersion>/idea64
 
 Or in IntelliJ: Help › Edit Custom VM Options, and paste the line.
 
-Look: Settings › Appearance › Theme: Gruvbox Islands Dark Hard (plugin Gruvbox Islands - Theme), its editor scheme, New UI on, UI font IBM Plex Sans 13, editor font PlemolJP Console NF 13, line height 1.2.
+Theme: `gruvbox-black/` is Gruvbox Black, Gruvbox Islands Dark Hard by Lonre Wang and Vincent Parizet (MIT, `META-INF/LICENSE`) with only the background shades changed. Build the plugin and install it with Settings › Plugins › ⚙ › Install Plugin from Disk (IntelliJ 2025.3 or later):
+
+```bash
+cd config/intellij/gruvbox-black && zip -r ~/dump/gruvbox-black-1.0.0.jar META-INF gruvbox_black.theme.json gruvbox_black.xml
+```
+
+Look: Settings › Appearance › Theme: Gruvbox Black, its editor scheme (Gruvbox Black), New UI on, UI font IBM Plex Sans 13, editor font PlemolJP Console NF 13, line height 1.2.

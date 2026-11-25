@@ -39,11 +39,12 @@ Plymouth (`config/plymouth/ichigo/`) and hyprlock (`config/hypr/`) use the syste
 
 ## Color: code (Gruvbox)
 
-Gruvbox dark hard, for Ghostty and everything in it, IntelliJ (Gruvbox Islands Dark Hard, `dev.md`, IDE) and Doom Emacs (`doom-gruvbox`, `apps.md`, Notes).
+Gruvbox dark hard, for Ghostty and everything in it, IntelliJ (Gruvbox Black, `dev.md`, IDE) and Doom Emacs (`doom-gruvbox`, `apps.md`, Notes). IntelliJ uses Gruvbox Black: the Gruvbox colors on panel #0c0c0d (decided 2026-11-25).
 
 | Token | Value | Used in |
 |---|---|---|
-| terminal | #1d2021 | ghostty/themes/gruvbox, editor background |
+| terminal | #1d2021 | ghostty/themes/gruvbox |
+| editor | #0c0c0d | IntelliJ editor background (Gruvbox Black; #1d2021 until 2026-11-25) |
 | panel | #282828 | rmpc modal |
 | tile | #3c3836 | fzf current line, rmpc |
 | line | #504945 | fzf border, rmpc modal border |
