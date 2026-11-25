@@ -26,10 +26,9 @@ The five docs in `docs/` decide everything: `overview.md`, `base.md`, `desktop.m
 
 ## Current work
 
-Black system done. Boot and lock done and tested 2026-11-25: photo background, system tokens, filling bar inside the field (commit dda53eb). Matcha is retired.
+Black system done. Boot and lock done and tested 2026-11-25: photo background, system tokens, filling bar inside the field (commit dda53eb). Matcha is retired. Terminal on panel #0c0c0d with fg2 #d5c4a1 done and tested 2026-11-25 (e9e59c6). IntelliJ Gruvbox Black done and tested 2026-11-25 (63fc8cb).
 
 Next candidates, not started:
-- Black terminal background.
 - Ctrl + Alt + F2 to F6 shows a frozen frame (to record in `overview.md`, Open questions).
 - Settings window reached from the open pill's footer (roadmap; needs its own decision block first).
 - Decide org-modern in `apps.md`, Notes.
